@@ -338,6 +338,7 @@ export class Gateway {
         product: ctx.product,
         apiKeyId: ctx.apiKeyId,
         ref: genId,
+        idempotencyKey: `gateway:${genId}`,
         force: true, // post-paid: the work is done, never refuse to record it
         description: `${a.model.id} via ${a.endpoint.provider}`,
         meta: {

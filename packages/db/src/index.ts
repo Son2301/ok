@@ -1,6 +1,6 @@
 import { PGlite } from '@electric-sql/pglite';
-import type { PgDatabase, PgQueryResultHKT } from 'drizzle-orm/pg-core';
 import { drizzle as drizzlePg } from 'drizzle-orm/node-postgres';
+import type { PgDatabase, PgQueryResultHKT } from 'drizzle-orm/pg-core';
 import { drizzle as drizzlePglite } from 'drizzle-orm/pglite';
 import pg from 'pg';
 
@@ -89,7 +89,9 @@ export async function migrate(handle: DbHandle, schema: string, migrations: Migr
     `CREATE SCHEMA IF NOT EXISTS ${schema};
      CREATE TABLE IF NOT EXISTS ${schema}._migrations (id text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now());`,
   );
-  const applied = new Set((await handle.query<{ id: string }>(`SELECT id FROM ${schema}._migrations`)).map((r) => r.id));
+  const applied = new Set(
+    (await handle.query<{ id: string }>(`SELECT id FROM ${schema}._migrations`)).map((r) => r.id),
+  );
   const ran: string[] = [];
   for (const m of migrations) {
     if (applied.has(m.id)) continue;

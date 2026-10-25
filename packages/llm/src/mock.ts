@@ -30,7 +30,10 @@ export class MockLlm implements LlmClient {
     const reply = await this.handler(req, idx);
     if (typeof reply === 'object' && 'choices' in reply) return reply;
     const content = typeof reply === 'string' ? reply : (reply.content ?? null);
-    const toolCalls = typeof reply === 'string' ? undefined : reply.tool_calls?.map((t) => ({ ...t, type: 'function' as const }));
+    const toolCalls =
+      typeof reply === 'string'
+        ? undefined
+        : reply.tool_calls?.map((t) => ({ ...t, type: 'function' as const }));
     const promptChars = JSON.stringify(req.messages).length;
     const completionChars = (content ?? '').length + JSON.stringify(toolCalls ?? '').length;
     const prompt_tokens = Math.ceil(promptChars / 4);
@@ -41,8 +44,19 @@ export class MockLlm implements LlmClient {
       created: Math.floor(Date.now() / 1000),
       model: req.model,
       provider: 'mock',
-      choices: [{ index: 0, message: { role: 'assistant', content, ...(toolCalls ? { tool_calls: toolCalls } : {}) }, finish_reason: toolCalls ? 'tool_calls' : 'stop' }],
-      usage: { prompt_tokens, completion_tokens, total_tokens: prompt_tokens + completion_tokens, cost_micros: 0 },
+      choices: [
+        {
+          index: 0,
+          message: { role: 'assistant', content, ...(toolCalls ? { tool_calls: toolCalls } : {}) },
+          finish_reason: toolCalls ? 'tool_calls' : 'stop',
+        },
+      ],
+      usage: {
+        prompt_tokens,
+        completion_tokens,
+        total_tokens: prompt_tokens + completion_tokens,
+        cost_micros: 0,
+      },
     };
   }
 
@@ -51,8 +65,21 @@ export class MockLlm implements LlmClient {
     const text = typeof res.choices[0]?.message.content === 'string' ? res.choices[0].message.content : '';
     const words = text.split(/(?<=\s)/);
     for (const w of words) {
-      yield { id: res.id, object: 'chat.completion.chunk', created: res.created, model: res.model, choices: [{ index: 0, delta: { content: w }, finish_reason: null }] };
+      yield {
+        id: res.id,
+        object: 'chat.completion.chunk',
+        created: res.created,
+        model: res.model,
+        choices: [{ index: 0, delta: { content: w }, finish_reason: null }],
+      };
     }
-    yield { id: res.id, object: 'chat.completion.chunk', created: res.created, model: res.model, choices: [{ index: 0, delta: {}, finish_reason: 'stop' }], usage: res.usage };
+    yield {
+      id: res.id,
+      object: 'chat.completion.chunk',
+      created: res.created,
+      model: res.model,
+      choices: [{ index: 0, delta: {}, finish_reason: 'stop' }],
+      usage: res.usage,
+    };
   }
 }

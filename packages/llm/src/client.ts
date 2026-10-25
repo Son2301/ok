@@ -18,7 +18,11 @@ export interface HttpLlmOptions {
 /** OpenAI-compatible HTTP client. Products use it to call the platform gateway. */
 export function createLlmClient(opts: HttpLlmOptions): LlmClient {
   const base = opts.baseUrl.replace(/\/+$/, '');
-  const headers = { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...opts.headers };
+  const headers = {
+    'content-type': 'application/json',
+    authorization: `Bearer ${opts.apiKey}`,
+    ...opts.headers,
+  };
 
   async function post(body: ChatRequest, signal?: AbortSignal) {
     const res = await fetchWithTimeout(`${base}/chat/completions`, {
@@ -34,7 +38,10 @@ export function createLlmClient(opts: HttpLlmOptions): LlmClient {
       try {
         message = (JSON.parse(text) as { error?: { message?: string } }).error?.message ?? message;
       } catch {}
-      throw new AppError(res.status === 402 ? 'payment_required' : res.status === 429 ? 'rate_limited' : 'upstream_error', `LLM call failed (${res.status}): ${message}`);
+      throw new AppError(
+        res.status === 402 ? 'payment_required' : res.status === 429 ? 'rate_limited' : 'upstream_error',
+        `LLM call failed (${res.status}): ${message}`,
+      );
     }
     return res;
   }
@@ -61,15 +68,18 @@ export async function* parseSse(body: ReadableStream<Uint8Array>): AsyncIterable
     const { done, value } = await reader.read();
     if (done) break;
     buf += decoder.decode(value, { stream: true });
-    let idx: number;
-    while ((idx = buf.indexOf('\n\n')) !== -1) {
+    for (let idx = buf.indexOf('\n\n'); idx !== -1; idx = buf.indexOf('\n\n')) {
       const event = buf.slice(0, idx);
       buf = buf.slice(idx + 2);
       for (const line of event.split('\n')) {
         if (!line.startsWith('data:')) continue;
         const data = line.slice(5).trim();
         if (!data || data === '[DONE]') continue;
-        yield JSON.parse(data) as ChatChunk;
+        const chunk = JSON.parse(data) as ChatChunk;
+        if (chunk.error) {
+          throw new AppError('upstream_error', `Stream failed: ${chunk.error.message}`);
+        }
+        yield chunk;
       }
     }
   }

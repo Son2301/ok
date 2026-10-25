@@ -25,6 +25,11 @@ export interface DebitOptions {
   description?: string;
   meta?: Record<string, unknown>;
   /**
+   * Makes the charge safe to retry: a second debit with the same key for the
+   * same org returns the original result instead of charging again.
+   */
+  idempotencyKey?: string;
+  /**
    * Charge even if it takes the balance below zero. Used for post-paid usage
    * whose exact cost is only known after the work is done (e.g. LLM tokens).
    */
@@ -50,10 +55,16 @@ export class Core {
 
   // ---------------------------------------------------------------- accounts
 
-  async signUp(input: { email: string; password: string; name?: string; orgName?: string }): Promise<{ user: User; org: Org }> {
+  async signUp(input: {
+    email: string;
+    password: string;
+    name?: string;
+    orgName?: string;
+  }): Promise<{ user: User; org: Org }> {
     const email = input.email.trim().toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new AppError('bad_request', 'Invalid email');
-    if (input.password.length < 8) throw new AppError('bad_request', 'Password must be at least 8 characters');
+    if (input.password.length < 8)
+      throw new AppError('bad_request', 'Password must be at least 8 characters');
     const existing = await this.db.select({ id: users.id }).from(users).where(eq(users.email, email));
     if (existing.length) throw new AppError('conflict', 'An account with this email already exists');
 
@@ -88,7 +99,10 @@ export class Core {
   /** Create an org without a user (service accounts, tests, seeding). */
   async createOrg(name: string, initialCreditMicros = 0): Promise<Org> {
     return this.db.transaction(async (tx) => {
-      const [org] = await tx.insert(orgs).values({ id: newId('org'), name }).returning();
+      const [org] = await tx
+        .insert(orgs)
+        .values({ id: newId('org'), name })
+        .returning();
       await tx.insert(balances).values({ orgId: org!.id, balanceMicros: initialCreditMicros });
       if (initialCreditMicros > 0) {
         await tx.insert(walletEntries).values({
@@ -151,7 +165,12 @@ export class Core {
 
   async createApiKey(
     orgId: string,
-    input: { name: string; scopes?: (ProductId | '*')[]; spendLimitMicros?: number | null; rateLimitRpm?: number | null },
+    input: {
+      name: string;
+      scopes?: (ProductId | '*')[];
+      spendLimitMicros?: number | null;
+      rateLimitRpm?: number | null;
+    },
   ): Promise<{ key: string; record: ApiKeyRecord }> {
     const key = generateApiKey();
     const [record] = await this.db
@@ -192,7 +211,11 @@ export class Core {
     if (!record) return null;
     // Best-effort, throttled to one write per minute per key.
     if (!record.lastUsedAt || Date.now() - record.lastUsedAt.getTime() > 60_000) {
-      void this.db.update(apiKeys).set({ lastUsedAt: new Date() }).where(eq(apiKeys.id, record.id)).catch(() => {});
+      void this.db
+        .update(apiKeys)
+        .set({ lastUsedAt: new Date() })
+        .where(eq(apiKeys.id, record.id))
+        .catch(() => {});
     }
     return record;
   }
@@ -207,9 +230,15 @@ export class Core {
   async credit(
     orgId: string,
     amountMicros: number,
-    opts: { kind?: 'topup' | 'grant' | 'refund' | 'promo'; ref?: string; description?: string; meta?: Record<string, unknown> } = {},
+    opts: {
+      kind?: 'topup' | 'grant' | 'refund' | 'promo';
+      ref?: string;
+      description?: string;
+      meta?: Record<string, unknown>;
+    } = {},
   ): Promise<number> {
-    if (!Number.isInteger(amountMicros) || amountMicros <= 0) throw new AppError('bad_request', 'Credit amount must be a positive integer');
+    if (!Number.isInteger(amountMicros) || amountMicros <= 0)
+      throw new AppError('bad_request', 'Credit amount must be a positive integer');
     return this.db.transaction(async (tx) => {
       const [row] = await tx
         .insert(balances)
@@ -235,8 +264,34 @@ export class Core {
 
   /** Atomically charge the org. Throws `payment_required` if funds are insufficient (unless `force`). */
   async debit(orgId: string, amountMicros: number, opts: DebitOptions): Promise<number> {
-    if (!Number.isInteger(amountMicros) || amountMicros < 0) throw new AppError('bad_request', 'Debit amount must be a non-negative integer');
+    if (!Number.isInteger(amountMicros) || amountMicros < 0)
+      throw new AppError('bad_request', 'Debit amount must be a non-negative integer');
     if (amountMicros === 0) return this.getBalance(orgId);
+    if (opts.idempotencyKey) {
+      const prior = await this.findByIdempotencyKey(orgId, opts.idempotencyKey);
+      if (prior) return prior.balanceAfterMicros;
+    }
+    try {
+      return await this.applyDebit(orgId, amountMicros, opts);
+    } catch (err) {
+      // Lost a race with a concurrent retry carrying the same key.
+      if (opts.idempotencyKey && isUniqueViolation(err)) {
+        const prior = await this.findByIdempotencyKey(orgId, opts.idempotencyKey);
+        if (prior) return prior.balanceAfterMicros;
+      }
+      throw err;
+    }
+  }
+
+  private async findByIdempotencyKey(orgId: string, key: string): Promise<WalletEntry | undefined> {
+    const [row] = await this.db
+      .select()
+      .from(walletEntries)
+      .where(and(eq(walletEntries.orgId, orgId), eq(walletEntries.idempotencyKey, key)));
+    return row;
+  }
+
+  private applyDebit(orgId: string, amountMicros: number, opts: DebitOptions): Promise<number> {
     return this.db.transaction(async (tx) => {
       const conditions = [eq(balances.orgId, orgId)];
       if (!opts.force) conditions.push(gte(balances.balanceMicros, amountMicros));
@@ -257,6 +312,7 @@ export class Core {
         ref: opts.ref ?? null,
         description: opts.description ?? null,
         meta: opts.meta ?? null,
+        idempotencyKey: opts.idempotencyKey ?? null,
       });
       if (opts.apiKeyId) {
         await tx
@@ -268,7 +324,10 @@ export class Core {
     });
   }
 
-  listWalletEntries(orgId: string, opts: { limit?: number; before?: Date; product?: ProductId } = {}): Promise<WalletEntry[]> {
+  listWalletEntries(
+    orgId: string,
+    opts: { limit?: number; before?: Date; product?: ProductId } = {},
+  ): Promise<WalletEntry[]> {
     const conditions = [eq(walletEntries.orgId, orgId)];
     if (opts.before) conditions.push(lt(walletEntries.createdAt, opts.before));
     if (opts.product) conditions.push(eq(walletEntries.product, opts.product));
@@ -279,4 +338,9 @@ export class Core {
       .orderBy(desc(walletEntries.createdAt))
       .limit(Math.min(opts.limit ?? 50, 500));
   }
+}
+
+function isUniqueViolation(err: unknown): boolean {
+  const e = err as { code?: string; cause?: { code?: string } };
+  return e?.code === '23505' || e?.cause?.code === '23505';
 }

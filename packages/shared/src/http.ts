@@ -5,10 +5,17 @@ export interface FetchWithTimeoutInit extends RequestInit {
 }
 
 /** fetch() with a hard timeout that surfaces as AppError('timeout'). */
-export async function fetchWithTimeout(url: string | URL, init: FetchWithTimeoutInit = {}): Promise<Response> {
+export async function fetchWithTimeout(
+  url: string | URL,
+  init: FetchWithTimeoutInit = {},
+): Promise<Response> {
   const { timeoutMs = 30_000, signal, ...rest } = init;
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(new AppError('timeout', `Request to ${new URL(url).host} timed out after ${timeoutMs}ms`)), timeoutMs);
+  const timer = setTimeout(
+    () =>
+      ctrl.abort(new AppError('timeout', `Request to ${new URL(url).host} timed out after ${timeoutMs}ms`)),
+    timeoutMs,
+  );
   const onAbort = () => ctrl.abort(signal?.reason);
   signal?.addEventListener('abort', onAbort, { once: true });
   try {

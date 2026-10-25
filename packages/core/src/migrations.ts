@@ -66,4 +66,11 @@ CREATE TABLE core.wallet_entries (
 CREATE INDEX wallet_entries_org_created_idx ON core.wallet_entries (org_id, created_at);
 `,
   },
+  {
+    id: '0002_wallet_idempotency',
+    sql: `
+ALTER TABLE core.wallet_entries ADD COLUMN idempotency_key text;
+CREATE UNIQUE INDEX wallet_entries_org_idem_idx ON core.wallet_entries (org_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
+`,
+  },
 ];

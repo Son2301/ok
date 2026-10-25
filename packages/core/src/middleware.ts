@@ -25,9 +25,13 @@ export interface AuthOptions {
  *  - `Authorization: Bearer sk-ok-…` (customer API key scoped to this product), or
  *  - `Authorization: Bearer <INTERNAL_TOKEN>` + `X-Org-Id: org_…` (platform-internal calls).
  */
-export function authMiddleware(core: Core, opts: AuthOptions): MiddlewareHandler<AuthEnv> {
+export function authMiddleware<E extends AuthEnv = AuthEnv>(
+  core: Core,
+  opts: AuthOptions,
+): MiddlewareHandler<E> {
   const limiter = new RateLimiter();
-  return async (c, next) => {
+  return async (ctx, next) => {
+    const c = ctx as unknown as Context<AuthEnv>;
     const header = c.req.header('authorization') ?? '';
     const token = header.replace(/^Bearer\s+/i, '').trim() || c.req.header('x-api-key')?.trim() || '';
     if (!token) {

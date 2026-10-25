@@ -8,6 +8,7 @@ export type ErrorCode =
   | 'rate_limited'
   | 'upstream_error'
   | 'timeout'
+  | 'unavailable'
   | 'internal';
 
 const STATUS: Record<ErrorCode, number> = {
@@ -20,6 +21,7 @@ const STATUS: Record<ErrorCode, number> = {
   rate_limited: 429,
   internal: 500,
   upstream_error: 502,
+  unavailable: 503,
   timeout: 504,
 };
 
@@ -38,7 +40,9 @@ export class AppError extends Error {
   }
 
   toJSON() {
-    return { error: { code: this.code, message: this.message, ...(this.details ? { details: this.details } : {}) } };
+    return {
+      error: { code: this.code, message: this.message, ...(this.details ? { details: this.details } : {}) },
+    };
   }
 }
 

@@ -12,6 +12,14 @@ export interface ToolCall {
   function: { name: string; arguments: string };
 }
 
+/** Streaming tool-call fragment: `index` identifies which call the fragment belongs to. */
+export interface ToolCallDelta {
+  index: number;
+  id?: string;
+  type?: 'function';
+  function?: { name?: string; arguments?: string };
+}
+
 export interface ChatMessage {
   role: Role;
   content: string | ContentPart[] | null;
@@ -40,10 +48,19 @@ export interface ChatRequest {
   temperature?: number;
   top_p?: number;
   max_tokens?: number;
+  max_completion_tokens?: number;
+  seed?: number;
+  parallel_tool_calls?: boolean;
+  stream_options?: { include_usage?: boolean };
   stop?: string | string[];
   tools?: ToolDefinition[];
   tool_choice?: 'auto' | 'none' | 'required' | { type: 'function'; function: { name: string } };
-  response_format?: { type: 'text' | 'json_object' } | { type: 'json_schema'; json_schema: { name: string; schema: Record<string, unknown>; strict?: boolean } };
+  response_format?:
+    | { type: 'text' | 'json_object' }
+    | {
+        type: 'json_schema';
+        json_schema: { name: string; schema: Record<string, unknown>; strict?: boolean };
+      };
   stream?: boolean;
   user?: string;
   /** Gateway extension: fallback models tried in order if `model` fails. */
@@ -59,6 +76,17 @@ export interface Usage {
   total_tokens: number;
   /** Gateway extension: what this call cost the caller, in micro-USD. */
   cost_micros?: number;
+  /** Gateway extension: true when the upstream reported no usage and tokens were estimated. */
+  estimated?: boolean;
+}
+
+/** Gateway extension describing how a request was routed. */
+export interface RoutingInfo {
+  requested_model?: string;
+  model?: string;
+  tier?: string;
+  reason?: string;
+  [key: string]: unknown;
 }
 
 export interface ChatChoice {
@@ -76,14 +104,20 @@ export interface ChatResponse {
   usage?: Usage;
   /** Gateway extension: which upstream provider served the request. */
   provider?: string;
+  routing?: RoutingInfo;
 }
+
+export type ChatDelta = Omit<Partial<ChatMessage>, 'tool_calls'> & { tool_calls?: ToolCallDelta[] };
 
 export interface ChatChunk {
   id: string;
   object: 'chat.completion.chunk';
   created: number;
   model: string;
-  choices: { index: number; delta: Partial<ChatMessage>; finish_reason: ChatChoice['finish_reason'] }[];
+  choices: { index: number; delta: ChatDelta; finish_reason: ChatChoice['finish_reason'] }[];
   usage?: Usage | null;
   provider?: string;
+  routing?: RoutingInfo;
+  /** Present when the upstream failed mid-stream. */
+  error?: { code?: string; message: string };
 }

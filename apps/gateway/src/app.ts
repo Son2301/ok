@@ -9,7 +9,7 @@ import {
   parseJson,
   requestContext,
 } from '@ok/shared';
-import { type Context, Hono, type MiddlewareHandler } from 'hono';
+import { type Context, Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
 import type { Catalog } from './catalog/catalog';
@@ -147,10 +147,10 @@ export function createApp(deps: AppDeps) {
 
   app.use(
     '/v1/*',
-    authMiddleware(core, {
+    authMiddleware<AppEnv>(core, {
       product: 'gateway',
       internalToken: deps.internalToken,
-    }) as unknown as MiddlewareHandler<AppEnv>,
+    }),
   );
 
   const callContext = (c: Context<AppEnv>): CallContext => {

@@ -20,8 +20,12 @@ export const users = core.table('users', {
 export const memberships = core.table(
   'memberships',
   {
-    orgId: text('org_id').notNull().references(() => orgs.id, { onDelete: 'cascade' }),
-    userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    orgId: text('org_id')
+      .notNull()
+      .references(() => orgs.id, { onDelete: 'cascade' }),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
     role: text('role').notNull().default('member'),
   },
   (t) => [primaryKey({ columns: [t.orgId, t.userId] })],
@@ -29,8 +33,12 @@ export const memberships = core.table(
 
 export const sessions = core.table('sessions', {
   tokenHash: text('token_hash').primaryKey(),
-  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  orgId: text('org_id').notNull().references(() => orgs.id, { onDelete: 'cascade' }),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  orgId: text('org_id')
+    .notNull()
+    .references(() => orgs.id, { onDelete: 'cascade' }),
   expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
@@ -39,7 +47,9 @@ export const apiKeys = core.table(
   'api_keys',
   {
     id: text('id').primaryKey(),
-    orgId: text('org_id').notNull().references(() => orgs.id, { onDelete: 'cascade' }),
+    orgId: text('org_id')
+      .notNull()
+      .references(() => orgs.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     /** First characters of the key, safe to display (e.g. `sk-ok-ab12…`). */
     prefix: text('prefix').notNull(),
@@ -57,7 +67,9 @@ export const apiKeys = core.table(
 );
 
 export const balances = core.table('balances', {
-  orgId: text('org_id').primaryKey().references(() => orgs.id, { onDelete: 'cascade' }),
+  orgId: text('org_id')
+    .primaryKey()
+    .references(() => orgs.id, { onDelete: 'cascade' }),
   balanceMicros: bigint('balance_micros', { mode: 'number' }).notNull().default(0),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 });
@@ -66,7 +78,9 @@ export const walletEntries = core.table(
   'wallet_entries',
   {
     id: text('id').primaryKey(),
-    orgId: text('org_id').notNull().references(() => orgs.id, { onDelete: 'cascade' }),
+    orgId: text('org_id')
+      .notNull()
+      .references(() => orgs.id, { onDelete: 'cascade' }),
     /** Positive = credit, negative = debit. */
     amountMicros: bigint('amount_micros', { mode: 'number' }).notNull(),
     balanceAfterMicros: bigint('balance_after_micros', { mode: 'number' }).notNull(),
@@ -76,6 +90,8 @@ export const walletEntries = core.table(
     ref: text('ref'),
     description: text('description'),
     meta: jsonb('meta').$type<Record<string, unknown>>(),
+    /** When set, a second debit/credit with the same key for the org is a no-op. */
+    idempotencyKey: text('idempotency_key'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index('wallet_entries_org_created_idx').on(t.orgId, t.createdAt)],

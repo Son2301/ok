@@ -10,7 +10,11 @@ export interface Logger {
 }
 
 /** Minimal structured JSON logger (one line per event, stdout). */
-export function createLogger(service: string, level: Level = (process.env.LOG_LEVEL as Level) ?? 'info', base: Record<string, unknown> = {}): Logger {
+export function createLogger(
+  service: string,
+  level: Level = (process.env.LOG_LEVEL as Level) ?? 'info',
+  base: Record<string, unknown> = {},
+): Logger {
   const min = ORDER[level] ?? ORDER.info;
   const emit = (lvl: Level, msg: string, fields?: Record<string, unknown>) => {
     if (ORDER[lvl] < min || process.env.NODE_ENV === 'test') return;

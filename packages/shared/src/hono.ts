@@ -33,12 +33,16 @@ export function errorHandler(logger: Logger): ErrorHandler {
     if (typeof status === 'number' && status >= 400 && status < 500) {
       return c.json({ error: { code: 'bad_request', message: err.message } }, status as never);
     }
-    logger.error('unhandled', { err: err instanceof Error ? (err.stack ?? err.message) : String(err), path: c.req.path });
+    logger.error('unhandled', {
+      err: err instanceof Error ? (err.stack ?? err.message) : String(err),
+      path: c.req.path,
+    });
     return c.json({ error: { code: 'internal', message: 'Internal server error' } }, 500);
   };
 }
 
-export const notFound: NotFoundHandler = (c) => c.json({ error: { code: 'not_found', message: `No route for ${c.req.method} ${c.req.path}` } }, 404);
+export const notFound: NotFoundHandler = (c) =>
+  c.json({ error: { code: 'not_found', message: `No route for ${c.req.method} ${c.req.path}` } }, 404);
 
 /** Parse a JSON body with a zod schema, throwing AppError on failure. */
 export async function parseJson<T>(c: Context, schema: { parse: (v: unknown) => T }): Promise<T> {

@@ -59,7 +59,10 @@ export async function chatJson<S extends z.ZodType>(
     } catch (err) {
       lastError = err instanceof z.ZodError ? JSON.stringify(err.issues.slice(0, 5)) : (err as Error).message;
       messages.push({ role: 'assistant', content: raw });
-      messages.push({ role: 'user', content: `Your previous reply was not valid JSON for the required schema: ${lastError}. Reply again with ONLY the corrected JSON.` });
+      messages.push({
+        role: 'user',
+        content: `Your previous reply was not valid JSON for the required schema: ${lastError}. Reply again with ONLY the corrected JSON.`,
+      });
     }
   }
   throw new AppError('upstream_error', `Model did not return valid JSON: ${lastError}`);
