@@ -2,6 +2,8 @@ import { AppError } from './errors';
 
 export interface FetchWithTimeoutInit extends RequestInit {
   timeoutMs?: number;
+  /** Injectable fetch (tests, custom agents). Defaults to the global fetch. */
+  fetchImpl?: typeof fetch;
 }
 
 /** fetch() with a hard timeout that surfaces as AppError('timeout'). */
@@ -9,7 +11,7 @@ export async function fetchWithTimeout(
   url: string | URL,
   init: FetchWithTimeoutInit = {},
 ): Promise<Response> {
-  const { timeoutMs = 30_000, signal, ...rest } = init;
+  const { timeoutMs = 30_000, signal, fetchImpl = fetch, ...rest } = init;
   const ctrl = new AbortController();
   const timer = setTimeout(
     () =>
@@ -19,7 +21,7 @@ export async function fetchWithTimeout(
   const onAbort = () => ctrl.abort(signal?.reason);
   signal?.addEventListener('abort', onAbort, { once: true });
   try {
-    return await fetch(url, { ...rest, signal: ctrl.signal });
+    return await fetchImpl(url, { ...rest, signal: ctrl.signal });
   } catch (err) {
     if (ctrl.signal.aborted && ctrl.signal.reason instanceof AppError) throw ctrl.signal.reason;
     throw err;

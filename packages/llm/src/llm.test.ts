@@ -76,3 +76,50 @@ describe('parseSse', () => {
     expect(seen).toEqual(['hi']);
   });
 });
+
+describe('MockLlm tool-call streaming', () => {
+  it('streams tool calls as indexed deltas that reassemble to the original', async () => {
+    const llm = new MockLlm([
+      { tool_calls: [{ id: 't1', function: { name: 'lookup', arguments: '{"sku":"A-1"}' } }] },
+    ]);
+    const calls: Record<number, { name: string; args: string }> = {};
+    let finish: string | null = null;
+    for await (const ch of llm.stream({ model: 'm', messages: [] })) {
+      for (const d of ch.choices[0]?.delta.tool_calls ?? []) {
+        const cur = (calls[d.index] ??= { name: '', args: '' });
+        cur.name += d.function?.name ?? '';
+        cur.args += d.function?.arguments ?? '';
+      }
+      finish = ch.choices[0]?.finish_reason ?? finish;
+    }
+    expect(calls[0]).toEqual({ name: 'lookup', args: '{"sku":"A-1"}' });
+    expect(finish).toBe('tool_calls');
+  });
+});
+
+describe('createLlmClient', () => {
+  it('uses an injected fetch', async () => {
+    const { createLlmClient } = await import('./client');
+    const seen: string[] = [];
+    const client = createLlmClient({
+      baseUrl: 'http://gw/v1/',
+      apiKey: 'k',
+      fetch: (async (url: string | URL | Request) => {
+        seen.push(String(url));
+        return new Response(
+          JSON.stringify({
+            id: 'x',
+            object: 'chat.completion',
+            created: 1,
+            model: 'm',
+            choices: [{ index: 0, message: { role: 'assistant', content: 'ok' }, finish_reason: 'stop' }],
+          }),
+          { headers: { 'content-type': 'application/json' } },
+        );
+      }) as typeof fetch,
+    });
+    const res = await client.chat({ model: 'm', messages: [] });
+    expect(res.choices[0]?.message.content).toBe('ok');
+    expect(seen).toEqual(['http://gw/v1/chat/completions']);
+  });
+});

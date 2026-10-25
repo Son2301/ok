@@ -62,23 +62,56 @@ export class MockLlm implements LlmClient {
 
   async *stream(req: ChatRequest): AsyncIterable<ChatChunk> {
     const res = await this.chat(req);
-    const text = typeof res.choices[0]?.message.content === 'string' ? res.choices[0].message.content : '';
-    const words = text.split(/(?<=\s)/);
-    for (const w of words) {
-      yield {
-        id: res.id,
-        object: 'chat.completion.chunk',
-        created: res.created,
-        model: res.model,
-        choices: [{ index: 0, delta: { content: w }, finish_reason: null }],
-      };
-    }
-    yield {
+    const message = res.choices[0]?.message;
+    const text = typeof message?.content === 'string' ? message.content : '';
+    const base = {
       id: res.id,
-      object: 'chat.completion.chunk',
+      object: 'chat.completion.chunk' as const,
       created: res.created,
       model: res.model,
-      choices: [{ index: 0, delta: {}, finish_reason: 'stop' }],
+    };
+    for (const w of text ? text.split(/(?<=\s)/) : []) {
+      yield { ...base, choices: [{ index: 0, delta: { content: w }, finish_reason: null }] };
+    }
+    // Tool calls stream as OpenAI does: a header fragment, then the arguments in pieces.
+    for (const [index, call] of (message?.tool_calls ?? []).entries()) {
+      yield {
+        ...base,
+        choices: [
+          {
+            index: 0,
+            delta: {
+              tool_calls: [
+                {
+                  index,
+                  id: call.id,
+                  type: 'function',
+                  function: { name: call.function.name, arguments: '' },
+                },
+              ],
+            },
+            finish_reason: null,
+          },
+        ],
+      };
+      const args = call.function.arguments;
+      const mid = Math.ceil(args.length / 2);
+      for (const part of [args.slice(0, mid), args.slice(mid)].filter(Boolean)) {
+        yield {
+          ...base,
+          choices: [
+            {
+              index: 0,
+              delta: { tool_calls: [{ index, function: { arguments: part } }] },
+              finish_reason: null,
+            },
+          ],
+        };
+      }
+    }
+    yield {
+      ...base,
+      choices: [{ index: 0, delta: {}, finish_reason: res.choices[0]?.finish_reason ?? 'stop' }],
       usage: res.usage,
     };
   }

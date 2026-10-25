@@ -13,6 +13,8 @@ export interface HttpLlmOptions {
   /** Extra headers, e.g. `{ 'x-org-id': … }` for internal calls. */
   headers?: Record<string, string>;
   timeoutMs?: number;
+  /** Injectable fetch, e.g. for tests. */
+  fetch?: typeof fetch;
 }
 
 /** OpenAI-compatible HTTP client. Products use it to call the platform gateway. */
@@ -31,6 +33,7 @@ export function createLlmClient(opts: HttpLlmOptions): LlmClient {
       body: JSON.stringify(body),
       timeoutMs: opts.timeoutMs ?? 120_000,
       signal,
+      fetchImpl: opts.fetch,
     });
     if (!res.ok) {
       const text = await res.text().catch(() => '');
