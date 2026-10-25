@@ -1,0 +1,32 @@
+{
+  "name": "@ok/review",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "okreview": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "cli": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.11",
+    "@hono/node-server": "^2.1.5",
+    "@octokit/auth-app": "^8.3.1",
+    "@octokit/rest": "^22.0.1",
+    "@ok/core": "workspace:*",
+    "@ok/db": "workspace:*",
+    "@ok/llm": "workspace:*",
+    "@ok/shared": "workspace:*",
+    "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.14",
+    "pg": "^8.23.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  }
+}
