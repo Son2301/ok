@@ -86,7 +86,8 @@ describe('MockLlm tool-call streaming', () => {
     let finish: string | null = null;
     for await (const ch of llm.stream({ model: 'm', messages: [] })) {
       for (const d of ch.choices[0]?.delta.tool_calls ?? []) {
-        const cur = (calls[d.index] ??= { name: '', args: '' });
+        if (!calls[d.index]) calls[d.index] = { name: '', args: '' };
+        const cur = calls[d.index]!;
         cur.name += d.function?.name ?? '';
         cur.args += d.function?.arguments ?? '';
       }

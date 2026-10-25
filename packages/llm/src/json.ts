@@ -38,14 +38,17 @@ export async function chatJson<S extends z.ZodType>(
   client: LlmClient,
   req: Omit<ChatRequest, 'response_format' | 'stream'>,
   schema: S,
-  opts: { retries?: number } = {},
+  opts: { retries?: number; signal?: AbortSignal } = {},
 ): Promise<{ data: z.infer<S>; usage: Usage; raw: string }> {
   const retries = opts.retries ?? 1;
   const messages: ChatMessage[] = [...req.messages];
   const usage: Usage = { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0, cost_micros: 0 };
   let lastError = '';
   for (let attempt = 0; attempt <= retries; attempt++) {
-    const res = await client.chat({ ...req, messages, response_format: { type: 'json_object' } });
+    const res = await client.chat(
+      { ...req, messages, response_format: { type: 'json_object' } },
+      { signal: opts.signal },
+    );
     if (res.usage) {
       usage.prompt_tokens += res.usage.prompt_tokens;
       usage.completion_tokens += res.usage.completion_tokens;
