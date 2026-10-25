@@ -1,26 +1,21 @@
 import 'server-only';
-import { coreSchema } from '@ok/core';
-import { and, eq, isNull } from 'drizzle-orm';
+import { isAppError } from '@ok/shared';
 import { platform } from './platform';
 
-/**
- * Change (or remove) a key's spending cap. `@ok/core` has no update method
- * for keys yet, so this writes the core table directly (same shared schema).
- * TODO(core): move to `Core.updateApiKey()`.
- */
+/** Change (or remove) a key's spending cap. Returns false if the key is unknown or revoked. */
 export async function setKeySpendLimit(
   orgId: string,
   keyId: string,
   spendLimitMicros: number | null,
 ): Promise<boolean> {
   const { core } = await platform();
-  const k = coreSchema.apiKeys;
-  const rows = await core.database
-    .update(k)
-    .set({ spendLimitMicros })
-    .where(and(eq(k.id, keyId), eq(k.orgId, orgId), isNull(k.revokedAt)))
-    .returning({ id: k.id });
-  return rows.length > 0;
+  try {
+    await core.updateApiKey(orgId, keyId, { spendLimitMicros });
+    return true;
+  } catch (err) {
+    if (isAppError(err) && err.code === 'not_found') return false;
+    throw err;
+  }
 }
 
 /** Key fields safe to send to the browser (never the hash). */

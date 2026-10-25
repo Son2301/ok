@@ -18,10 +18,13 @@ export function ServiceProblem({
   error,
   t,
   className,
+  audience = 'console',
 }: {
   error: ServiceErrorInfo;
   t: Dict;
   className?: string;
+  /** Public pages talk to visitors who may have no account or balance. */
+  audience?: 'console' | 'public';
 }) {
   const service = SERVICE_NAMES[error.service];
   if (error.kind === 'down') {
@@ -32,7 +35,7 @@ export function ServiceProblem({
         title={fmt(t.errors.serviceDown, { service })}
         className={className}
       >
-        {t.errors.serviceDownBody}
+        {audience === 'public' ? t.errors.serviceDownBodyPublic : t.errors.serviceDownBody}
       </Notice>
     );
   }

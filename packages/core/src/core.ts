@@ -1,7 +1,7 @@
 import type { DbHandle } from '@ok/db';
 import { migrate } from '@ok/db';
 import { AppError, newId, type ProductId } from '@ok/shared';
-import { and, desc, eq, gt, gte, isNull, lt, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gt, gte, isNull, lt, sql } from 'drizzle-orm';
 import { generateApiKey, generateSessionToken, hashPassword, sha256, verifyPassword } from './crypto';
 import { coreMigrations } from './migrations';
 import { apiKeys, balances, memberships, orgs, sessions, users, walletEntries } from './schema';
@@ -183,6 +183,30 @@ export class Core {
     await this.db.delete(sessions).where(eq(sessions.tokenHash, sha256(token)));
   }
 
+  async renameOrg(orgId: string, name: string): Promise<Org> {
+    const trimmed = name.trim();
+    if (!trimmed || trimmed.length > 200)
+      throw new AppError('bad_request', 'Organization name must be 1–200 characters');
+    const [org] = await this.db.update(orgs).set({ name: trimmed }).where(eq(orgs.id, orgId)).returning();
+    if (!org) throw new AppError('not_found', 'Organization not found');
+    return org;
+  }
+
+  listMembers(orgId: string) {
+    return this.db
+      .select({
+        userId: users.id,
+        email: users.email,
+        name: users.name,
+        role: memberships.role,
+        createdAt: users.createdAt,
+      })
+      .from(memberships)
+      .innerJoin(users, eq(users.id, memberships.userId))
+      .where(eq(memberships.orgId, orgId))
+      .orderBy(asc(users.createdAt));
+  }
+
   async getOrg(orgId: string): Promise<Org | null> {
     const [org] = await this.db.select().from(orgs).where(eq(orgs.id, orgId));
     return org ?? null;
@@ -227,6 +251,32 @@ export class Core {
       .where(and(eq(apiKeys.id, keyId), eq(apiKeys.orgId, orgId), isNull(apiKeys.revokedAt)))
       .returning({ id: apiKeys.id });
     if (!res.length) throw new AppError('not_found', 'API key not found');
+  }
+
+  /** Update an active key's name, scopes or limits. `null` removes a limit. */
+  async updateApiKey(
+    orgId: string,
+    keyId: string,
+    patch: {
+      name?: string;
+      scopes?: (ProductId | '*')[];
+      spendLimitMicros?: number | null;
+      rateLimitRpm?: number | null;
+    },
+  ): Promise<ApiKeyRecord> {
+    const set: Partial<typeof apiKeys.$inferInsert> = {};
+    if (patch.name !== undefined) set.name = patch.name;
+    if (patch.scopes !== undefined) set.scopes = patch.scopes.length ? patch.scopes : ['*'];
+    if (patch.spendLimitMicros !== undefined) set.spendLimitMicros = patch.spendLimitMicros;
+    if (patch.rateLimitRpm !== undefined) set.rateLimitRpm = patch.rateLimitRpm;
+    if (!Object.keys(set).length) throw new AppError('bad_request', 'Nothing to update');
+    const [record] = await this.db
+      .update(apiKeys)
+      .set(set)
+      .where(and(eq(apiKeys.id, keyId), eq(apiKeys.orgId, orgId), isNull(apiKeys.revokedAt)))
+      .returning();
+    if (!record) throw new AppError('not_found', 'API key not found');
+    return record;
   }
 
   /** Returns the key record if the plaintext key is valid and active, else null. */

@@ -129,3 +129,26 @@ describe('ensureOrg', () => {
     expect(await core.getBalance('org_platform_test')).toBe(5_000);
   });
 });
+
+describe('org and key management', () => {
+  it('renames orgs, lists members and updates key limits', async () => {
+    const { org, user } = await core.signUp({
+      email: 'owner@shop.vn',
+      password: 'long-enough-pw',
+      name: 'Chủ shop',
+    });
+    expect((await core.renameOrg(org.id, '  Shop Hoa  ')).name).toBe('Shop Hoa');
+    const members = await core.listMembers(org.id);
+    expect(members).toEqual([
+      expect.objectContaining({ userId: user.id, role: 'owner', email: 'owner@shop.vn' }),
+    ]);
+
+    const { record } = await core.createApiKey(org.id, { name: 'k', spendLimitMicros: 100 });
+    const updated = await core.updateApiKey(org.id, record.id, { spendLimitMicros: null, scopes: ['safe'] });
+    expect(updated.spendLimitMicros).toBeNull();
+    expect(updated.scopes).toEqual(['safe']);
+    await expect(core.updateApiKey('org_other', record.id, { name: 'x' })).rejects.toMatchObject({
+      code: 'not_found',
+    });
+  });
+});

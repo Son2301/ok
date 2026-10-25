@@ -1,4 +1,4 @@
-import { AppError, parseJson } from '@ok/shared';
+import { AppError, PRODUCT_IDS, type ProductId, parseJson } from '@ok/shared';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Billing, Topup } from './billing';
@@ -55,6 +55,9 @@ export function walletRoutes(core: Core, billing: Billing, opts: WalletRoutesOpt
     return c.json({ success: true, outcome }, 200);
   });
 
+  // Public: lets pages show the live rate and whether top-ups are open before sign-in.
+  app.get('/v1/wallet/config', (c) => c.json(billing.publicConfig()));
+
   const auth = authMiddleware(core, { internalToken: opts.internalToken });
   app.use('/v1/wallet', auth);
   app.use('/v1/wallet/*', auth);
@@ -70,6 +73,7 @@ export function walletRoutes(core: Core, billing: Billing, opts: WalletRoutesOpt
     receivedVnd: t.receivedVnd,
     creditedMicros: t.creditedMicros,
     qrImageUrl: billing.qrImageUrl(t),
+    bank: billing.bankAccount,
     expiresAt: t.expiresAt,
     paidAt: t.paidAt,
     createdAt: t.createdAt,
@@ -80,9 +84,13 @@ export function walletRoutes(core: Core, billing: Billing, opts: WalletRoutesOpt
   app.get('/v1/wallet/entries', async (c) => {
     const limit = Number(c.req.query('limit') ?? 50);
     const before = c.req.query('before');
+    const product = c.req.query('product');
+    if (product && !PRODUCT_IDS.includes(product as ProductId))
+      throw new AppError('bad_request', `Unknown product ${product}`);
     const entries = await core.listWalletEntries(getAuth(c).orgId, {
       limit: Number.isFinite(limit) ? limit : 50,
       before: before ? new Date(before) : undefined,
+      product: product as ProductId | undefined,
     });
     return c.json({ data: entries });
   });

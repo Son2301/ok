@@ -71,6 +71,20 @@ export class Billing {
     return this.opts.now?.() ?? new Date();
   }
 
+  get bankAccount(): BankAccount | null {
+    return this.opts.bank ?? null;
+  }
+
+  publicConfig() {
+    return {
+      topupsEnabled: Boolean(this.opts.bank),
+      minTopupVnd: this.opts.minTopupVnd ?? 20_000,
+      maxTopupVnd: this.opts.maxTopupVnd ?? 50_000_000,
+      vndPerUsd: this.opts.vndPerUsd,
+      creditsExpire: false,
+    };
+  }
+
   vndToMicros(vnd: number, rate = this.opts.vndPerUsd): number {
     return Math.floor((vnd * MICRO) / rate);
   }

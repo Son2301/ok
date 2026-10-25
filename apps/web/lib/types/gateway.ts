@@ -183,6 +183,8 @@ export interface Topup {
   receivedVnd: number | null;
   creditedMicros: number | null;
   qrImageUrl: string | null;
+  /** Receiving account (newer gateways); older ones only encode it in `qrImageUrl`. */
+  bank?: { bankId: string; accountNo: string; accountName: string } | null;
   expiresAt: string;
   paidAt: string | null;
   createdAt: string;

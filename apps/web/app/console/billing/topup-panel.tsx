@@ -19,7 +19,7 @@ import {
 } from '@/lib/format';
 import { fmt } from '@/lib/i18n';
 import type { Topup } from '@/lib/types/gateway';
-import { parseVietQrUrl } from '@/lib/vietqr';
+import { topupBankInfo } from '@/lib/vietqr';
 import { createTopupAction } from './actions';
 
 export const PRESETS = [100_000, 200_000, 500_000, 1_000_000, 2_000_000, 5_000_000];
@@ -184,7 +184,7 @@ export function TopupPanel({
 
   if (view.kind === 'qr') {
     const tp = view.topup;
-    const qr = parseVietQrUrl(tp.qrImageUrl);
+    const qr = topupBankInfo(tp);
     const expired = new Date(tp.expiresAt).getTime() < Date.now();
     return (
       <div className="grid gap-6 md:grid-cols-[minmax(0,15rem)_1fr]">

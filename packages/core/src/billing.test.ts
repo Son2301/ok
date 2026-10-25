@@ -150,3 +150,30 @@ describe('VietQR top-ups', () => {
     expect(((await ok.json()) as { taxCode: string }).taxCode).toBe('0312345678');
   });
 });
+
+describe('wallet config and filters', () => {
+  it('exposes public config without auth, bank details on top-ups, and filters entries by product', async () => {
+    const cfg = (await (await app().request('/v1/wallet/config')).json()) as {
+      topupsEnabled: boolean;
+      vndPerUsd: number;
+    };
+    expect(cfg).toMatchObject({ topupsEnabled: true, vndPerUsd: 25_000, creditsExpire: false });
+
+    const org = await core.createOrg('Shop Filter', 1_000_000);
+    await core.debit(org.id, 100, { product: 'safe' });
+    await core.debit(org.id, 200, { product: 'gateway' });
+    const res = await app().request('/v1/wallet/entries?product=safe', { headers: asOrg(org.id) });
+    const { data } = (await res.json()) as { data: { product: string }[] };
+    expect(data.map((e) => e.product)).toEqual(['safe']);
+    expect((await app().request('/v1/wallet/entries?product=nope', { headers: asOrg(org.id) })).status).toBe(
+      400,
+    );
+
+    const created = await app().request('/v1/wallet/topups', {
+      method: 'POST',
+      headers: asOrg(org.id),
+      body: JSON.stringify({ amountVnd: 100_000 }),
+    });
+    expect(((await created.json()) as { bank: { accountNo: string } }).bank.accountNo).toBe('0123456789');
+  });
+});

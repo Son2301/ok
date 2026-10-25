@@ -327,6 +327,8 @@ export const en: Dict = {
     serviceDown: '{service} is not responding',
     serviceDownBody:
       'This section will come back when the service is running again. Your data and balance are not affected.',
+    serviceDownBodyPublic:
+      'This section will come back as soon as the service is up again. Please reload in a few minutes.',
     timeout: '{service} is responding too slowly. Try reloading the page.',
     generic: 'Something went wrong: {message}',
     notFoundTitle: 'Page not found',

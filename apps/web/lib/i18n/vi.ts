@@ -327,6 +327,8 @@ export const vi = {
     serviceDown: '{service} đang không phản hồi',
     serviceDownBody:
       'Phần này sẽ hiện lại khi dịch vụ chạy trở lại. Dữ liệu và số dư của bạn không bị ảnh hưởng.',
+    serviceDownBodyPublic:
+      'Phần này sẽ hiện lại khi dịch vụ chạy trở lại. Bạn thử tải lại trang sau ít phút.',
     timeout: '{service} phản hồi quá chậm. Bạn thử tải lại trang.',
     generic: 'Có lỗi xảy ra: {message}',
     notFoundTitle: 'Không tìm thấy trang',

@@ -37,7 +37,7 @@ export default async function ModelsPage() {
         {res.ok ? (
           <ModelsTable models={res.data.data} rate={rate} />
         ) : (
-          <ServiceProblem error={res.error} t={t} />
+          <ServiceProblem audience="public" error={res.error} t={t} />
         )}
       </div>
       <p className="mt-6 text-xs text-muted">* {t.models.unverifiedHint}</p>

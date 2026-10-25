@@ -70,3 +70,21 @@ export function parseVietQrUrl(url: string | null | undefined): VietQrInfo | nul
     addInfo: u.searchParams.get('addInfo'),
   };
 }
+
+/** Bank details for a top-up: the API's `bank` field when present, else parsed from the QR URL. */
+export function topupBankInfo(topup: {
+  qrImageUrl: string | null;
+  bank?: { bankId: string; accountNo: string; accountName: string } | null;
+}): VietQrInfo | null {
+  const parsed = parseVietQrUrl(topup.qrImageUrl);
+  if (!topup.bank) return parsed;
+  const { bankId, accountNo, accountName } = topup.bank;
+  return {
+    bankId,
+    bankName: BANK_BINS[bankId] ?? bankId.replace(/^\w/, (c) => c.toUpperCase()),
+    accountNo,
+    accountName,
+    amount: parsed?.amount ?? null,
+    addInfo: parsed?.addInfo ?? null,
+  };
+}
