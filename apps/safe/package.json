@@ -1,0 +1,26 @@
+{
+  "name": "@ok/safe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.11",
+    "@hono/node-server": "^2.1.5",
+    "@ok/core": "workspace:*",
+    "@ok/db": "workspace:*",
+    "@ok/llm": "workspace:*",
+    "@ok/shared": "workspace:*",
+    "drizzle-orm": "^0.45.4",
+    "hono": "^4.13.14",
+    "pg": "^8.23.1",
+    "tldts": "^7.4.19",
+    "zod": "^4.6.7"
+  }
+}
