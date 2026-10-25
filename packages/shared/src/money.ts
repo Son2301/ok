@@ -20,8 +20,8 @@ export function formatVnd(micros: number, rate = DEFAULT_VND_PER_USD): string {
   return `${vnd.toLocaleString('vi-VN')} ₫`;
 }
 
-export function formatUsd(micros: number): string {
+export function formatUsd(micros: number, digitsOverride?: number): string {
   const usd = microsToUsd(micros);
-  const digits = Math.abs(usd) < 0.01 && usd !== 0 ? 6 : 2;
+  const digits = digitsOverride ?? (Math.abs(usd) < 0.01 && usd !== 0 ? 6 : 2);
   return `$${usd.toFixed(digits)}`;
 }
