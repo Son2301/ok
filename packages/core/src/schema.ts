@@ -96,3 +96,48 @@ export const walletEntries = core.table(
   },
   (t) => [index('wallet_entries_org_created_idx').on(t.orgId, t.createdAt)],
 );
+
+export const topups = core.table(
+  'topups',
+  {
+    id: text('id').primaryKey(),
+    orgId: text('org_id')
+      .notNull()
+      .references(() => orgs.id, { onDelete: 'cascade' }),
+    /** Short code the customer puts in the bank-transfer description, e.g. `OKA7F3K2QX`. */
+    code: text('code').notNull().unique(),
+    amountVnd: bigint('amount_vnd', { mode: 'number' }).notNull(),
+    /** Exchange rate locked when the QR was shown, so the customer gets exactly what they saw. */
+    vndPerUsd: integer('vnd_per_usd').notNull(),
+    status: text('status').notNull().default('pending'),
+    receivedVnd: bigint('received_vnd', { mode: 'number' }),
+    creditedMicros: bigint('credited_micros', { mode: 'number' }),
+    bankTxnId: text('bank_txn_id'),
+    paidAt: timestamp('paid_at', { withTimezone: true }),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('topups_org_idx').on(t.orgId, t.createdAt)],
+);
+
+export const bankTransfers = core.table('bank_transfers', {
+  id: text('id').primaryKey(),
+  provider: text('provider').notNull(),
+  amountVnd: bigint('amount_vnd', { mode: 'number' }).notNull(),
+  content: text('content'),
+  topupId: text('topup_id').references(() => topups.id, { onDelete: 'set null' }),
+  status: text('status').notNull(),
+  raw: jsonb('raw').$type<Record<string, unknown>>(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const billingProfiles = core.table('billing_profiles', {
+  orgId: text('org_id')
+    .primaryKey()
+    .references(() => orgs.id, { onDelete: 'cascade' }),
+  taxCode: text('tax_code'),
+  companyName: text('company_name'),
+  address: text('address'),
+  invoiceEmail: text('invoice_email'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});

@@ -53,6 +53,11 @@ export class Core {
     return migrate(this.handle, 'core', coreMigrations);
   }
 
+  /** Underlying Drizzle handle, for platform modules (billing) that share the core schema. */
+  get database() {
+    return this.db;
+  }
+
   // ---------------------------------------------------------------- accounts
 
   async signUp(input: {
@@ -235,31 +240,62 @@ export class Core {
       ref?: string;
       description?: string;
       meta?: Record<string, unknown>;
+      /** A second credit with the same key for the org is a no-op (safe webhook retries). */
+      idempotencyKey?: string;
     } = {},
   ): Promise<number> {
     if (!Number.isInteger(amountMicros) || amountMicros <= 0)
       throw new AppError('bad_request', 'Credit amount must be a positive integer');
-    return this.db.transaction(async (tx) => {
-      const [row] = await tx
-        .insert(balances)
-        .values({ orgId, balanceMicros: amountMicros })
-        .onConflictDoUpdate({
-          target: balances.orgId,
-          set: { balanceMicros: sql`${balances.balanceMicros} + ${amountMicros}`, updatedAt: new Date() },
-        })
-        .returning();
-      await tx.insert(walletEntries).values({
-        id: newId('wle'),
-        orgId,
-        amountMicros,
-        balanceAfterMicros: row!.balanceMicros,
-        kind: opts.kind ?? 'topup',
-        ref: opts.ref ?? null,
-        description: opts.description ?? null,
-        meta: opts.meta ?? null,
+    if (opts.idempotencyKey) {
+      const prior = await this.findByIdempotencyKey(orgId, opts.idempotencyKey);
+      if (prior) return prior.balanceAfterMicros;
+    }
+    try {
+      return await this.db.transaction(async (tx) => {
+        const [row] = await tx
+          .insert(balances)
+          .values({ orgId, balanceMicros: amountMicros })
+          .onConflictDoUpdate({
+            target: balances.orgId,
+            set: { balanceMicros: sql`${balances.balanceMicros} + ${amountMicros}`, updatedAt: new Date() },
+          })
+          .returning();
+        await tx.insert(walletEntries).values({
+          id: newId('wle'),
+          orgId,
+          amountMicros,
+          balanceAfterMicros: row!.balanceMicros,
+          kind: opts.kind ?? 'topup',
+          ref: opts.ref ?? null,
+          description: opts.description ?? null,
+          meta: opts.meta ?? null,
+          idempotencyKey: opts.idempotencyKey ?? null,
+        });
+        return row!.balanceMicros;
       });
-      return row!.balanceMicros;
-    });
+    } catch (err) {
+      if (opts.idempotencyKey && isUniqueViolation(err)) {
+        const prior = await this.findByIdempotencyKey(orgId, opts.idempotencyKey);
+        if (prior) return prior.balanceAfterMicros;
+      }
+      throw err;
+    }
+  }
+
+  /** Average daily spend over the last `days` days, in micro-USD (debits only). */
+  async averageDailySpend(orgId: string, days = 7): Promise<number> {
+    const since = new Date(Date.now() - days * 86_400_000);
+    const [row] = await this.db
+      .select({ total: sql<string>`coalesce(sum(-${walletEntries.amountMicros}), 0)` })
+      .from(walletEntries)
+      .where(
+        and(
+          eq(walletEntries.orgId, orgId),
+          lt(walletEntries.amountMicros, 0),
+          gte(walletEntries.createdAt, since),
+        ),
+      );
+    return Math.round(Number(row?.total ?? 0) / days);
   }
 
   /** Atomically charge the org. Throws `payment_required` if funds are insufficient (unless `force`). */

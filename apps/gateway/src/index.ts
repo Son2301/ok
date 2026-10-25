@@ -1,5 +1,5 @@
 import { serve } from '@hono/node-server';
-import { Core } from '@ok/core';
+import { Billing, Core } from '@ok/core';
 import { createDb, migrate } from '@ok/db';
 import { createLogger, loadEnv } from '@ok/shared';
 import { createApp } from './app';
@@ -41,6 +41,20 @@ if (shouldSeed(env)) {
   );
 }
 
+const billing = new Billing(core, {
+  vndPerUsd: env.VND_PER_USD,
+  bank:
+    env.TOPUP_BANK_ID && env.TOPUP_BANK_ACCOUNT_NO && env.TOPUP_BANK_ACCOUNT_NAME
+      ? {
+          bankId: env.TOPUP_BANK_ID,
+          accountNo: env.TOPUP_BANK_ACCOUNT_NO,
+          accountName: env.TOPUP_BANK_ACCOUNT_NAME,
+        }
+      : undefined,
+  onTopupPaid: ({ orgId, topup }) =>
+    logger.info('top-up received', { orgId, topup: topup.id, vnd: topup.receivedVnd }),
+});
+
 const app = createApp({
   core,
   db: handle.db,
@@ -51,6 +65,7 @@ const app = createApp({
   internalToken: env.INTERNAL_TOKEN,
   config: runtime.config,
   maxBodyBytes: env.MAX_BODY_BYTES,
+  wallet: { billing, sepayApiKey: env.SEPAY_API_KEY },
 });
 
 const server = serve({ fetch: app.fetch, port: env.PORT }, (info) => {

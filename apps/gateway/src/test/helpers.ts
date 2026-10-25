@@ -3,7 +3,7 @@ import type { AddressInfo } from 'node:net';
 import { Core } from '@ok/core';
 import { createDb, type DbHandle, migrate } from '@ok/db';
 import { createLogger } from '@ok/shared';
-import { createApp } from '../app';
+import { type AppDeps, createApp } from '../app';
 import { Catalog } from '../catalog/catalog';
 import type { CatalogEndpoint, CatalogModel } from '../catalog/types';
 import { gatewayMigrations } from '../db/migrations';
@@ -236,6 +236,7 @@ export async function createHarness(opts: {
   health?: HealthOptions;
   random?: () => number;
   handle?: DbHandle;
+  wallet?: AppDeps['wallet'] | ((core: Core) => AppDeps['wallet']);
 }): Promise<Harness> {
   const handle = opts.handle ?? (await createDb('memory://'));
   const core = new Core(handle);
@@ -261,6 +262,7 @@ export async function createHarness(opts: {
       ...opts.config,
     },
     random: opts.random ?? (() => 0),
+    wallet: typeof opts.wallet === 'function' ? opts.wallet(core) : opts.wallet,
   });
   return {
     app,

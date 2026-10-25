@@ -32,6 +32,13 @@ export const envSchema = baseEnvSchema.extend({
   MAX_BODY_BYTES: int(20 * 1024 * 1024, 1_024),
   ANTHROPIC_DEFAULT_MAX_TOKENS: int(16_000, 1),
 
+  // Wallet: VietQR top-ups auto-confirmed by SePay (https://sepay.vn). Disabled until a bank account is set.
+  VND_PER_USD: int(26_000, 1),
+  TOPUP_BANK_ID: optional,
+  TOPUP_BANK_ACCOUNT_NO: optional,
+  TOPUP_BANK_ACCOUNT_NAME: optional,
+  SEPAY_API_KEY: optional,
+
   // Dev seeding: create an org + API key on boot and log the key (never in production).
   DEV_SEED_API_KEY: flag,
   DEV_SEED_CREDIT_USD: z.coerce.number().positive().default(10),

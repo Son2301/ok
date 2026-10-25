@@ -14,7 +14,8 @@ export interface AuthContext {
 export type AuthEnv = { Variables: { auth: AuthContext } };
 
 export interface AuthOptions {
-  product: ProductId;
+  /** Product the route belongs to. Omit for platform routes (wallet, billing) any key may call. */
+  product?: ProductId;
   internalToken: string;
   /** If true, unauthenticated requests pass through with no `auth` set. */
   optional?: boolean;
@@ -42,10 +43,10 @@ export function authMiddleware<E extends AuthEnv = AuthEnv>(
     if (token.startsWith(API_KEY_PREFIX)) {
       const key = await core.verifyApiKey(token);
       if (!key) throw new AppError('unauthorized', 'Invalid or revoked API key');
-      if (!key.scopes.includes('*') && !key.scopes.includes(opts.product)) {
+      if (opts.product && !key.scopes.includes('*') && !key.scopes.includes(opts.product)) {
         throw new AppError('forbidden', `This API key is not allowed to use ${opts.product}`);
       }
-      if (key.spendLimitMicros != null && key.spentMicros >= key.spendLimitMicros) {
+      if (opts.product && key.spendLimitMicros != null && key.spentMicros >= key.spendLimitMicros) {
         throw new AppError('payment_required', 'This API key has reached its spend limit');
       }
       if (key.rateLimitRpm && !limiter.take(key.id, key.rateLimitRpm)) {

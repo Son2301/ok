@@ -73,4 +73,42 @@ ALTER TABLE core.wallet_entries ADD COLUMN idempotency_key text;
 CREATE UNIQUE INDEX wallet_entries_org_idem_idx ON core.wallet_entries (org_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
 `,
   },
+  {
+    id: '0003_topups_billing',
+    sql: `
+CREATE TABLE core.topups (
+  id text PRIMARY KEY,
+  org_id text NOT NULL REFERENCES core.orgs(id) ON DELETE CASCADE,
+  code text NOT NULL UNIQUE,
+  amount_vnd bigint NOT NULL,
+  vnd_per_usd integer NOT NULL,
+  status text NOT NULL DEFAULT 'pending',
+  received_vnd bigint,
+  credited_micros bigint,
+  bank_txn_id text,
+  paid_at timestamptz,
+  expires_at timestamptz NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX topups_org_idx ON core.topups (org_id, created_at);
+CREATE TABLE core.bank_transfers (
+  id text PRIMARY KEY,
+  provider text NOT NULL,
+  amount_vnd bigint NOT NULL,
+  content text,
+  topup_id text REFERENCES core.topups(id) ON DELETE SET NULL,
+  status text NOT NULL,
+  raw jsonb,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE core.billing_profiles (
+  org_id text PRIMARY KEY REFERENCES core.orgs(id) ON DELETE CASCADE,
+  tax_code text,
+  company_name text,
+  address text,
+  invoice_email text,
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+`,
+  },
 ];

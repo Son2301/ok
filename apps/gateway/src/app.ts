@@ -1,4 +1,4 @@
-import { type AuthContext, authMiddleware, type Core, getAuth } from '@ok/core';
+import { type AuthContext, authMiddleware, type Billing, type Core, getAuth, walletRoutes } from '@ok/core';
 import type { Db } from '@ok/db';
 import {
   AppError,
@@ -31,6 +31,8 @@ export interface AppDeps {
   internalToken: string;
   config?: Partial<GatewayConfig>;
   maxBodyBytes?: number;
+  /** Shared platform wallet (VietQR top-ups, balance, e-invoice profile). Mounted when provided. */
+  wallet?: { billing: Billing; sepayApiKey?: string };
   clock?: () => number;
   wallClock?: () => Date;
   random?: () => number;
@@ -144,6 +146,18 @@ export function createApp(deps: AppDeps) {
   });
 
   // ---------------------------------------------------------- authenticated
+
+  // Wallet routes carry their own (product-agnostic) auth, so they are mounted
+  // before the gateway-scoped `/v1/*` middleware below.
+  if (deps.wallet) {
+    app.route(
+      '/',
+      walletRoutes(core, deps.wallet.billing, {
+        internalToken: deps.internalToken,
+        sepayApiKey: deps.wallet.sepayApiKey,
+      }),
+    );
+  }
 
   app.use(
     '/v1/*',
