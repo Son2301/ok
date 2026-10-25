@@ -1,0 +1,23 @@
+# UNVERIFIED TEMPLATE for ~/.hermes/config.yaml, rendered by entrypoint.sh.
+# Keys follow Hermes Agent's public docs at the time of writing; validate
+# against your pinned version.
+
+model:
+  provider: custom
+  base_url: "__OK_GATEWAY_URL__"
+  api_key: "__OK_RUNTIME_TOKEN__"
+  default: auto
+
+# Tools come from the control plane over MCP (credentials stay in the control plane).
+mcp_servers:
+  ok-agents:
+    url: "__OK_MCP_URL__"
+    headers:
+      Authorization: "Bearer __OK_RUNTIME_TOKEN__"
+
+# The container is already sandboxed by the docker driver; Hermes' own terminal tool is not needed.
+terminal:
+  backend: local
+
+memory:
+  enabled: false

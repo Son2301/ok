@@ -1,0 +1,37 @@
+{
+  "_comment": "UNVERIFIED TEMPLATE for ~/.openclaw/openclaw.json, rendered by entrypoint.sh. Field names follow OpenClaw's public docs at the time of writing; validate against your pinned version.",
+  "gateway": {
+    "mode": "local",
+    "bind": "loopback",
+    "port": 18789,
+    "auth": { "mode": "token", "token": "__OK_UPSTREAM_API_KEY__" },
+    "http": { "endpoints": { "chatCompletions": { "enabled": true } } }
+  },
+  "models": {
+    "mode": "replace",
+    "providers": {
+      "ok": {
+        "baseUrl": "__OK_GATEWAY_URL__",
+        "apiKey": "__OK_RUNTIME_TOKEN__",
+        "api": "openai-completions",
+        "models": [{ "id": "auto", "name": "OK gateway (agent model)" }]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": { "primary": "ok/auto" },
+      "sandbox": { "mode": "off" }
+    }
+  },
+  "mcp": {
+    "servers": {
+      "ok-agents": {
+        "transport": "streamable-http",
+        "url": "__OK_MCP_URL__",
+        "headers": { "Authorization": "Bearer __OK_RUNTIME_TOKEN__" }
+      }
+    }
+  },
+  "channels": {}
+}
