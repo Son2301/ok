@@ -1,0 +1,34 @@
+# syntax=docker/dockerfile:1
+#
+# Builtin agent runtime image (one container per agent, run by the docker driver).
+# Build from the repository root:
+#
+#   docker build -f apps/agents/Dockerfile.runtime -t ok/agents-runtime:latest .
+#
+# The image contains a single self-contained JS bundle (dist/runtime.js): no
+# node_modules, no package manager, no credentials. At run time the control plane
+# injects only OK_AGENT_ID, OK_RUNTIME_TOKEN, OK_CONTROL_PLANE_URL and OK_GATEWAY_URL.
+# The docker driver runs it with a read-only rootfs, no capabilities, no new
+# privileges, a pids/memory/CPU limit and a small noexec /tmp tmpfs.
+
+FROM node:22-alpine AS build
+WORKDIR /repo
+RUN corepack enable
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
+COPY packages ./packages
+COPY apps/agents ./apps/agents
+RUN pnpm install --frozen-lockfile --filter "@ok/agents..." \
+ && pnpm --filter @ok/agents build
+
+FROM node:22-alpine
+ENV NODE_ENV=production \
+    PORT=8080 \
+    OK_RUNTIME_MODE=builtin
+RUN addgroup -S -g 10001 agent && adduser -S -D -H -u 10001 -G agent -s /sbin/nologin agent
+WORKDIR /app
+COPY --from=build --chown=root:root --chmod=0444 /repo/apps/agents/dist/runtime.js /app/runtime.js
+USER 10001:10001
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD ["node", "-e", "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+ENTRYPOINT ["node", "/app/runtime.js"]
