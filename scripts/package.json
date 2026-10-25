@@ -1,0 +1,12 @@
+{
+  "name": "@ok/scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@ok/core": "workspace:*",
+    "@ok/db": "workspace:*",
+    "@ok/llm": "workspace:*",
+    "@ok/shared": "workspace:*",
+    "drizzle-orm": "^0.45.4"
+  }
+}

@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
 import { Billing, Core } from '@ok/core';
 import { createDb, migrate } from '@ok/db';
-import { createLogger, loadEnv } from '@ok/shared';
+import { createLogger, loadEnv, usdToMicros } from '@ok/shared';
 import { createApp } from './app';
 import { gatewayMigrations } from './db/migrations';
 import { seedDevOrg, shouldSeed } from './dev-seed';
@@ -19,6 +19,14 @@ const handle = await createDb(env.DATABASE_URL);
 const core = new Core(handle);
 await core.migrate();
 await migrate(handle, 'gateway', gatewayMigrations);
+
+if (env.PLATFORM_ORG_ID) {
+  await core.ensureOrg(
+    env.PLATFORM_ORG_ID,
+    'Platform (free tier)',
+    usdToMicros(env.PLATFORM_ORG_INITIAL_CREDIT_USD),
+  );
+}
 
 const runtime = buildRuntime(env);
 const enabled = [...runtime.catalog.providers.values()]

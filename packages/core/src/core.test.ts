@@ -119,3 +119,13 @@ describe('idempotent debits', () => {
     expect(await core.debit(org.id, 300, { product: 'gateway', idempotencyKey: 'req_def' })).toBe(400);
   });
 });
+
+describe('ensureOrg', () => {
+  it('creates an org with a fixed id once', async () => {
+    const a = await core.ensureOrg('org_platform_test', 'Platform', 5_000);
+    const b = await core.ensureOrg('org_platform_test', 'Platform', 9_999);
+    expect(a.id).toBe('org_platform_test');
+    expect(b.id).toBe('org_platform_test');
+    expect(await core.getBalance('org_platform_test')).toBe(5_000);
+  });
+});

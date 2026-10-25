@@ -122,6 +122,28 @@ export class Core {
     });
   }
 
+  /** Idempotently create an org with a fixed id (e.g. the platform org that funds free tiers). */
+  async ensureOrg(id: string, name: string, initialCreditMicros = 0): Promise<Org> {
+    const existing = await this.getOrg(id);
+    if (existing) return existing;
+    return this.db.transaction(async (tx) => {
+      const [org] = await tx.insert(orgs).values({ id, name }).onConflictDoNothing().returning();
+      if (!org) return (await this.getOrg(id))!;
+      await tx.insert(balances).values({ orgId: id, balanceMicros: initialCreditMicros });
+      if (initialCreditMicros > 0) {
+        await tx.insert(walletEntries).values({
+          id: newId('wle'),
+          orgId: id,
+          amountMicros: initialCreditMicros,
+          balanceAfterMicros: initialCreditMicros,
+          kind: 'grant',
+          description: 'Initial platform credit',
+        });
+      }
+      return org;
+    });
+  }
+
   async login(emailRaw: string, password: string): Promise<{ token: string; user: User; orgId: string }> {
     const email = emailRaw.trim().toLowerCase();
     const [row] = await this.db.select().from(users).where(eq(users.email, email));

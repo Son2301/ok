@@ -1,0 +1,63 @@
+# Full platform on one machine:  cp .env.example .env && docker compose up --build
+# Web console: http://localhost:3000   Public API (gateway + wallet): http://localhost:4000
+x-service: &service
+  restart: unless-stopped
+  env_file: .env
+  depends_on:
+    postgres: { condition: service_healthy }
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ok
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ok}
+      POSTGRES_DB: ok
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ok"]
+      interval: 3s
+      retries: 20
+
+  gateway:
+    <<: *service
+    build: { context: ., args: { APP: gateway } }
+    ports: ["4000:4000"]
+    environment: { PORT: 4000 }
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      retries: 20
+
+  agents:
+    <<: *service
+    build: { context: ., args: { APP: agents } }
+    ports: ["4100:4100"]
+    environment: { PORT: 4100, GATEWAY_URL: http://gateway:4000/v1, CONTROL_PLANE_URL: http://agents:4100 }
+    depends_on:
+      postgres: { condition: service_healthy }
+      gateway: { condition: service_healthy }
+    # For one isolated container per agent, set AGENTS_RUNTIME_DRIVER=docker and mount the socket:
+    # volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+
+  safe:
+    <<: *service
+    build: { context: ., args: { APP: safe } }
+    ports: ["4200:4200"]
+    environment: { PORT: 4200, GATEWAY_URL: http://gateway:4000/v1 }
+    depends_on:
+      postgres: { condition: service_healthy }
+      gateway: { condition: service_healthy }
+
+  review:
+    <<: *service
+    build: { context: ., args: { APP: review } }
+    ports: ["4300:4300"]
+    environment: { PORT: 4300, GATEWAY_URL: http://gateway:4000/v1 }
+    depends_on:
+      postgres: { condition: service_healthy }
+      gateway: { condition: service_healthy }
+
+volumes:
+  pgdata:

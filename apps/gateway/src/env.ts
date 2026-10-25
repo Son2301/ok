@@ -39,6 +39,10 @@ export const envSchema = baseEnvSchema.extend({
   TOPUP_BANK_ACCOUNT_NAME: optional,
   SEPAY_API_KEY: optional,
 
+  // Platform org that funds free tiers across products; created on boot if missing.
+  PLATFORM_ORG_ID: optional,
+  PLATFORM_ORG_INITIAL_CREDIT_USD: z.coerce.number().min(0).default(0),
+
   // Dev seeding: create an org + API key on boot and log the key (never in production).
   DEV_SEED_API_KEY: flag,
   DEV_SEED_CREDIT_USD: z.coerce.number().positive().default(10),

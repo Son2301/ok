@@ -226,6 +226,24 @@ importers:
         specifier: ^4.6.0
         version: 4.6.7
 
+  scripts:
+    dependencies:
+      '@ok/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      '@ok/db':
+        specifier: workspace:*
+        version: link:../packages/db
+      '@ok/llm':
+        specifier: workspace:*
+        version: link:../packages/llm
+      '@ok/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      drizzle-orm:
+        specifier: ^0.45.4
+        version: 0.45.4(@electric-sql/pglite@0.5.11)(@types/pg@8.23.1)(pg@8.23.1)
+
 packages:
 
   '@biomejs/biome@2.6.3':
