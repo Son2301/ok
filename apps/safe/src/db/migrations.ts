@@ -1,4 +1,4 @@
-import type { Migration } from '@ok/db';
+import type { Migration } from '@minh/db';
 
 /** Hand-written SQL migrations for the `safe` schema. Keep in sync with schema.ts. Never edit a shipped migration. */
 export const safeMigrations: Migration[] = [

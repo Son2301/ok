@@ -1,4 +1,4 @@
-# Agents — hosted AI employees (`@ok/agents`, port 4100)
+# Agents — hosted AI employees (`@minh/agents`, port 4100)
 
 Customers create **agents** ("AI employees"), give them a role and job description, knowledge
 and integrations, connect chat channels (Zalo OA, Telegram, a website widget), and the platform
@@ -17,7 +17,7 @@ search, and local integrations (Zalo OA, KiotViet, Haravan, Shopee, MISA).
                     │ ToolService ◀── tool proxy /internal/agents/:id/tools/:tool ◀──┐  persistence)           │
                     │  (credentials,  MCP server  /mcp/:agentId ◀────────────────────┤                          │
                     │   trust levels, LLM proxy   /internal/agents/:id/llm/v1 ◀──────┤                          │
-                    │   traces)        LlmBroker (quota split, budget cap) ──▶ gateway (x-org-id, x-ok-product) │
+                    │   traces)        LlmBroker (quota split, budget cap) ──▶ gateway (x-org-id, x-minh-product) │
                     └────────────────────────────────────────────────────────────────┼──────────────────────────┘
                                                                                      │ runtime token only
                                      ┌───────────── agent container (one per agent) ─┴────────────┐
@@ -44,9 +44,9 @@ search, and local integrations (Zalo OA, KiotViet, Haravan, Shopee, MISA).
 
 ```bash
 pnpm install
-pnpm --filter @ok/agents dev                       # tsx watch, port 4100, PGlite in memory, inline driver
-pnpm --filter @ok/agents test                      # offline: MockLlm, PGlite, fake HTTP, mocked Docker
-pnpm --filter @ok/agents build                     # dist/index.js (control plane) + dist/runtime.js (agent image)
+pnpm --filter @minh/agents dev                       # tsx watch, port 4100, PGlite in memory, inline driver
+pnpm --filter @minh/agents test                      # offline: MockLlm, PGlite, fake HTTP, mocked Docker
+pnpm --filter @minh/agents build                     # dist/index.js (control plane) + dist/runtime.js (agent image)
 DATABASE_URL=memory:// PORT=4998 node apps/agents/dist/index.js && curl localhost:4998/health
 docker build -f apps/agents/Dockerfile.runtime -t ok/agents-runtime:latest .   # builtin runtime image
 ```
@@ -66,7 +66,7 @@ docker build -f apps/agents/Dockerfile.runtime -t ok/agents-runtime:latest .   #
 | `AGENTS_PLATFORM_ORG_ID`                         | –                           | Org that pays for in-quota LLM usage. Unset → customers pay for all usage. Fund its wallet.                                        |
 | `AGENTS_RUNTIME_DRIVER`                          | `auto`                      | `auto` (docker if the socket answers, else inline), `inline`, `docker`.                                                            |
 | `DOCKER_SOCKET`                                  | `/var/run/docker.sock`      |                                                                                                                                    |
-| `AGENTS_DOCKER_NETWORK`                          | `ok-agents`                 | Dedicated bridge network (created if missing).                                                                                     |
+| `AGENTS_DOCKER_NETWORK`                          | `minh-agents`                 | Dedicated bridge network (created if missing).                                                                                     |
 | `AGENTS_DOCKER_NETWORK_INTERNAL`                 | `false`                     | `true` = no egress except via other attached networks.                                                                             |
 | `AGENTS_DOCKER_ICC`                              | `false`                     | Inter-container traffic on the agents network (off: agents cannot reach each other).                                               |
 | `AGENTS_DOCKER_ADDRESS_MODE`                     | `ip`                        | `ip` (control plane on the host) or `name` (control plane attached to the network).                                                |
@@ -99,12 +99,12 @@ Container limits per plan: starter 0.5 CPU / 512 MB / 256 pids, pro 1 CPU / 1 GB
 | Telegram webhook secret                                      | sha256 in `agents.channels`; plaintext shown once.                                                                                                             | Verified on every webhook (`X-Telegram-Bot-Api-Secret-Token`).                                                                                                                  |
 | Zalo OA secret key                                           | Encrypted with the Zalo credentials.                                                                                                                           | Verifies `X-ZEvent-Signature: mac=sha256(appId + body + timestamp + oaSecretKey)`.                                                                                              |
 
-Container hardening (docker driver): one container per agent named `ok-agent-<id>`, labelled
-`ok.managed-by/ok.agent-id/ok.org-id/ok.runtime/ok.plan`; plan CPU/memory/pids limits, swap off;
+Container hardening (docker driver): one container per agent named `minh-agent-<id>`, labelled
+`minh.managed-by/minh.agent-id/minh.org-id/minh.runtime/minh.plan`; plan CPU/memory/pids limits, swap off;
 `ReadonlyRootfs` (builtin), `noexec` `/tmp` tmpfs, `CapDrop: ALL`, `no-new-privileges`, never
 privileged, non-root user (builtin `10001`), no published ports, dedicated network with ICC off,
 `unless-stopped` restart policy, bounded json-file logs. **Env injection is exactly**
-`OK_AGENT_ID`, `OK_RUNTIME_TOKEN`, `OK_CONTROL_PLANE_URL`, `OK_GATEWAY_URL` (the per-agent LLM proxy).
+`MINH_AGENT_ID`, `MINH_RUNTIME_TOKEN`, `MINH_CONTROL_PLANE_URL`, `MINH_GATEWAY_URL` (the per-agent LLM proxy).
 
 Other guards: SSRF-safe `http_request`/`send_webhook` (http/https only, per-agent host allowlist,
 every DNS answer must be public — loopback, RFC 1918, link-local/metadata, CGNAT, multicast,
@@ -143,7 +143,7 @@ per-IP rate limit on the public widget; prompts treat tool/document/customer con
   Charged on deploy/start (402 if the wallet can't pay) and by the scheduler each day; idempotent across
   replicas (partial unique index on `(agent_id, day)`). A failed daily charge suspends the agent
   (`suspended_billing`); top up and `POST /start` to resume. Stopped agents are not charged.
-- **LLM**: every call goes through `LlmBroker` → gateway with `x-org-id` + `x-ok-product: agents`.
+- **LLM**: every call goes through `LlmBroker` → gateway with `x-org-id` + `x-minh-product: agents`.
   While the agent's platform-paid tokens this month are below the plan quota, `x-org-id` is the platform
   org; afterwards it is the customer org (the gateway bills that wallet). A call that crosses the
   boundary is billed entirely to the platform (small, bounded overshoot). Per-agent monthly usage
@@ -151,12 +151,12 @@ per-IP rate limit on the public widget; prompts treat tool/document/customer con
 
 ## API reference
 
-Auth for `/v1/*`: `Authorization: Bearer sk-ok-…` (API key with scope `agents` or `*`), or
+Auth for `/v1/*`: `Authorization: Bearer sk-minh-…` (API key with scope `agents` or `*`), or
 `Authorization: Bearer $INTERNAL_TOKEN` + `X-Org-Id: org_…` (web console). Errors:
 `{ "error": { "code", "message", "details"? } }`. Money is integer micro-USD.
 
 ```bash
-API=http://localhost:4100; KEY=sk-ok-...; H=(-H "authorization: Bearer $KEY" -H 'content-type: application/json')
+API=http://localhost:4100; KEY=sk-minh-...; H=(-H "authorization: Bearer $KEY" -H 'content-type: application/json')
 ```
 
 ### Agents
@@ -338,13 +338,13 @@ curl -s -X POST $API/mcp/agt_xxx -H "authorization: Bearer $TOKEN" -H 'content-t
   inspect state to `running/stopped/starting/error/missing`, demuxes logs, and sends signed turns to
   `http://<container-ip>:8080/turn`.
 - **builtin image** (`Dockerfile.runtime`, `dist/runtime.js` built by tsup with every dependency inlined):
-  verifies the signature, runs the same `runAgentLoop`, calls the LLM at `OK_GATEWAY_URL` (the control
+  verifies the signature, runs the same `runAgentLoop`, calls the LLM at `MINH_GATEWAY_URL` (the control
   plane's per-agent LLM proxy, runtime token as API key) and executes tools via the tool proxy.
 - **OpenClaw / Hermes** — _unverified templates_ in `runtimes/openclaw/` and `runtimes/hermes/`. The image
-  runs the third-party runtime on loopback with its model endpoint set to `OK_GATEWAY_URL` (key
-  `OK_RUNTIME_TOKEN`) and the agent's tools attached as an MCP server
-  (`$OK_CONTROL_PLANE_URL/mcp/$OK_AGENT_ID`, `Authorization: Bearer $OK_RUNTIME_TOKEN`); the same
-  `runtime.js` runs in `OK_RUNTIME_MODE=upstream` as the front door and forwards each turn to the runtime's
+  runs the third-party runtime on loopback with its model endpoint set to `MINH_GATEWAY_URL` (key
+  `MINH_RUNTIME_TOKEN`) and the agent's tools attached as an MCP server
+  (`$MINH_CONTROL_PLANE_URL/mcp/$MINH_AGENT_ID`, `Authorization: Bearer $MINH_RUNTIME_TOKEN`); the same
+  `runtime.js` runs in `MINH_RUNTIME_MODE=upstream` as the front door and forwards each turn to the runtime's
   local OpenAI-compatible endpoint (OpenClaw `:18789/v1`, Hermes API server `:8642/v1`) with a per-container
   secret. Config keys follow each project's public docs at the time of writing and must be validated
   against a pinned version before production. In upstream mode the control plane still sends the full
@@ -382,7 +382,7 @@ adapters and fixture tests for request building and response parsing (`src/integ
 
 ## Tests
 
-All offline (`pnpm --filter @ok/agents test`): agent loop (multi-step, parallel/sequential tools, budgets,
+All offline (`pnpm --filter @minh/agents test`): agent loop (multi-step, parallel/sequential tools, budgets,
 streaming tool-call reassembly), CRUD + auth + org isolation, lifecycle and billing, KB chunking and
 Vietnamese search without diacritics, credential encryption/masking/rotation, SSRF guard (incl. a local
 server and redirect re-validation), Shopee signing vectors, integration fixtures, Telegram/Zalo webhooks →

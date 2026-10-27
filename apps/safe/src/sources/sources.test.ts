@@ -1,4 +1,4 @@
-import { createDb, type DbHandle, migrate } from '@ok/db';
+import { createDb, type DbHandle, migrate } from '@minh/db';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { safeMigrations } from '../db/migrations';
 import { strictFetch } from '../test/helpers';

@@ -1,5 +1,5 @@
-import { chatJson, type LlmClient, type Usage } from '@ok/llm';
-import type { Logger } from '@ok/shared';
+import { chatJson, type LlmClient, type Usage } from '@minh/llm';
+import type { Logger } from '@minh/shared';
 import { type RepoConfig, SEVERITY_RANK, type Severity } from '../config';
 import { type Batch, buildBatches, type ReviewUnit } from '../diff/chunk';
 import { anchorToDiff, commentableLines } from '../diff/lines';

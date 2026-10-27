@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 
 export const sha256Hex = (s: string) => createHash('sha256').update(s).digest('hex');
 

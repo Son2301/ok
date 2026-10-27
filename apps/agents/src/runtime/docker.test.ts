@@ -1,4 +1,4 @@
-import type { ChatRequest } from '@ok/llm';
+import type { ChatRequest } from '@minh/llm';
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { buildPlans } from '../config';
 import { createTestPlatform, type TestPlatform } from '../test/helpers';
@@ -92,7 +92,7 @@ class FakeDocker implements DockerApi {
         StartedAt: '2026-10-25T03:00:00Z',
         ExitCode: c.exitCode,
       },
-      NetworkSettings: { Networks: { 'ok-agents': { IPAddress: IP } } },
+      NetworkSettings: { Networks: { 'minh-agents': { IPAddress: IP } } },
     };
   }
   async containerLogs() {
@@ -112,15 +112,15 @@ describe('container spec', () => {
       plan: plans.starter,
       runtimeToken: 'agrt_secret-token',
     },
-    { images, network: 'ok-agents', controlPlaneUrl: 'http://control-plane.internal:4100/' },
+    { images, network: 'minh-agents', controlPlaneUrl: 'http://control-plane.internal:4100/' },
   );
 
   it('injects only the agent id, runtime token, control-plane URL and gateway URL', () => {
     expect(spec.Env).toEqual([
-      'OK_AGENT_ID=agt_abc',
-      'OK_RUNTIME_TOKEN=agrt_secret-token',
-      'OK_CONTROL_PLANE_URL=http://control-plane.internal:4100',
-      'OK_GATEWAY_URL=http://control-plane.internal:4100/internal/agents/agt_abc/llm/v1',
+      'MINH_AGENT_ID=agt_abc',
+      'MINH_RUNTIME_TOKEN=agrt_secret-token',
+      'MINH_CONTROL_PLANE_URL=http://control-plane.internal:4100',
+      'MINH_GATEWAY_URL=http://control-plane.internal:4100/internal/agents/agt_abc/llm/v1',
     ]);
   });
 
@@ -136,18 +136,18 @@ describe('container spec', () => {
       Privileged: false,
       CapDrop: ['ALL'],
       SecurityOpt: ['no-new-privileges:true'],
-      NetworkMode: 'ok-agents',
+      NetworkMode: 'minh-agents',
       RestartPolicy: { Name: 'unless-stopped' },
       Init: true,
     });
     expect(spec.HostConfig.Tmpfs?.['/tmp']).toContain('noexec');
     expect(spec.Labels).toEqual({
-      'ok.managed-by': 'ok-agents',
-      'ok.product': 'agents',
-      'ok.agent-id': 'agt_abc',
-      'ok.org-id': 'org_1',
-      'ok.runtime': 'builtin',
-      'ok.plan': 'starter',
+      'minh.managed-by': 'minh-agents',
+      'minh.product': 'agents',
+      'minh.agent-id': 'agt_abc',
+      'minh.org-id': 'org_1',
+      'minh.runtime': 'builtin',
+      'minh.plan': 'starter',
     });
     expect(spec).not.toHaveProperty('HostConfig.PortBindings');
     const pro = buildContainerSpec(
@@ -171,7 +171,7 @@ describe('DockerDriver lifecycle (mocked Engine API)', () => {
     const driver = new DockerDriver({
       client: docker,
       images,
-      network: 'ok-agents',
+      network: 'minh-agents',
       controlPlaneUrl: 'http://cp',
     });
     const status = await driver.deploy({
@@ -182,17 +182,17 @@ describe('DockerDriver lifecycle (mocked Engine API)', () => {
       runtimeToken: 'agrt_x',
     });
     expect(status).toMatchObject({ state: 'running', image: 'ok/agents-runtime:test' });
-    expect(docker.networks.get('ok-agents')).toMatchObject({
+    expect(docker.networks.get('minh-agents')).toMatchObject({
       Driver: 'bridge',
       Internal: false,
       Options: { 'com.docker.network.bridge.enable_icc': 'false' },
     });
     expect(docker.calls).toEqual([
-      'inspectNetwork ok-agents',
-      'createNetwork ok-agents',
+      'inspectNetwork minh-agents',
+      'createNetwork minh-agents',
       'pull ok/agents-runtime:test',
-      'create ok-agent-agt_1',
-      'start ok-agent-agt_1',
+      'create minh-agent-agt_1',
+      'start minh-agent-agt_1',
     ]);
 
     docker.calls = [];
@@ -203,13 +203,17 @@ describe('DockerDriver lifecycle (mocked Engine API)', () => {
       plan: plans.starter,
       runtimeToken: 'agrt_y',
     });
-    expect(docker.calls).toEqual(['remove ok-agent-agt_1', 'create ok-agent-agt_1', 'start ok-agent-agt_1']);
-    expect(docker.containers.get('ok-agent-agt_1')!.spec.Env).toContain('OK_RUNTIME_TOKEN=agrt_y');
+    expect(docker.calls).toEqual([
+      'remove minh-agent-agt_1',
+      'create minh-agent-agt_1',
+      'start minh-agent-agt_1',
+    ]);
+    expect(docker.containers.get('minh-agent-agt_1')!.spec.Env).toContain('MINH_RUNTIME_TOKEN=agrt_y');
 
     expect((await driver.stop('agt_1')).state).toBe('stopped');
     expect((await driver.start('agt_1')).state).toBe('running');
-    docker.containers.get('ok-agent-agt_1')!.status = 'exited';
-    docker.containers.get('ok-agent-agt_1')!.exitCode = 137;
+    docker.containers.get('minh-agent-agt_1')!.status = 'exited';
+    docker.containers.get('minh-agent-agt_1')!.exitCode = 137;
     expect(await driver.status('agt_1')).toMatchObject({ state: 'error', detail: 'exit code 137' });
     expect(await driver.logs('agt_1')).toEqual([
       { at: '2026-10-25T03:00:01.000000000Z', stream: 'stdout', message: 'agent runtime listening' },
@@ -232,7 +236,7 @@ describe('DockerDriver lifecycle (mocked Engine API)', () => {
     const driver = new DockerDriver({
       client: docker,
       images,
-      network: 'ok-agents',
+      network: 'minh-agents',
       controlPlaneUrl: 'http://cp',
     });
     await expect(
@@ -301,7 +305,7 @@ describe('end to end through the docker driver and the builtin runtime server', 
     const driver = new DockerDriver({
       client: docker,
       images,
-      network: 'ok-agents',
+      network: 'minh-agents',
       controlPlaneUrl: 'http://control-plane.test',
       fetch: routed,
     });
@@ -321,14 +325,14 @@ describe('end to end through the docker driver and the builtin runtime server', 
         .split('=')
         .slice(1)
         .join('=');
-    runtimeToken = get('OK_RUNTIME_TOKEN');
+    runtimeToken = get('MINH_RUNTIME_TOKEN');
     expect(env.join('\n')).not.toMatch(/INTERNAL_TOKEN|internal-token/);
     // The container's own process (simulated): the builtin runtime server with only the injected env.
     runtimeApp = createRuntimeApp({
-      agentId: get('OK_AGENT_ID'),
+      agentId: get('MINH_AGENT_ID'),
       runtimeToken,
-      controlPlaneUrl: get('OK_CONTROL_PLANE_URL'),
-      gatewayUrl: get('OK_GATEWAY_URL'),
+      controlPlaneUrl: get('MINH_CONTROL_PLANE_URL'),
+      gatewayUrl: get('MINH_GATEWAY_URL'),
     });
     vi.stubGlobal('fetch', routed); // the runtime's LLM client and tool proxy calls use global fetch
   });

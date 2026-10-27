@@ -263,7 +263,7 @@ describe('installation linking', () => {
     });
     const url = await ctx.runtime.app.request('/v1/installations/install-url', { headers: internal(a.id) });
     expect(await url.json()).toMatchObject({
-      url: expect.stringContaining('https://github.com/apps/ok-review/installations/new?state=v1.'),
+      url: expect.stringContaining('https://github.com/apps/minh-review/installations/new?state=v1.'),
     });
   });
 });

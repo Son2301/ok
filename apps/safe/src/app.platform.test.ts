@@ -1,4 +1,4 @@
-import { MockLlm } from '@ok/llm';
+import { MockLlm } from '@minh/llm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { formatTelegramReply } from './channels/telegram';
 import {

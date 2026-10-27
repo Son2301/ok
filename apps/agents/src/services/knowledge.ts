@@ -1,5 +1,5 @@
-import type { DbHandle } from '@ok/db';
-import { AppError, newId } from '@ok/shared';
+import type { DbHandle } from '@minh/db';
+import { AppError, newId } from '@minh/shared';
 import { and, desc, eq, isNull, or } from 'drizzle-orm';
 import { kbChunks, kbDocuments } from '../db/schema';
 import { chunkText, detectKind, extractText, normalizeVi } from '../lib/text';

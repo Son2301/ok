@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /**
- * okreview CLI — two-pass (Reviewer + Critic) review of local changes.
+ * minh-review CLI — two-pass (Reviewer + Critic) review of local changes.
  *
- *   pnpm --filter @ok/review cli -- --base main [--json] [--fail-on high] [--mock]
+ *   pnpm --filter @minh/review cli -- --base main [--json] [--fail-on high] [--mock]
  *
- * Uses any OpenAI-compatible endpoint: OKREVIEW_BASE_URL, OKREVIEW_API_KEY,
- * OKREVIEW_MODEL / OKREVIEW_CRITIC_MODEL (defaults come from .okreview.yml).
+ * Uses any OpenAI-compatible endpoint: MINH_REVIEW_BASE_URL, MINH_REVIEW_API_KEY,
+ * MINH_REVIEW_MODEL / MINH_REVIEW_CRITIC_MODEL (defaults come from .minh-review.yml).
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { createLlmClient, type LlmClient } from '@ok/llm';
+import { createLlmClient, type LlmClient } from '@minh/llm';
 import {
   CONFIG_FILENAMES,
   LANGUAGES,
@@ -46,24 +46,24 @@ export interface CliArgs {
   help: boolean;
 }
 
-export const USAGE = `okreview — two-pass AI code review of your local changes
+export const USAGE = `minh-review — two-pass AI code review of your local changes
 
-Usage: okreview [--base <ref>] [options]
+Usage: minh-review [--base <ref>] [options]
 
   --base <ref>          Compare <ref>...HEAD (default: main, master or origin/main)
   --head <ref>          Head ref (default: HEAD)
   --diff <file|->       Review a unified diff from a file or stdin instead of git
   --json                Machine-readable output
   --fail-on <severity>  Exit 1 if a finding is at least: critical | high | medium | low | none
-  --model <name>        Reviewer model (env OKREVIEW_MODEL, else .okreview.yml)
-  --critic-model <name> Critic model (env OKREVIEW_CRITIC_MODEL, else .okreview.yml)
+  --model <name>        Reviewer model (env MINH_REVIEW_MODEL, else .minh-review.yml)
+  --critic-model <name> Critic model (env MINH_REVIEW_CRITIC_MODEL, else .minh-review.yml)
   --lang <en|vi>        Output language
-  --config <path>       Config file (default: .okreview.yml at the repo root)
+  --config <path>       Config file (default: .minh-review.yml at the repo root)
   --mock                Offline demo mode: heuristic reviewer/critic, no network
   --no-color / --color  Force colours off/on
   -h, --help            Show this help
 
-Environment: OKREVIEW_BASE_URL (default https://api.openai.com/v1), OKREVIEW_API_KEY.
+Environment: MINH_REVIEW_BASE_URL (default https://api.openai.com/v1), MINH_REVIEW_API_KEY.
 Exit codes: 0 ok, 1 --fail-on threshold met, 2 usage/configuration error.`;
 
 export function parseArgs(argv: string[]): CliArgs {
@@ -195,7 +195,7 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
   try {
     args = parseArgs(argv);
   } catch (err) {
-    io.stderr(`okreview: ${errorMessage(err)}\n\n${USAGE}\n`);
+    io.stderr(`minh-review: ${errorMessage(err)}\n\n${USAGE}\n`);
     return 2;
   }
   if (args.help) {
@@ -219,14 +219,14 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
         (r) => tryGit(cwd, ['rev-parse', '--verify', '--quiet', r]) !== null,
       );
     if (!base) {
-      io.stderr('okreview: could not find a base branch; pass --base <ref>\n');
+      io.stderr('minh-review: could not find a base branch; pass --base <ref>\n');
       return 2;
     }
     range = `${base}...${args.head}`;
     try {
       diffText = git(repoRoot, ['diff', '--no-color', '--no-ext-diff', '-M', range]);
     } catch (err) {
-      io.stderr(`okreview: git diff ${range} failed: ${errorMessage(err).split('\n')[0]}\n`);
+      io.stderr(`minh-review: git diff ${range} failed: ${errorMessage(err).split('\n')[0]}\n`);
       return 2;
     }
   }
@@ -238,14 +238,17 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
   const { config: fileConfig, error: configError } = resolveRepoConfig(
     configPath ? readFileSync(configPath, 'utf8') : null,
   );
-  if (configError) io.stderr(`okreview: ${configPath} is invalid (${configError}); using defaults\n`);
+  if (configError) io.stderr(`minh-review: ${configPath} is invalid (${configError}); using defaults\n`);
   const config: RepoConfig = {
     ...fileConfig,
     language: args.lang ?? fileConfig.language,
     models: {
-      reviewer: args.model ?? io.env.OKREVIEW_MODEL ?? fileConfig.models.reviewer,
+      reviewer: args.model ?? io.env.MINH_REVIEW_MODEL ?? fileConfig.models.reviewer,
       critic:
-        args.criticModel ?? io.env.OKREVIEW_CRITIC_MODEL ?? io.env.OKREVIEW_MODEL ?? fileConfig.models.critic,
+        args.criticModel ??
+        io.env.MINH_REVIEW_CRITIC_MODEL ??
+        io.env.MINH_REVIEW_MODEL ??
+        fileConfig.models.critic,
     },
   };
   const failOn = args.failOn ?? config.failOn;
@@ -254,15 +257,15 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
   let llm = io.llm;
   if (!llm) {
     if (args.mock) llm = createHeuristicMockLlm();
-    else if (io.env.OKREVIEW_API_KEY) {
+    else if (io.env.MINH_REVIEW_API_KEY) {
       llm = createLlmClient({
-        baseUrl: io.env.OKREVIEW_BASE_URL ?? 'https://api.openai.com/v1',
-        apiKey: io.env.OKREVIEW_API_KEY,
+        baseUrl: io.env.MINH_REVIEW_BASE_URL ?? 'https://api.openai.com/v1',
+        apiKey: io.env.MINH_REVIEW_API_KEY,
         timeoutMs: 180_000,
       });
     } else {
       io.stderr(
-        'okreview: set OKREVIEW_API_KEY (plus OKREVIEW_BASE_URL / OKREVIEW_MODEL for non-default endpoints), or run with --mock\n',
+        'minh-review: set MINH_REVIEW_API_KEY (plus MINH_REVIEW_BASE_URL / MINH_REVIEW_MODEL for non-default endpoints), or run with --mock\n',
       );
       return 2;
     }
@@ -315,7 +318,7 @@ export async function runCli(argv: string[], io: CliIo): Promise<number> {
       mode: 'full',
     });
   } catch (err) {
-    io.stderr(`okreview: review failed: ${errorMessage(err)}\n`);
+    io.stderr(`minh-review: review failed: ${errorMessage(err)}\n`);
     return 2;
   }
   for (const p of result.overflow) skipped.push({ path: p, reason: 'budget' });
@@ -417,7 +420,7 @@ function formatHuman(x: {
     low: c.blue,
   };
   const out: string[] = [];
-  out.push(c.bold(`okreview · two-pass review of ${x.range}`));
+  out.push(c.bold(`minh-review · two-pass review of ${x.range}`));
   out.push(
     c.dim(
       `${x.files} files changed · ${x.reviewed} reviewed · ${x.skipped.length} skipped · ${x.result.batches} batch(es)`,
@@ -498,7 +501,7 @@ if (invokedDirectly) {
       process.exitCode = code;
     },
     (err) => {
-      process.stderr.write(`okreview: ${errorMessage(err)}\n`);
+      process.stderr.write(`minh-review: ${errorMessage(err)}\n`);
       process.exitCode = 2;
     },
   );

@@ -1,4 +1,4 @@
-import { createLlmClient, type LlmClient, responseText } from '@ok/llm';
+import { createLlmClient, type LlmClient, responseText } from '@minh/llm';
 import { Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';
 import { z } from 'zod';
@@ -13,7 +13,7 @@ import type { ToolOutcome, TurnEvent, TurnRequest, TurnResult } from './types';
  *
  * - `POST /turn` (signed by the control plane): runs one turn and returns a
  *   TurnResult (JSON, or SSE when `Accept: text/event-stream`).
- * - `builtin` mode runs the shared agent loop; LLM calls go to OK_GATEWAY_URL
+ * - `builtin` mode runs the shared agent loop; LLM calls go to MINH_GATEWAY_URL
  *   (the control plane's per-agent LLM proxy) and tools execute through the
  *   control plane's tool proxy. No credentials other than the runtime token
  *   exist in the container.
@@ -102,7 +102,7 @@ async function runUpstream(opts: RuntimeAppOptions, req: TurnRequest): Promise<T
     headers: {
       'content-type': 'application/json',
       ...(up.apiKey ? { authorization: `Bearer ${up.apiKey}` } : {}),
-      'x-ok-conversation-id': req.conversationId,
+      'x-minh-conversation-id': req.conversationId,
     },
     body: JSON.stringify({
       model: up.model ?? req.model,
@@ -170,7 +170,7 @@ export function createRuntimeApp(opts: RuntimeAppOptions): Hono {
         createLlmClient({
           baseUrl: opts.gatewayUrl,
           apiKey: opts.runtimeToken,
-          headers: { 'x-ok-conversation-id': req.conversationId },
+          headers: { 'x-minh-conversation-id': req.conversationId },
           timeoutMs: req.budget.maxMs,
         });
       const tools = createRemoteToolExecutor({ ...opts, conversationId: req.conversationId });

@@ -1,5 +1,5 @@
 import { createHmac } from 'node:crypto';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import type { AgentRow } from './db/schema';
@@ -137,9 +137,9 @@ describe('send_webhook tool', () => {
     expect(call.opts.maxRedirects).toBe(0);
     const headers = call.opts.headers!;
     const expected = createHmac('sha256', 'whsec-test-123')
-      .update(`${headers['x-ok-timestamp']}.${call.opts.body}`)
+      .update(`${headers['x-minh-timestamp']}.${call.opts.body}`)
       .digest('hex');
-    expect(headers['x-ok-signature']).toBe(`sha256=${expected}`);
+    expect(headers['x-minh-signature']).toBe(`sha256=${expected}`);
     expect(JSON.parse(String(call.opts.body))).toMatchObject({
       event: 'lead.created',
       payload: { name: 'An' },

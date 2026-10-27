@@ -1,9 +1,9 @@
 // biome-ignore-all lint/suspicious/noExplicitAny: end-to-end assertions over untyped JSON response bodies
 import type { AddressInfo } from 'node:net';
 import { serve } from '@hono/node-server';
-import { createDb, type DbHandle } from '@ok/db';
-import { createLlmClient } from '@ok/llm';
-import { newId } from '@ok/shared';
+import { createDb, type DbHandle } from '@minh/db';
+import { createLlmClient } from '@minh/llm';
+import { newId } from '@minh/shared';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { CatalogModel } from './catalog/types';
 import { type NewRequestRow, requests } from './db/schema';
@@ -75,7 +75,9 @@ describe('auth', () => {
   it('rejects missing/invalid keys (401) and keys not scoped to gateway (403)', async () => {
     const { key: safeKey } = await h.account(1_000_000, ['safe']);
     expect((await h.app.request('/v1/chat/completions', { method: 'POST', body: '{}' })).status).toBe(401);
-    expect((await post(h.app, '/v1/chat/completions', 'sk-ok-not-a-real-key', chatBody())).status).toBe(401);
+    expect((await post(h.app, '/v1/chat/completions', 'sk-minh-not-a-real-key', chatBody())).status).toBe(
+      401,
+    );
     expect((await post(h.app, '/v1/chat/completions', 'random-token', chatBody())).status).toBe(401);
     const forbidden = await post(h.app, '/v1/chat/completions', safeKey, chatBody());
     expect(forbidden.status).toBe(403);
@@ -86,12 +88,12 @@ describe('auth', () => {
     expect(up.calls).toHaveLength(0);
   });
 
-  it('accepts the internal token with X-Org-Id and attributes usage to X-OK-Product', async () => {
+  it('accepts the internal token with X-Org-Id and attributes usage to X-Minh-Product', async () => {
     const { orgId, key } = await h.account(1_000_000);
     expect((await post(h.app, '/v1/chat/completions', TEST_INTERNAL_TOKEN, chatBody())).status).toBe(400); // missing X-Org-Id
     const res = await post(h.app, '/v1/chat/completions', TEST_INTERNAL_TOKEN, chatBody(), {
       'x-org-id': orgId,
-      'x-ok-product': 'agents',
+      'x-minh-product': 'agents',
     });
     expect(res.status).toBe(200);
     const id = ((await res.json()) as any).id;
@@ -102,7 +104,7 @@ describe('auth', () => {
 
     // API-key callers cannot re-attribute usage
     const viaKey = (await (
-      await post(h.app, '/v1/chat/completions', key, chatBody(), { 'x-ok-product': 'agents' })
+      await post(h.app, '/v1/chat/completions', key, chatBody(), { 'x-minh-product': 'agents' })
     ).json()) as any;
     expect(((await (await get(h.app, `/v1/generation/${viaKey.id}`, key)).json()) as any).data.product).toBe(
       'gateway',
@@ -409,7 +411,7 @@ describe('GET /v1/providers/health', () => {
   });
 });
 
-describe('platform products calling through @ok/llm over real HTTP', () => {
+describe('platform products calling through @minh/llm over real HTTP', () => {
   it('createLlmClient with the internal token: chat + stream, billed to the calling product', async () => {
     const { orgId } = await h.account(1_000_000);
     up.reset((r, res) =>
@@ -425,7 +427,7 @@ describe('platform products calling through @ok/llm over real HTTP', () => {
       const llm = createLlmClient({
         baseUrl: `http://127.0.0.1:${port}/v1`,
         apiKey: TEST_INTERNAL_TOKEN,
-        headers: { 'x-org-id': orgId, 'x-ok-product': 'safe' },
+        headers: { 'x-org-id': orgId, 'x-minh-product': 'safe' },
       });
       const res = await llm.chat({
         model: 'test/chat',

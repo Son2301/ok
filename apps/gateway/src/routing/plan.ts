@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import type { Catalog } from '../catalog/catalog';
 import type { Endpoint, Model } from '../catalog/types';
 import type { ProviderPrefs } from '../schemas';

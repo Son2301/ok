@@ -1,6 +1,6 @@
-import type { DbHandle } from '@ok/db';
-import { migrate } from '@ok/db';
-import { AppError, newId, type ProductId } from '@ok/shared';
+import type { DbHandle } from '@minh/db';
+import { migrate } from '@minh/db';
+import { AppError, newId, type ProductId } from '@minh/shared';
 import { and, asc, desc, eq, gt, gte, isNull, lt, sql } from 'drizzle-orm';
 import { generateApiKey, generateSessionToken, hashPassword, sha256, verifyPassword } from './crypto';
 import { coreMigrations } from './migrations';

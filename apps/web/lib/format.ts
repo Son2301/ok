@@ -205,7 +205,7 @@ export function formatDayKey(key: string, locale: Locale = 'vi'): string {
   );
 }
 
-/** Mask the middle of a secret-ish identifier: `sk-ok-ab12…` stays as is, account numbers become `0123••••89`. */
+/** Mask the middle of a secret-ish identifier: `sk-minh-ab12…` stays as is, account numbers become `0123••••89`. */
 export function maskMiddle(value: string, keepStart = 4, keepEnd = 2): string {
   if (value.length <= keepStart + keepEnd) return value;
   return `${value.slice(0, keepStart)}${'•'.repeat(Math.min(6, value.length - keepStart - keepEnd))}${value.slice(-keepEnd)}`;

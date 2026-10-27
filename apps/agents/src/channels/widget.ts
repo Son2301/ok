@@ -12,7 +12,7 @@ export const WIDGET_JS = `(function () {
   var token = script.dataset.token;
   var base = new URL(script.src).origin;
   var endpoint = base + '/public/chat/' + encodeURIComponent(token);
-  var sessionKey = 'ok-agents-session-' + token;
+  var sessionKey = 'minh-agents-session-' + token;
   var sessionId;
   try { sessionId = localStorage.getItem(sessionKey); } catch (e) {}
   if (!sessionId) {

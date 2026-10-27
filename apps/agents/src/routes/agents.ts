@@ -1,5 +1,5 @@
-import { type AuthEnv, getAuth } from '@ok/core';
-import { AppError, isAppError, parseJson } from '@ok/shared';
+import { type AuthEnv, getAuth } from '@minh/core';
+import { AppError, isAppError, parseJson } from '@minh/shared';
 import { and, desc, eq } from 'drizzle-orm';
 import { type Context, Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';

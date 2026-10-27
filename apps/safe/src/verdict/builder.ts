@@ -1,4 +1,4 @@
-import { newId } from '@ok/shared';
+import { newId } from '@minh/shared';
 import { combineSignals, type LevelOptions, levelFor } from './scoring';
 import type { CheckKind, Entities, Level, Localized, Signal, SourceStatus, Verdict } from './types';
 

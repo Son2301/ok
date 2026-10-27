@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
-import { type AuthEnv, authMiddleware, type Core, safeEqual } from '@ok/core';
-import type { DbHandle } from '@ok/db';
-import { createLlmClient, type LlmClient } from '@ok/llm';
+import { type AuthEnv, authMiddleware, type Core, safeEqual } from '@minh/core';
+import type { DbHandle } from '@minh/db';
+import { createLlmClient, type LlmClient } from '@minh/llm';
 import {
   AppError,
   createLogger,
@@ -11,7 +11,7 @@ import {
   notFound,
   parseJson,
   requestContext,
-} from '@ok/shared';
+} from '@minh/shared';
 import { eq } from 'drizzle-orm';
 import { type Context, Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
@@ -89,7 +89,7 @@ export function defaultLlmFactory(env: SafeEnv): (orgId: string | null) => LlmCl
     return createLlmClient({
       baseUrl: env.GATEWAY_URL,
       apiKey: env.INTERNAL_TOKEN,
-      headers: { 'x-org-id': orgId, 'x-ok-product': 'safe' },
+      headers: { 'x-org-id': orgId, 'x-minh-product': 'safe' },
       timeoutMs: env.SAFE_LLM_TIMEOUT_MS,
     });
   };

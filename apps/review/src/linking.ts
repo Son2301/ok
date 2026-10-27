@@ -1,5 +1,5 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import type { GitHubApp } from './github/types';
 import type { InstallationRow, Store } from './store';
 

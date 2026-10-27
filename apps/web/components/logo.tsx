@@ -1,19 +1,17 @@
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
+/**
+ * 明 (minh) is written with the sun 日 and the moon 月: "bright, clear". The mark
+ * is a sun and a crescent moon side by side.
+ */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden className={cx('size-7 shrink-0', className)}>
       <rect width="32" height="32" rx="8" className="fill-accent" />
-      <circle cx="13" cy="16" r="6.25" fill="none" strokeWidth="3" className="stroke-accent-fg" />
-      <path
-        d="M21.5 10v12M21.5 16.5l4.5-6.5M22.5 15.5l4 6.5"
-        fill="none"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="stroke-accent-fg"
-      />
+      <circle cx="11" cy="16" r="5" className="fill-accent-fg" />
+      <circle cx="21.5" cy="16" r="6" className="fill-accent-fg" />
+      <circle cx="24.5" cy="13.5" r="5.25" className="fill-accent" />
     </svg>
   );
 }

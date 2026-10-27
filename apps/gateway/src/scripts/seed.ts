@@ -3,11 +3,11 @@
  * on-disk PGlite directory). For `memory://` the server seeds itself on boot
  * instead, since an in-memory database is not shared between processes.
  *
- *   DATABASE_URL=postgres://… pnpm --filter @ok/gateway seed
+ *   DATABASE_URL=postgres://… pnpm --filter @minh/gateway seed
  */
-import { Core } from '@ok/core';
-import { createDb, migrate } from '@ok/db';
-import { loadEnv } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb, migrate } from '@minh/db';
+import { loadEnv } from '@minh/shared';
 import { gatewayMigrations } from '../db/migrations';
 import { seedDevOrg } from '../dev-seed';
 import { envSchema } from '../env';

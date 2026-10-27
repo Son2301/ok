@@ -1,5 +1,5 @@
-import type { Core } from '@ok/core';
-import { usdToMicros } from '@ok/shared';
+import type { Core } from '@minh/core';
+import { usdToMicros } from '@minh/shared';
 
 export interface DevSeed {
   orgId: string;

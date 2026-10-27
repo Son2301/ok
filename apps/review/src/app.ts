@@ -1,4 +1,4 @@
-import { errorHandler, notFound, requestContext } from '@ok/shared';
+import { errorHandler, notFound, requestContext } from '@minh/shared';
 import { Hono } from 'hono';
 import { apiRoutes } from './routes/api';
 import { githubRoutes } from './routes/github';

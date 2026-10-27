@@ -1,4 +1,4 @@
-import { type DbHandle, type Migration, migrate } from '@ok/db';
+import { type DbHandle, type Migration, migrate } from '@minh/db';
 
 /** Hand-written SQL for the `agents` schema. Keep in sync with `schema.ts`. Never edit a shipped migration. */
 export const agentsMigrations: Migration[] = [

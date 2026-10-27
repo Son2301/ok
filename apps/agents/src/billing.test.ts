@@ -1,4 +1,4 @@
-import { type ChatRequest, MockLlm } from '@ok/llm';
+import { type ChatRequest, MockLlm } from '@minh/llm';
 import { afterEach, describe, expect, it } from 'vitest';
 import { buildPlans } from './config';
 import { createTestPlatform, type TestPlatform } from './test/helpers';

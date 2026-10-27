@@ -39,15 +39,15 @@ describe('parseReviewCommand', () => {
     ['/review full', { full: true }],
     ['  /REVIEW  ', { full: false }],
     ['Thanks!\n/review full\nplease', { full: true }],
-    ['@ok-review review', { full: false }],
-    ['@ok-review[bot] review full', { full: true }],
+    ['@minh-review review', { full: false }],
+    ['@minh-review[bot] review full', { full: true }],
     ['/reviewer', null],
     ['please /review', null],
     ['> /review', null],
     ['```\n/review\n```', null],
     ['@someone-else review', null],
   ])('%j → %j', (body, expected) => {
-    expect(parseReviewCommand(body, 'ok-review')).toEqual(expected);
+    expect(parseReviewCommand(body, 'minh-review')).toEqual(expected);
   });
 });
 
@@ -67,7 +67,7 @@ describe('routeEvent', () => {
       const r = routeEvent(
         'pull_request',
         { action, pull_request: pr(), repository, installation },
-        { appSlug: 'ok-review' },
+        { appSlug: 'minh-review' },
       );
       expect(r).toEqual({
         kind: 'review',
@@ -132,7 +132,7 @@ describe('routeEvent', () => {
   });
 
   it('turns /review comments from trusted users into review jobs', () => {
-    expect(routeEvent('issue_comment', comment(), { appSlug: 'ok-review' })).toEqual({
+    expect(routeEvent('issue_comment', comment(), { appSlug: 'minh-review' })).toEqual({
       kind: 'review',
       draft: false,
       job: {
@@ -153,19 +153,19 @@ describe('routeEvent', () => {
       comment({
         author_association: 'CONTRIBUTOR',
         user: { login: 'author', type: 'User' },
-        body: '@ok-review review',
+        body: '@minh-review review',
       }),
       {
-        appSlug: 'ok-review',
+        appSlug: 'minh-review',
       },
     );
     expect(byAuthor).toMatchObject({ kind: 'review', job: { mode: 'auto' } });
   });
 
   it('ignores comments from bots, strangers, non-PR issues, edits and non-commands', () => {
-    const slug = { appSlug: 'ok-review' };
+    const slug = { appSlug: 'minh-review' };
     expect(
-      routeEvent('issue_comment', comment({ user: { login: 'ok-review[bot]', type: 'Bot' } }), slug).kind,
+      routeEvent('issue_comment', comment({ user: { login: 'minh-review[bot]', type: 'Bot' } }), slug).kind,
     ).toBe('ignore');
     expect(
       routeEvent(

@@ -1,5 +1,5 @@
-import type { ChatRequest } from '@ok/llm';
-import { AppError, isAppError, parseJson } from '@ok/shared';
+import type { ChatRequest } from '@minh/llm';
+import { AppError, isAppError, parseJson } from '@minh/shared';
 import { and, eq } from 'drizzle-orm';
 import { type Context, Hono, type MiddlewareHandler } from 'hono';
 import { stream } from 'hono/streaming';
@@ -73,7 +73,7 @@ export function internalRoutes(p: Platform) {
   r.get('/agents/:id/llm/v1/models', (c) =>
     c.json({
       object: 'list',
-      data: [{ id: c.var.agent.model, object: 'model', created: 0, owned_by: 'ok-agents' }],
+      data: [{ id: c.var.agent.model, object: 'model', created: 0, owned_by: 'minh-agents' }],
     }),
   );
 
@@ -82,7 +82,7 @@ export function internalRoutes(p: Platform) {
     assertActive(agent);
     const body = (await parseJson(c, chatCompletionSchema)) as unknown as ChatRequest;
     const conversationId =
-      (await ownConversation(p, agent, c.req.header('x-ok-conversation-id'))) ?? undefined;
+      (await ownConversation(p, agent, c.req.header('x-minh-conversation-id'))) ?? undefined;
     if (body.max_tokens) body.max_tokens = Math.min(body.max_tokens, 16_384);
     if (!body.stream) return c.json(await p.broker.chat(agent.id, body, { conversationId }));
 
@@ -117,7 +117,7 @@ export function mcpRoutes(p: Platform) {
   r.post('/:agentId', async (c: Context<RuntimeEnv>) => {
     const agent = c.var.agent;
     assertActive(agent);
-    const conversationId = await ownConversation(p, agent, c.req.header('x-ok-conversation-id'));
+    const conversationId = await ownConversation(p, agent, c.req.header('x-minh-conversation-id'));
     return handleMcpRequest(c.req.raw, agent, p.tools, { conversationId });
   });
   r.on(['GET', 'DELETE'], '/:agentId', (c) => {

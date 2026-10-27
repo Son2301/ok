@@ -51,7 +51,7 @@ export const apiKeys = core.table(
       .notNull()
       .references(() => orgs.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
-    /** First characters of the key, safe to display (e.g. `sk-ok-ab12…`). */
+    /** First characters of the key, safe to display (e.g. `sk-minh-ab12…`). */
     prefix: text('prefix').notNull(),
     hash: text('hash').notNull().unique(),
     /** Products this key may call; `*` means all. */
@@ -104,7 +104,7 @@ export const topups = core.table(
     orgId: text('org_id')
       .notNull()
       .references(() => orgs.id, { onDelete: 'cascade' }),
-    /** Short code the customer puts in the bank-transfer description, e.g. `OKA7F3K2QX`. */
+    /** Short code the customer puts in the bank-transfer description, e.g. `MINHA7F3K2QX`. */
     code: text('code').notNull().unique(),
     amountVnd: bigint('amount_vnd', { mode: 'number' }).notNull(),
     /** Exchange rate locked when the QR was shown, so the customer gets exactly what they saw. */

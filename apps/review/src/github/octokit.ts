@@ -57,7 +57,7 @@ function toText(data: unknown): string {
 export function createGitHubApp(opts: GitHubAppOptions): GitHubApp {
   const privateKey = normalizePrivateKey(opts.privateKey);
   const request = opts.fetch ? { fetch: opts.fetch } : undefined;
-  const common = { baseUrl: opts.baseUrl, request, userAgent: opts.userAgent ?? 'ok-review' };
+  const common = { baseUrl: opts.baseUrl, request, userAgent: opts.userAgent ?? 'minh-review' };
   const appOctokit = new Octokit({
     ...common,
     authStrategy: createAppAuth,

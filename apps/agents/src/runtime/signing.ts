@@ -10,8 +10,8 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
  * call the tool proxy (that needs the plaintext token), and runtimes reject
  * requests that are unsigned, stale (> 5 min) or tampered with.
  */
-export const SIGNATURE_HEADER = 'x-ok-signature';
-export const TIMESTAMP_HEADER = 'x-ok-timestamp';
+export const SIGNATURE_HEADER = 'x-minh-signature';
+export const TIMESTAMP_HEADER = 'x-minh-timestamp';
 export const MAX_SKEW_MS = 5 * 60_000;
 
 export const tokenHash = (token: string) => createHash('sha256').update(token).digest('hex');

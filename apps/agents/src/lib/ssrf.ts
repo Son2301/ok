@@ -2,7 +2,7 @@ import { promises as dns } from 'node:dns';
 import http from 'node:http';
 import https from 'node:https';
 import { BlockList, isIP } from 'node:net';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 
 /**
  * SSRF-safe outbound HTTP for tools whose target URL is influenced by the
@@ -237,7 +237,7 @@ function requestOnce(
   for (const [k, v] of Object.entries(opts.headers ?? {}))
     if (!STRIP_HEADERS.has(k.toLowerCase())) headers[k] = v;
   if (!Object.keys(headers).some((k) => k.toLowerCase() === 'user-agent'))
-    headers['user-agent'] = 'ok-agents/1.0';
+    headers['user-agent'] = 'minh-agents/1.0';
   if (opts.body !== undefined) headers['content-length'] = String(Buffer.byteLength(opts.body));
 
   // Pin the connection to the validated address (handles Node's `all: true` lookups too).

@@ -1,22 +1,22 @@
 #!/bin/sh
 # UNVERIFIED TEMPLATE — renders OpenClaw's config from the four variables the
-# control plane injects, starts OpenClaw on loopback, then runs the OK runtime
+# control plane injects, starts OpenClaw on loopback, then runs the Minh runtime
 # shim (upstream mode) as the container's front door on :8080.
 set -eu
 
-: "${OK_AGENT_ID:?}" "${OK_RUNTIME_TOKEN:?}" "${OK_CONTROL_PLANE_URL:?}" "${OK_GATEWAY_URL:?}"
+: "${MINH_AGENT_ID:?}" "${MINH_RUNTIME_TOKEN:?}" "${MINH_CONTROL_PLANE_URL:?}" "${MINH_GATEWAY_URL:?}"
 
 # Per-container secret between the shim and OpenClaw's local gateway (never leaves the container).
-OK_UPSTREAM_API_KEY="$(head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n')"
-export OK_UPSTREAM_API_KEY
+MINH_UPSTREAM_API_KEY="$(head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n')"
+export MINH_UPSTREAM_API_KEY
 
 mkdir -p "$HOME/.openclaw"
 sed \
-  -e "s|__OK_GATEWAY_URL__|${OK_GATEWAY_URL}|g" \
-  -e "s|__OK_RUNTIME_TOKEN__|${OK_RUNTIME_TOKEN}|g" \
-  -e "s|__OK_MCP_URL__|${OK_CONTROL_PLANE_URL}/mcp/${OK_AGENT_ID}|g" \
-  -e "s|__OK_UPSTREAM_API_KEY__|${OK_UPSTREAM_API_KEY}|g" \
-  /opt/ok/openclaw.json.template > "$HOME/.openclaw/openclaw.json"
+  -e "s|__OK_GATEWAY_URL__|${MINH_GATEWAY_URL}|g" \
+  -e "s|__OK_RUNTIME_TOKEN__|${MINH_RUNTIME_TOKEN}|g" \
+  -e "s|__OK_MCP_URL__|${MINH_CONTROL_PLANE_URL}/mcp/${MINH_AGENT_ID}|g" \
+  -e "s|__OK_UPSTREAM_API_KEY__|${MINH_UPSTREAM_API_KEY}|g" \
+  /opt/minh/openclaw.json.template > "$HOME/.openclaw/openclaw.json"
 chmod 600 "$HOME/.openclaw/openclaw.json"
 
 openclaw gateway --bind loopback --port 18789 &
@@ -29,4 +29,4 @@ for _ in $(seq 1 60); do
   sleep 1
 done
 
-exec node /opt/ok/runtime.js
+exec node /opt/minh/runtime.js

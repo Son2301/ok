@@ -1,5 +1,5 @@
-import { type ChatRequest, MockLlm } from '@ok/llm';
-import { AppError } from '@ok/shared';
+import { type ChatRequest, MockLlm } from '@minh/llm';
+import { AppError } from '@minh/shared';
 import { afterEach, describe, expect, it } from 'vitest';
 import { createHeuristicMockLlm } from './mock-llm';
 import { REVIEWER_MARKER } from './prompts/reviewer';
@@ -138,7 +138,7 @@ describe('ReviewService — full review', () => {
     expect(await ctx.runtime.service.run(job({ trigger: 'command' }))).toMatchObject({ status: 'completed' });
 
     setupHeadA(ctx.github, 2, { draft: true });
-    ctx.github.setFile(REPO, 'shaA', '.okreview.yml', 'reviewDrafts: true\n');
+    ctx.github.setFile(REPO, 'shaA', '.minh-review.yml', 'reviewDrafts: true\n');
     expect(await ctx.runtime.service.run(job({ number: 2 }))).toMatchObject({ status: 'completed' });
   });
 
@@ -151,15 +151,15 @@ describe('ReviewService — full review', () => {
     expect(ctx.github.reviews).toHaveLength(1);
   });
 
-  it('comments once about an invalid .okreview.yml and reviews with defaults', async () => {
+  it('comments once about an invalid .minh-review.yml and reviews with defaults', async () => {
     ctx = await createTestContext();
     await seedInstallation(ctx);
     setupHeadA(ctx.github);
-    ctx.github.setFile(REPO, 'shaA', '.okreview.yml', 'maxComments: lots\n');
+    ctx.github.setFile(REPO, 'shaA', '.minh-review.yml', 'maxComments: lots\n');
     await ctx.runtime.service.run(job());
     expect(ctx.github.issueComments).toHaveLength(1);
-    expect(ctx.github.issueComments[0]!.body).toContain('`.okreview.yml` is invalid — maxComments');
-    expect(ctx.github.reviews[0]!.input.body).toContain('`.okreview.yml` is invalid');
+    expect(ctx.github.issueComments[0]!.body).toContain('`.minh-review.yml` is invalid — maxComments');
+    expect(ctx.github.reviews[0]!.input.body).toContain('`.minh-review.yml` is invalid');
     await ctx.runtime.service.run(job({ trigger: 'command', mode: 'full' }));
     expect(ctx.github.issueComments).toHaveLength(1);
   });
@@ -168,8 +168,8 @@ describe('ReviewService — full review', () => {
     ctx = await createTestContext();
     await seedInstallation(ctx);
     setupHeadA(ctx.github, 1, { headRepoFullName: 'mallory/api' });
-    ctx.github.setFile(REPO, 'shaA', '.okreview.yml', 'models:\n  reviewer: very-expensive-model\n');
-    ctx.github.setFile(REPO, 'base000', '.okreview.yml', 'models:\n  reviewer: house-model\n');
+    ctx.github.setFile(REPO, 'shaA', '.minh-review.yml', 'models:\n  reviewer: very-expensive-model\n');
+    ctx.github.setFile(REPO, 'base000', '.minh-review.yml', 'models:\n  reviewer: house-model\n');
     const llm = createHeuristicMockLlm();
     ctx.setLlm(llm);
     await ctx.runtime.service.run(job());

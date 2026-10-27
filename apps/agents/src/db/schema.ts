@@ -1,4 +1,4 @@
-import type { ToolCall } from '@ok/llm';
+import type { ToolCall } from '@minh/llm';
 import { sql } from 'drizzle-orm';
 import {
   bigint,

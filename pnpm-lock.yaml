@@ -35,21 +35,21 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.5
         version: 2.1.5(hono@4.13.14)
+      '@minh/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@minh/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@minh/llm':
+        specifier: workspace:*
+        version: link:../../packages/llm
+      '@minh/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@modelcontextprotocol/sdk':
         specifier: ^1.32.2
         version: 1.32.2(zod@4.6.7)
-      '@ok/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@ok/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@ok/llm':
-        specifier: workspace:*
-        version: link:../../packages/llm
-      '@ok/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       drizzle-orm:
         specifier: ^0.45.4
         version: 0.45.4(@electric-sql/pglite@0.5.11)(@types/pg@8.23.1)(pg@8.23.1)
@@ -71,16 +71,16 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.5
         version: 2.1.5(hono@4.13.14)
-      '@ok/core':
+      '@minh/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ok/db':
+      '@minh/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@ok/llm':
+      '@minh/llm':
         specifier: workspace:*
         version: link:../../packages/llm
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       drizzle-orm:
@@ -104,24 +104,24 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.5
         version: 2.1.5(hono@4.13.14)
+      '@minh/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@minh/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@minh/llm':
+        specifier: workspace:*
+        version: link:../../packages/llm
+      '@minh/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@octokit/auth-app':
         specifier: ^8.3.1
         version: 8.3.1
       '@octokit/rest':
         specifier: ^22.0.1
         version: 22.0.1
-      '@ok/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@ok/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@ok/llm':
-        specifier: workspace:*
-        version: link:../../packages/llm
-      '@ok/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       drizzle-orm:
         specifier: ^0.45.4
         version: 0.45.4(@electric-sql/pglite@0.5.11)(@types/pg@8.23.1)(pg@8.23.1)
@@ -146,16 +146,16 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.5
         version: 2.1.5(hono@4.13.14)
-      '@ok/core':
+      '@minh/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ok/db':
+      '@minh/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@ok/llm':
+      '@minh/llm':
         specifier: workspace:*
         version: link:../../packages/llm
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       drizzle-orm:
@@ -182,13 +182,13 @@ importers:
       '@fontsource/be-vietnam-pro':
         specifier: ^5.3.0
         version: 5.3.0
-      '@ok/core':
+      '@minh/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ok/db':
+      '@minh/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       drizzle-orm:
@@ -237,10 +237,10 @@ importers:
 
   packages/core:
     dependencies:
-      '@ok/db':
+      '@minh/db':
         specifier: workspace:*
         version: link:../db
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../shared
       drizzle-orm:
@@ -271,7 +271,7 @@ importers:
 
   packages/llm:
     dependencies:
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../shared
       zod:
@@ -289,16 +289,16 @@ importers:
 
   scripts:
     dependencies:
-      '@ok/core':
+      '@minh/core':
         specifier: workspace:*
         version: link:../packages/core
-      '@ok/db':
+      '@minh/db':
         specifier: workspace:*
         version: link:../packages/db
-      '@ok/llm':
+      '@minh/llm':
         specifier: workspace:*
         version: link:../packages/llm
-      '@ok/shared':
+      '@minh/shared':
         specifier: workspace:*
         version: link:../packages/shared
       drizzle-orm:

@@ -1,6 +1,6 @@
 # Safe: scam, phishing and AI-fake checker
 
-`@ok/safe` (port **4200**) checks links, messages (SMS / Zalo / Messenger / email), phone numbers,
+`@minh/safe` (port **4200**) checks links, messages (SMS / Zalo / Messenger / email), phone numbers,
 bank accounts, email addresses, images, videos, audio and "AI-written" text for Vietnamese users.
 Free for consumers (anonymous, per-IP daily quota); businesses pay per check with an API key from
 the shared wallet.
@@ -145,7 +145,7 @@ envelope `{ "error": { "code", "message", "details"? } }`; consumer-facing error
 Authentication (optional on `/v1/*`):
 
 - none → anonymous free tier (per-IP daily quota);
-- `Authorization: Bearer sk-ok-…` → API key (scope `safe` or `*`), charged per check;
+- `Authorization: Bearer sk-minh-…` → API key (scope `safe` or `*`), charged per check;
 - `Authorization: Bearer $INTERNAL_TOKEN` + `X-Org-Id: org_…` (+ optional `X-User-Id`) → web
   console (signed-in user), free with a per-org quota, history enabled.
 
@@ -386,7 +386,7 @@ providers are implemented against public docs and fixture-tested only (`verified
 | Vietnamese rule engine, entity extraction, phone parsing        | ✅ verified                | 28 scam + 16 benign samples                                                                                            |
 | Scoring, verdict schema, wording policy                         | ✅ verified                |                                                                                                                        |
 | Community reports, moderation, votes, stats, cache invalidation | ✅ verified                | PGlite                                                                                                                 |
-| Free tier limits, per-check billing via `core.debit`, refunds   | ✅ verified                | PGlite + `@ok/core`                                                                                                    |
+| Free tier limits, per-check billing via `core.debit`, refunds   | ✅ verified                | PGlite + `@minh/core`                                                                                                    |
 | LLM analysis / AI-text judge                                    | ✅ verified with `MockLlm` | gateway model output quality not evaluated                                                                             |
 | EXIF / XMP / IPTC / PNG chunks / ID3 / MP4 atoms                | ✅ verified                | synthetic fixtures generated in tests                                                                                  |
 | C2PA manifest parsing                                           | ⚠️ partially               | parses synthetic JUMBF/CBOR; real-world manifests (Adobe, OpenAI, Google) not yet tested; signatures **not** validated |
@@ -434,10 +434,10 @@ providers are implemented against public docs and fixture-tested only (`verified
 ## Development
 
 ```bash
-pnpm --filter @ok/safe dev          # tsx watch, port 4200, in-memory PGlite
-pnpm --filter @ok/safe test         # offline: PGlite, MockLlm, fake DNS/transport, strict fetch mock
-pnpm --filter @ok/safe typecheck
-pnpm --filter @ok/safe build        # dist/index.js (workspace packages bundled)
+pnpm --filter @minh/safe dev          # tsx watch, port 4200, in-memory PGlite
+pnpm --filter @minh/safe test         # offline: PGlite, MockLlm, fake DNS/transport, strict fetch mock
+pnpm --filter @minh/safe typecheck
+pnpm --filter @minh/safe build        # dist/index.js (workspace packages bundled)
 DATABASE_URL=memory:// PORT=4997 node apps/safe/dist/index.js
 ```
 
@@ -459,5 +459,5 @@ heuristics, page analysis), `src/rules/*` (Vietnamese scam patterns), `src/text/
   Legitimate businesses whose domain contains a protected brand word but are not listed (some
   subsidiaries, resellers) are rated "medium" (a bare brand word on `.vn` weighs 10 points less
   than on cheap TLDs, because `.vn` registration requires identity documents).
-- The in-memory API-key rate limiter in `@ok/core` is per replica.
+- The in-memory API-key rate limiter in `@minh/core` is per replica.
 - Province names for landline area codes are the pre-July-2025 names.

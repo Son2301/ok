@@ -389,7 +389,7 @@ export const en: Dict = {
     activityTitle: 'Recent activity',
     activityEmpty: 'No transactions yet. Top-ups and product usage will appear here, one line each.',
     curlTitle: 'Make your first API call',
-    curlBody: 'Create an API key and paste it in place of sk-ok-… below.',
+    curlBody: 'Create an API key and paste it in place of sk-minh-… below.',
   },
   ledger: {
     kind: {
@@ -693,14 +693,14 @@ export const en: Dict = {
     skippedFiles: 'Skipped files',
     warnings: 'Warnings',
     error: 'Error',
-    configError: '.okreview.yml configuration error',
+    configError: '.minh-review.yml configuration error',
     rerun: 'Run review again',
     rerunFull: 'Full re-review',
     rerunQueued: 'Re-review queued.',
     billedPlatform: 'Free review',
     settingsTitle: 'Settings for {repo}',
     settingsBody:
-      'Overrides .okreview.yml in the repository. Leave a field empty to use the file or the default.',
+      'Overrides .minh-review.yml in the repository. Leave a field empty to use the file or the default.',
     fieldLanguage: 'Comment language',
     fieldThreshold: 'Post findings from',
     fieldMaxComments: 'Max comments per review',

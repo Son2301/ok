@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { AppError, MICRO, newId } from '@ok/shared';
+import { AppError, MICRO, newId } from '@minh/shared';
 import { and, desc, eq } from 'drizzle-orm';
 import type { Core } from './core';
 import { bankTransfers, billingProfiles, topups } from './schema';
@@ -43,7 +43,7 @@ export type WebhookOutcome =
   | { status: 'credited'; topupId: string; orgId: string; creditedMicros: number }
   | { status: 'unmatched' | 'ignored'; reason: string };
 
-const CODE_PREFIX = 'OK';
+const CODE_PREFIX = 'MINH';
 const CODE_RE = new RegExp(`${CODE_PREFIX}[A-Z0-9]{8}`, 'i');
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O/1/I: people retype these by hand
 

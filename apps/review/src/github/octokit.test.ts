@@ -115,7 +115,7 @@ describe('GitHub App adapter (Octokit, offline)', () => {
       appId: 12345,
       privateKey: privateKey.replace(/\n/g, '\\n'),
       fetch: f.fetch,
-      slug: 'ok-review',
+      slug: 'minh-review',
     });
     const gh = app.installation(7);
 
@@ -161,7 +161,7 @@ describe('GitHub App adapter (Octokit, offline)', () => {
       event: 'COMMENT',
       comments: [{ path: 'a.ts', line: 5, side: 'RIGHT', start_line: 3, start_side: 'RIGHT', body: 'x' }],
     });
-    expect(await gh.getFileContent('acme', 'api', '.okreview.yml', 'h1')).toBeNull();
+    expect(await gh.getFileContent('acme', 'api', '.minh-review.yml', 'h1')).toBeNull();
     expect(await gh.compareCommits('acme', 'api', 'gone', 'h1')).toBeNull();
   });
 

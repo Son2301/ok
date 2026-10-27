@@ -1,4 +1,4 @@
-import { baseEnvSchema } from '@ok/shared';
+import { baseEnvSchema } from '@minh/shared';
 import { z } from 'zod';
 
 const optional = z.string().trim().min(1).optional();

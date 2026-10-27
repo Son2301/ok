@@ -52,7 +52,7 @@ export const repos = review.table(
   (t) => [index('repos_installation_idx').on(t.installationId)],
 );
 
-/** Console overrides of `.okreview.yml` (partial config, merged on top of the repo file). */
+/** Console overrides of `.minh-review.yml` (partial config, merged on top of the repo file). */
 export const repoSettings = review.table('repo_settings', {
   repoId: id64('repo_id')
     .primaryKey()

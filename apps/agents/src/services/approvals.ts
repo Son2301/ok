@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, newId } from '@minh/shared';
 import { and, desc, eq, inArray, isNull, type SQL } from 'drizzle-orm';
 import { type ApprovalRow, type ApprovalStatus, agents, approvals, messages } from '../db/schema';
 import { truncate } from '../lib/text';

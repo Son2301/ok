@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, newId } from '@minh/shared';
 import { and, desc, eq, isNull } from 'drizzle-orm';
 import { runtimeTokens } from '../db/schema';
 import { generateToken, sha256Hex } from '../lib/crypto';

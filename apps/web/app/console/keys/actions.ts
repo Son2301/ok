@@ -1,6 +1,6 @@
 'use server';
 
-import { PRODUCT_IDS, type ProductId } from '@ok/shared';
+import { PRODUCT_IDS, type ProductId } from '@minh/shared';
 import { revalidatePath } from 'next/cache';
 import { env } from '@/lib/env';
 import { appErrorCode } from '@/lib/errors';

@@ -1,4 +1,4 @@
-import { microsToUsd } from '@ok/shared';
+import { microsToUsd } from '@minh/shared';
 import type { Catalog } from './catalog/catalog';
 import type { Capabilities, Endpoint, Model } from './catalog/types';
 import type { RequestRow } from './db/schema';

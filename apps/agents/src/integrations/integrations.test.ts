@@ -1,5 +1,5 @@
 import { createHmac } from 'node:crypto';
-import { createLogger } from '@ok/shared';
+import { createLogger } from '@minh/shared';
 import { beforeEach, describe, expect, it } from 'vitest';
 import type { AgentRow } from '../db/schema';
 import { fakeFetch, jsonResponse } from '../test/helpers';

@@ -1,5 +1,5 @@
-import { type AuthContext, type AuthEnv, getAuth } from '@ok/core';
-import { AppError, parseJson } from '@ok/shared';
+import { type AuthContext, type AuthEnv, getAuth } from '@minh/core';
+import { AppError, parseJson } from '@minh/shared';
 import { Hono } from 'hono';
 import type { PlanId } from '../config';
 import type { ApprovalStatus, ReportKind, TaskStatus } from '../db/schema';

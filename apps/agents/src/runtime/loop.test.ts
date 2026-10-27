@@ -1,5 +1,5 @@
-import type { ChatChunk, ChatRequest, LlmClient } from '@ok/llm';
-import { MockLlm } from '@ok/llm';
+import type { ChatChunk, ChatRequest, LlmClient } from '@minh/llm';
+import { MockLlm } from '@minh/llm';
 import { describe, expect, it } from 'vitest';
 import { type LoopToolExecutor, runAgentLoop } from './loop';
 import type { ToolOutcome, TurnEvent, TurnRequest } from './types';

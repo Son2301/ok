@@ -25,7 +25,7 @@ export interface PostedReview {
 
 /** In-memory GitHub used by tests: no network, records every write. */
 export class FakeGitHub implements GitHubApp {
-  readonly slug = 'ok-review';
+  readonly slug = 'minh-review';
   readonly prs = new Map<string, FakePr>();
   readonly files = new Map<string, string>();
   readonly compares = new Map<string, CompareResult>();
@@ -125,7 +125,7 @@ export class FakeGitHub implements GitHubApp {
             line: c.line,
             body: c.body,
             inReplyToId: null,
-            authorLogin: 'ok-review[bot]',
+            authorLogin: 'minh-review[bot]',
             authorAssociation: 'NONE',
             authorType: 'Bot',
             thumbsDown: 0,

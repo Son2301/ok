@@ -1,4 +1,4 @@
-import { AppError, fetchWithTimeout } from '@ok/shared';
+import { AppError, fetchWithTimeout } from '@minh/shared';
 import type { ChatChunk, ChatRequest, ChatResponse } from './types';
 
 export interface LlmClient {

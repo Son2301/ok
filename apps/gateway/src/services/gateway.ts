@@ -1,5 +1,5 @@
-import type { Core } from '@ok/core';
-import { AppError, type Logger, newId, type ProductId } from '@ok/shared';
+import type { Core } from '@minh/core';
+import { AppError, type Logger, newId, type ProductId } from '@minh/shared';
 import type { Catalog } from '../catalog/catalog';
 import type { AttemptLog, NewRequestRow } from '../db/schema';
 import { ProviderError, toProviderError } from '../providers/errors';

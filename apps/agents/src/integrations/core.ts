@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { z } from 'zod';
 import { hmacSha256Hex } from '../lib/crypto';
 import { truncate } from '../lib/text';
@@ -222,11 +222,11 @@ export const webhookIntegration = defineIntegration({
         });
         const headers: Record<string, string> = {
           'content-type': 'application/json',
-          'x-ok-event': args.event,
-          'x-ok-timestamp': timestamp,
+          'x-minh-event': args.event,
+          'x-minh-timestamp': timestamp,
         };
         if (ctx.credentials.signingSecret)
-          headers['x-ok-signature'] = signWebhook(ctx.credentials.signingSecret, timestamp, body);
+          headers['x-minh-signature'] = signWebhook(ctx.credentials.signingSecret, timestamp, body);
         const res = await ctx.services.safeFetch(config.data.url, {
           method: 'POST',
           headers,

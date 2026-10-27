@@ -1,8 +1,8 @@
 import { serve } from '@hono/node-server';
-import { Core } from '@ok/core';
-import { createDb } from '@ok/db';
-import { createLlmClient } from '@ok/llm';
-import { createLogger, loadEnv } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb } from '@minh/db';
+import { createLlmClient } from '@minh/llm';
+import { createLogger, loadEnv } from '@minh/shared';
 import { envSchema, githubConfigured } from './env';
 import { createGitHubApp } from './github/octokit';
 import { createRuntime } from './runtime';
@@ -38,7 +38,7 @@ const runtime = createRuntime({
     createLlmClient({
       baseUrl: env.GATEWAY_URL,
       apiKey: env.INTERNAL_TOKEN,
-      headers: { 'x-org-id': orgId, 'x-ok-product': 'review' },
+      headers: { 'x-org-id': orgId, 'x-minh-product': 'review' },
     }),
   consoleUrl: env.CONSOLE_URL,
   billing: {

@@ -1,6 +1,6 @@
 /**
  * Platform `AppError` code of a thrown error, or null. Duck-typed rather than
- * `instanceof`, because bundlers may load @ok/shared more than once.
+ * `instanceof`, because bundlers may load @minh/shared more than once.
  */
 export function appErrorCode(err: unknown): string | null {
   if (err && typeof err === 'object' && (err as { name?: string }).name === 'AppError') {

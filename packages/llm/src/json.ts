@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { z } from 'zod';
 import { type LlmClient, responseText } from './client';
 import type { ChatMessage, ChatRequest, Usage } from './types';

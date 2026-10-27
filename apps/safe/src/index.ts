@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
-import { Core } from '@ok/core';
-import { createDb, migrate } from '@ok/db';
-import { createLogger, loadEnv } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb, migrate } from '@minh/db';
+import { createLogger, loadEnv } from '@minh/shared';
 import { createApp, createSafeContext } from './app';
 import { safeMigrations } from './db/migrations';
 import { safeEnvSchema } from './env';

@@ -1,7 +1,7 @@
-import { Core } from '@ok/core';
-import { createDb, type DbHandle } from '@ok/db';
-import type { LlmClient } from '@ok/llm';
-import { createLogger } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb, type DbHandle } from '@minh/db';
+import type { LlmClient } from '@minh/llm';
+import { createLogger } from '@minh/shared';
 import { createHeuristicMockLlm } from '../mock-llm';
 import { createRuntime, type Runtime } from '../runtime';
 import { FakeGitHub } from './fake-github';
@@ -42,7 +42,7 @@ async function freshDb() {
     const core = new Core(handle);
     await core.migrate();
     const { reviewMigrations } = await import('../db/migrations');
-    const { migrate } = await import('@ok/db');
+    const { migrate } = await import('@minh/db');
     await migrate(handle, 'review', reviewMigrations);
     const rows = await handle.query<{ t: string }>(
       `SELECT table_schema || '.' || table_name AS t FROM information_schema.tables

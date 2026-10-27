@@ -1,5 +1,5 @@
 {
-  "name": "@ok/core",
+  "name": "@minh/core",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,8 +11,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ok/db": "workspace:*",
-    "@ok/shared": "workspace:*",
+    "@minh/db": "workspace:*",
+    "@minh/shared": "workspace:*",
     "drizzle-orm": "^0.45.4",
     "hono": "^4.13.0",
     "zod": "^4.6.0"

@@ -1,4 +1,4 @@
-import { baseEnvSchema } from '@ok/shared';
+import { baseEnvSchema } from '@minh/shared';
 import { z } from 'zod';
 
 /** Env booleans: only "true"/"1" are true. (z.coerce.boolean would treat "false" as true.) */

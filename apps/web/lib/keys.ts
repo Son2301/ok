@@ -1,5 +1,5 @@
 import 'server-only';
-import { isAppError } from '@ok/shared';
+import { isAppError } from '@minh/shared';
 import { platform } from './platform';
 
 /** Change (or remove) a key's spending cap. Returns false if the key is unknown or revoked. */

@@ -1,4 +1,4 @@
-import { createDb } from '@ok/db';
+import { createDb } from '@minh/db';
 import { describe, expect, it } from 'vitest';
 import { migrateAgents } from './migrations';
 

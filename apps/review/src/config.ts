@@ -20,7 +20,7 @@ export type Category = (typeof CATEGORIES)[number];
 export const LANGUAGES = ['en', 'vi'] as const;
 export type Language = (typeof LANGUAGES)[number];
 
-export const CONFIG_FILENAMES = ['.okreview.yml', '.okreview.yaml'] as const;
+export const CONFIG_FILENAMES = ['.minh-review.yml', '.minh-review.yaml'] as const;
 const MAX_CONFIG_BYTES = 64 * 1024;
 
 const globList = z.array(z.string().min(1).max(300)).max(200);
@@ -32,7 +32,7 @@ const modelName = z
   .regex(/^[\w.:/@+-]+$/, 'model names may only contain letters, digits and . : / @ + - _');
 
 /**
- * `.okreview.yml` schema. Every key is optional; unknown keys are rejected so a
+ * `.minh-review.yml` schema. Every key is optional; unknown keys are rejected so a
  * typo (`severityTreshold`) is reported instead of silently ignored.
  */
 export const repoConfigSchema = z.strictObject({
@@ -87,7 +87,7 @@ export function formatZodIssues(err: z.ZodError, max = 5): string {
     .join('; ');
 }
 
-/** Parse `.okreview.yml` text into a raw object. Errors are human-readable. */
+/** Parse `.minh-review.yml` text into a raw object. Errors are human-readable. */
 export function parseConfigText(text: string): { raw: Record<string, unknown>; error?: string } {
   if (Buffer.byteLength(text, 'utf8') > MAX_CONFIG_BYTES)
     return { raw: {}, error: `config file is larger than ${MAX_CONFIG_BYTES / 1024} KB` };
@@ -126,14 +126,14 @@ export function mergeConfig(
 
 export interface ResolvedConfig {
   config: RepoConfig;
-  /** Set when `.okreview.yml` was present but invalid (defaults were used for it). */
+  /** Set when `.minh-review.yml` was present but invalid (defaults were used for it). */
   error?: string;
   /** Where values came from, for the summary. */
   sources: ('defaults' | 'repo-file' | 'console')[];
 }
 
 /**
- * Effective config = defaults ← `.okreview.yml` ← console override (stored in DB).
+ * Effective config = defaults ← `.minh-review.yml` ← console override (stored in DB).
  * An invalid file is ignored (with `error` set) so the review still runs on defaults.
  */
 export function resolveRepoConfig(

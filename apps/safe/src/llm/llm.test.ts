@@ -1,4 +1,4 @@
-import { MockLlm } from '@ok/llm';
+import { MockLlm } from '@minh/llm';
 import { describe, expect, it } from 'vitest';
 import { judgeAiText, styleFeatures, styleSignals } from '../aitext/ai-text';
 import { scamReply } from '../test/helpers';

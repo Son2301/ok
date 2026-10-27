@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError, formatUsd, type Logger, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, formatUsd, type Logger, newId } from '@minh/shared';
 import { and, asc, eq, inArray } from 'drizzle-orm';
 import type { AgentsConfig, PlanId, RuntimeId } from '../config';
 import {

@@ -1,5 +1,5 @@
-import { type ChatRequest, MockLlm } from '@ok/llm';
-import { AppError } from '@ok/shared';
+import { type ChatRequest, MockLlm } from '@minh/llm';
+import { AppError } from '@minh/shared';
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_CONFIG, type RepoConfig } from '../config';
 import { parseUnifiedDiff } from '../diff/parse';

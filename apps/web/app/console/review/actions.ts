@@ -31,7 +31,7 @@ export interface SettingsState {
 
 const SEVERITIES: Severity[] = ['low', 'medium', 'high', 'critical'];
 
-/** Build a partial `.okreview.yml` override: empty fields mean "use the file / default". */
+/** Build a partial `.minh-review.yml` override: empty fields mean "use the file / default". */
 export async function saveRepoSettingsAction(_prev: SettingsState, form: FormData): Promise<SettingsState> {
   const session = await requireSession();
   const { t } = await getI18n();

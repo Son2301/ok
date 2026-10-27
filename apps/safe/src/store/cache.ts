@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { Db } from '@ok/db';
+import type { Db } from '@minh/db';
 import { and, eq, gt, lt } from 'drizzle-orm';
 import { verdictCache } from '../db/schema';
 import type { CheckKind, Level, Verdict } from '../verdict/types';

@@ -1,5 +1,5 @@
-import type { AuthContext } from '@ok/core';
-import { PRODUCT_IDS, type ProductId, tokenCostMicros } from '@ok/shared';
+import type { AuthContext } from '@minh/core';
+import { PRODUCT_IDS, type ProductId, tokenCostMicros } from '@minh/shared';
 import type { Endpoint } from '../catalog/types';
 import type { UpstreamUsage } from '../schemas';
 
@@ -59,7 +59,7 @@ export function computeCost(
 
 /**
  * Product attribution: platform services calling with the internal token may
- * bill usage to their own product via `x-ok-product`; everyone else is `gateway`.
+ * bill usage to their own product via `x-minh-product`; everyone else is `gateway`.
  */
 export function resolveProduct(auth: AuthContext, header: string | undefined): ProductId {
   const p = header?.trim().toLowerCase();

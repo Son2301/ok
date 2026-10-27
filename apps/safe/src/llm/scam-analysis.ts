@@ -1,4 +1,4 @@
-import { chatJson, type LlmClient } from '@ok/llm';
+import { chatJson, type LlmClient } from '@minh/llm';
 import { z } from 'zod';
 import { fold } from '../lib/vn-text';
 import { LLM_MAX_DOWN, LLM_MAX_UP } from '../verdict/scoring';

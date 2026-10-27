@@ -10,7 +10,7 @@ model:
 
 # Tools come from the control plane over MCP (credentials stay in the control plane).
 mcp_servers:
-  ok-agents:
+  minh-agents:
     url: "__OK_MCP_URL__"
     headers:
       Authorization: "Bearer __OK_RUNTIME_TOKEN__"

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { Db } from '@ok/db';
+import type { Db } from '@minh/db';
 import { lt, sql } from 'drizzle-orm';
 import { rateLimits } from '../db/schema';
 

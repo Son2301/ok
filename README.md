@@ -1,4 +1,4 @@
-# OK AI platform
+# Minh platform
 
 Four AI products on **one account and one VND wallet**, built for Vietnam:
 
@@ -20,7 +20,7 @@ Product strategy and the research behind it: [`reports/Micro differentiation for
 
 ```
                  ┌──────────── apps/web (console) ────────────┐
-                 │  sessions via @ok/core, services via        │
+                 │  sessions via @minh/core, services via        │
                  │  INTERNAL_TOKEN + X-Org-Id (server-side)    │
                  └──────┬──────────┬───────────┬──────────┬───┘
                         ▼          ▼           ▼          ▼
@@ -50,11 +50,11 @@ curl localhost:4000/v1/chat/completions -H "authorization: Bearer <key>" \
 Run the whole platform against one Postgres and verify it end to end:
 
 ```bash
-export DATABASE_URL=postgres://ok:ok@localhost:5432/ok INTERNAL_TOKEN=$(openssl rand -hex 24)
+export DATABASE_URL=postgres://minh:minh@localhost:5432/minh INTERNAL_TOKEN=$(openssl rand -hex 24)
 export PLATFORM_ORG_ID=org_platform GATEWAY_URL=http://localhost:4000/v1
-for a in gateway agents safe review; do pnpm --filter @ok/$a build; done
+for a in gateway agents safe review; do pnpm --filter @minh/$a build; done
 # start each service (see each README for its env), then:
-pnpm --filter @ok/scripts exec tsx e2e.ts   # 18 cross-service checks
+pnpm --filter @minh/scripts exec tsx e2e.ts   # 18 cross-service checks
 ```
 
 Or with Docker: `cp .env.example .env && docker compose up --build`.

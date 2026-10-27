@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { newId } from '@minh/shared';
 import { desc, eq } from 'drizzle-orm';
 import { agentEvents } from '../db/schema';
 import type { Clock } from '../lib/time';

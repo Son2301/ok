@@ -1,5 +1,5 @@
-import { type AuthContext, authMiddleware, type Billing, type Core, getAuth, walletRoutes } from '@ok/core';
-import type { Db } from '@ok/db';
+import { type AuthContext, authMiddleware, type Billing, type Core, getAuth, walletRoutes } from '@minh/core';
+import type { Db } from '@minh/db';
 import {
   AppError,
   errorHandler,
@@ -8,7 +8,7 @@ import {
   notFound,
   parseJson,
   requestContext,
-} from '@ok/shared';
+} from '@minh/shared';
 import { type Context, Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
@@ -172,7 +172,7 @@ export function createApp(deps: AppDeps) {
     return {
       orgId: auth.orgId,
       apiKeyId: auth.apiKey?.id,
-      product: resolveProduct(auth, c.req.header('x-ok-product')),
+      product: resolveProduct(auth, c.req.header('x-minh-product')),
       signal: c.req.raw.signal,
     };
   };

@@ -1,8 +1,8 @@
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http';
 import type { AddressInfo } from 'node:net';
-import { Core } from '@ok/core';
-import { createDb, type DbHandle, migrate } from '@ok/db';
-import { createLogger } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb, type DbHandle, migrate } from '@minh/db';
+import { createLogger } from '@minh/shared';
 import { type AppDeps, createApp } from '../app';
 import { Catalog } from '../catalog/catalog';
 import type { CatalogEndpoint, CatalogModel } from '../catalog/types';

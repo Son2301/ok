@@ -1,4 +1,4 @@
-import type { Db } from '@ok/db';
+import type { Db } from '@minh/db';
 import { and, eq, inArray, lt, sql } from 'drizzle-orm';
 import { feedEntries, feedImports } from '../db/schema';
 import { hostKey, type NormalizedUrl, normalizeUrl } from '../url/normalize';
@@ -124,7 +124,7 @@ export class FeedStore {
     const res = await timedFetch(
       fetchFn,
       url,
-      { headers: { 'user-agent': 'ok-safe-feed-importer/1.0' } },
+      { headers: { 'user-agent': 'minh-safe-feed-importer/1.0' } },
       60_000,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status} from ${new URL(url).host}`);

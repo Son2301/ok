@@ -1,4 +1,4 @@
-import type { Db } from '@ok/db';
+import type { Db } from '@minh/db';
 import { eq } from 'drizzle-orm';
 import { type AgentRow, agents, orgProfiles } from '../db/schema';
 import { truncate } from '../lib/text';

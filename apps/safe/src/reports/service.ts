@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
-import type { Db } from '@ok/db';
-import { AppError, formatVnd, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, formatVnd, newId } from '@minh/shared';
 import { and, desc, eq, gte, inArray, lt, ne, sql } from 'drizzle-orm';
 import { findBank, maskAccount, normalizeAccountNumber } from '../bank/banks';
 import { reportEvidence, reports, reportVotes } from '../db/schema';

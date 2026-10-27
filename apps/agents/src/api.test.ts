@@ -1,4 +1,4 @@
-import type { ChatRequest } from '@ok/llm';
+import type { ChatRequest } from '@minh/llm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { integrationCredentials } from './db/schema';
 import { createTestPlatform, fakeFetch, INTERNAL_TOKEN, type TestPlatform } from './test/helpers';
@@ -51,7 +51,7 @@ describe('auth', () => {
   it('rejects missing/invalid keys and keys scoped to another product', async () => {
     expect((await t.app.request('/v1/agents')).status).toBe(401);
     expect(
-      (await t.app.request('/v1/agents', { headers: { authorization: 'Bearer sk-ok-nope' } })).status,
+      (await t.app.request('/v1/agents', { headers: { authorization: 'Bearer sk-minh-nope' } })).status,
     ).toBe(401);
     const { key: safeOnly } = await t.core.createApiKey(t.org.id, { name: 'safe', scopes: ['safe'] });
     expect(

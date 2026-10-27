@@ -1,4 +1,4 @@
-import { AppError, PRODUCT_IDS, type ProductId, parseJson } from '@ok/shared';
+import { AppError, PRODUCT_IDS, type ProductId, parseJson } from '@minh/shared';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { Billing, Topup } from './billing';

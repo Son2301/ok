@@ -1,10 +1,10 @@
 /**
  * Cross-service smoke test against running services that share one Postgres.
- *   . env.sh && pnpm --filter @ok/scripts exec tsx e2e.ts
+ *   . env.sh && pnpm --filter @minh/scripts exec tsx e2e.ts
  * Expects: gateway :4000 (mock provider, SePay key `sepay-e2e`), agents :4100, safe :4200, review :4300.
  */
-import { Core } from '@ok/core';
-import { createDb } from '@ok/db';
+import { Core } from '@minh/core';
+import { createDb } from '@minh/db';
 
 const GW = 'http://localhost:4000';
 const AGENTS = 'http://localhost:4100';
@@ -46,7 +46,7 @@ const asKey = { authorization: `Bearer ${key}`, 'content-type': 'application/jso
       body: JSON.stringify({ amountVnd: 260_000 }),
     }),
   );
-  check('wallet: top-up QR created', typeof topup.qrImageUrl === 'string' && /^OK/.test(topup.code), topup);
+  check('wallet: top-up QR created', typeof topup.qrImageUrl === 'string' && /^MINH/.test(topup.code), topup);
   const hook = await fetch(`${GW}/webhooks/sepay`, {
     method: 'POST',
     headers: { authorization: 'Apikey sepay-e2e', 'content-type': 'application/json' },

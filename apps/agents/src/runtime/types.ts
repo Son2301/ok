@@ -1,4 +1,4 @@
-import type { ChatMessage, ToolDefinition } from '@ok/llm';
+import type { ChatMessage, ToolDefinition } from '@minh/llm';
 
 /**
  * Wire protocol between the control plane and an agent runtime (inline or

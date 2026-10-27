@@ -1,4 +1,4 @@
-import { baseEnvSchema } from '@ok/shared';
+import { baseEnvSchema } from '@minh/shared';
 import { z } from 'zod';
 
 const bool = (def: boolean) =>
@@ -28,7 +28,7 @@ export const envSchema = baseEnvSchema.extend({
   /** `auto` uses Docker when the socket answers, otherwise the in-process inline driver. */
   AGENTS_RUNTIME_DRIVER: z.enum(['auto', 'inline', 'docker']).default('auto'),
   DOCKER_SOCKET: z.string().default('/var/run/docker.sock'),
-  AGENTS_DOCKER_NETWORK: z.string().default('ok-agents'),
+  AGENTS_DOCKER_NETWORK: z.string().default('minh-agents'),
   AGENTS_DOCKER_NETWORK_INTERNAL: bool(false),
   /** Allow agent containers to reach each other on the agents network (inter-container communication). */
   AGENTS_DOCKER_ICC: bool(false),

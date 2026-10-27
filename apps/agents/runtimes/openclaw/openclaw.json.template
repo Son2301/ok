@@ -14,7 +14,7 @@
         "baseUrl": "__OK_GATEWAY_URL__",
         "apiKey": "__OK_RUNTIME_TOKEN__",
         "api": "openai-completions",
-        "models": [{ "id": "auto", "name": "OK gateway (agent model)" }]
+        "models": [{ "id": "auto", "name": "Minh gateway (agent model)" }]
       }
     }
   },
@@ -26,7 +26,7 @@
   },
   "mcp": {
     "servers": {
-      "ok-agents": {
+      "minh-agents": {
         "transport": "streamable-http",
         "url": "__OK_MCP_URL__",
         "headers": { "Authorization": "Bearer __OK_RUNTIME_TOKEN__" }

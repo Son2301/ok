@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import type { Clock } from '../../lib/time';
 import { systemClock } from '../../lib/time';
 import type { TurnRequest, TurnResult } from '../types';

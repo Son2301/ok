@@ -1,4 +1,4 @@
-# Web console + landing (`@ok/web`, port 3000)
+# Web console + landing (`@minh/web`, port 3000)
 
 Next.js 16 (App Router, React 19, server components and server actions), Tailwind CSS v4,
 TypeScript strict. Vietnamese first with an English toggle; money in đồng first, USD second.
@@ -13,10 +13,10 @@ TypeScript strict. Vietnamese first with an English toggle; money in đồng fir
 
 ```bash
 pnpm install
-pnpm --filter @ok/web dev                       # http://localhost:3000, DATABASE_URL defaults to memory://
-pnpm --filter @ok/web build && pnpm --filter @ok/web start
-pnpm --filter @ok/web typecheck
-pnpm --filter @ok/web test                      # vitest: formatting, i18n, input detection, service client, SSE…
+pnpm --filter @minh/web dev                       # http://localhost:3000, DATABASE_URL defaults to memory://
+pnpm --filter @minh/web build && pnpm --filter @minh/web start
+pnpm --filter @minh/web typecheck
+pnpm --filter @minh/web test                      # vitest: formatting, i18n, input detection, service client, SSE…
 ```
 
 `memory://` works for a single process (the browser session lives in the web's own in-memory
@@ -24,19 +24,19 @@ database). **For the console to show real wallets, keys and usage, the web and e
 share one Postgres**:
 
 ```bash
-export DATABASE_URL=postgres://ok:ok@localhost:5432/ok INTERNAL_TOKEN=<same secret as the services>
+export DATABASE_URL=postgres://minh:minh@localhost:5432/minh INTERNAL_TOKEN=<same secret as the services>
 (cd apps/gateway && pnpm dev) & (cd apps/agents && pnpm dev) & (cd apps/safe && pnpm dev) & (cd apps/review && pnpm dev) &
-WELCOME_CREDIT_MICROS=1000000 pnpm --filter @ok/web dev
+WELCOME_CREDIT_MICROS=1000000 pnpm --filter @minh/web dev
 ```
 
-Docker (standalone output, build from the repo root): `docker build -f apps/web/Dockerfile -t ok-web .`
+Docker (standalone output, build from the repo root): `docker build -f apps/web/Dockerfile -t minh-web .`
 then run with the env below; `node apps/web/server.js` listens on `PORT` (3000).
 
 ## Environment
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `DATABASE_URL` | `memory://` | Same Postgres as the services (sessions, orgs, keys and the wallet ledger are read directly through `@ok/core`). |
+| `DATABASE_URL` | `memory://` | Same Postgres as the services (sessions, orgs, keys and the wallet ledger are read directly through `@minh/core`). |
 | `INTERNAL_TOKEN` | dev value | Sent to services as `Authorization: Bearer …` with `X-Org-Id`. Server-side only; never reaches the browser. A warning is logged when the dev value is used in production. |
 | `GATEWAY_URL` | `http://localhost:4000` | Gateway + wallet routes (`/v1/wallet*`). A trailing `/v1` is accepted and stripped. |
 | `AGENTS_URL` | `http://localhost:4100` | Agents control plane. |
@@ -48,7 +48,7 @@ then run with the env below; `node apps/web/server.js` listens on `PORT` (3000).
 | `WELCOME_CREDIT_MICROS` | `0` | Credit granted to each new org at sign-up (micro-USD). |
 | `COOKIE_SECURE` | `true` in production | Set `false` only to test a production build over plain http on a non-localhost host. |
 | `SERVICE_TIMEOUT_MS` | `15000` | Default timeout for service calls (streams and lifecycle calls use longer ones). |
-| `BRAND_NAME` | `OK AI` | Brand shown in the UI. |
+| `BRAND_NAME` | `Minh AI` | Brand shown in the UI. |
 | `FOUNDER_NAME`, `CONTACT_EMAIL`, `CONTACT_ZALO`, `COMPANY_TAX_CODE` | – | Trust details on the landing page / footer and the "top-ups coming soon" state. Unset founder shows a visible placeholder. |
 | `NEXT_OUTPUT` | – | `standalone` for the Docker build. |
 
@@ -56,8 +56,8 @@ then run with the env below; `node apps/web/server.js` listens on `PORT` (3000).
 
 ```
 browser ──▶ Next.js (server components, server actions, app/api/* route handlers)
-              │  sessions: @ok/core (signUp/login/getSession/logout) on DATABASE_URL, httpOnly cookie `ok_session`
-              │  wallet reads (ledger, spend by product): @ok/core directly; e-invoice profile: @ok/core Billing
+              │  sessions: @minh/core (signUp/login/getSession/logout) on DATABASE_URL, httpOnly cookie `minh_session`
+              │  wallet reads (ledger, spend by product): @minh/core directly; e-invoice profile: @minh/core Billing
               └─ lib/services.ts (server-only) ──▶ gateway / agents / safe / review
                      Authorization: Bearer $INTERNAL_TOKEN + X-Org-Id (+ X-User-Id for Safe)
 ```
@@ -118,7 +118,7 @@ browser ──▶ Next.js (server components, server actions, app/api/* route ha
 
 ## Known gaps
 
-- Key spending caps in `@ok/core` are **lifetime** (`spentMicros ≥ spendLimitMicros`), not
+- Key spending caps in `@minh/core` are **lifetime** (`spentMicros ≥ spendLimitMicros`), not
   monthly; the UI says so. Changing a cap and renaming an org write the `core` tables directly
   (`lib/keys.ts`, `lib/org.ts`) until `Core.updateApiKey()` / `Core.renameOrg()` exist.
 - Whether VietQR top-ups are configured is only known when creating one (503 `unavailable` →

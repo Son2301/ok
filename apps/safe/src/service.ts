@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
-import type { LlmClient } from '@ok/llm';
-import { AppError, type Logger } from '@ok/shared';
+import type { LlmClient } from '@minh/llm';
+import { AppError, type Logger } from '@minh/shared';
 import { judgeAiText, MIN_CHARS, styleFeatures, styleSignals } from './aitext/ai-text';
 import { findBank, normalizeAccountNumber } from './bank/banks';
 import { emailSignals, parseEmail } from './email/email';

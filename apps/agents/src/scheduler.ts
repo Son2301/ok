@@ -1,5 +1,5 @@
-import type { DbHandle } from '@ok/db';
-import type { Logger } from '@ok/shared';
+import type { DbHandle } from '@minh/db';
+import type { Logger } from '@minh/shared';
 import { eq } from 'drizzle-orm';
 import type { AgentsConfig } from './config';
 import { type AgentRow, agents } from './db/schema';

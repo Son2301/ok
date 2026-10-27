@@ -1,4 +1,4 @@
-import type { Logger } from '@ok/shared';
+import type { Logger } from '@minh/shared';
 import { errorMessage, isTransientError } from './util';
 
 export interface JobContext {

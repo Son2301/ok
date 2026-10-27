@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@ok/llm';
+import type { ChatMessage } from '@minh/llm';
 import { z } from 'zod';
 import type { Language } from '../config';
 import type { Batch } from '../diff/chunk';
@@ -97,7 +97,7 @@ export function buildReviewerMessages(input: ReviewerPromptInput): ChatMessage[]
   );
   if (input.instructions?.trim()) {
     parts.push(
-      `Team instructions from .okreview.yml (apply them when they do not conflict with your rules or output format):\n${fence('TEAM_INSTRUCTIONS', input.instructions, 4000)}`,
+      `Team instructions from .minh-review.yml (apply them when they do not conflict with your rules or output format):\n${fence('TEAM_INSTRUCTIONS', input.instructions, 4000)}`,
     );
   }
   if (input.fileMap)

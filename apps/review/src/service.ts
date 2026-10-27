@@ -1,5 +1,5 @@
-import type { LlmClient } from '@ok/llm';
-import { AppError, type Logger, newId } from '@ok/shared';
+import type { LlmClient } from '@minh/llm';
+import { AppError, type Logger, newId } from '@minh/shared';
 import type { Billing, BillingDecision } from './billing';
 import { CONFIG_FILENAMES, type RepoConfig, resolveRepoConfig } from './config';
 import { buildFileMap, type ReviewUnit, splitLines } from './diff/chunk';
@@ -51,7 +51,7 @@ export interface ReviewServiceDeps {
   store: Store;
   github: GitHubApp | null;
   billing: Billing;
-  /** LLM client billed to `orgId` (gateway with x-org-id + x-ok-product: review). */
+  /** LLM client billed to `orgId` (gateway with x-org-id + x-minh-product: review). */
   llmFor: (orgId: string) => LlmClient;
   logger: Logger;
   options?: Partial<ReviewServiceOptions>;

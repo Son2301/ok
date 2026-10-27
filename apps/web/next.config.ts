@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       }
     : {}),
   // Workspace packages ship TypeScript sources (no build step).
-  transpilePackages: ['@ok/core', '@ok/shared', '@ok/db', '@ok/llm'],
+  transpilePackages: ['@minh/core', '@minh/shared', '@minh/db', '@minh/llm'],
   // Native/WASM database drivers must stay runtime `require`s, not bundled.
   serverExternalPackages: ['@electric-sql/pglite', 'pg'],
   poweredByHeader: false,

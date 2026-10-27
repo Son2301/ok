@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
-import { Billing, Core } from '@ok/core';
-import { createDb, migrate } from '@ok/db';
-import { createLogger, loadEnv, usdToMicros } from '@ok/shared';
+import { Billing, Core } from '@minh/core';
+import { createDb, migrate } from '@minh/db';
+import { createLogger, loadEnv, usdToMicros } from '@minh/shared';
 import { createApp } from './app';
 import { gatewayMigrations } from './db/migrations';
 import { seedDevOrg, shouldSeed } from './dev-seed';

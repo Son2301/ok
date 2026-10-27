@@ -1,7 +1,7 @@
 import 'server-only';
-import type { WalletEntry } from '@ok/core';
-import { coreSchema } from '@ok/core';
-import { PRODUCT_IDS, type ProductId } from '@ok/shared';
+import type { WalletEntry } from '@minh/core';
+import { coreSchema } from '@minh/core';
+import { PRODUCT_IDS, type ProductId } from '@minh/shared';
 import { and, eq, gte, lt, sql } from 'drizzle-orm';
 import { env } from './env';
 import { platform } from './platform';

@@ -1,4 +1,4 @@
-import { AppError, type ProductId } from '@ok/shared';
+import { AppError, type ProductId } from '@minh/shared';
 import type { Context, MiddlewareHandler } from 'hono';
 import type { ApiKeyRecord, Core } from './core';
 import { API_KEY_PREFIX, safeEqual } from './crypto';
@@ -23,7 +23,7 @@ export interface AuthOptions {
 
 /**
  * Accepts either:
- *  - `Authorization: Bearer sk-ok-…` (customer API key scoped to this product), or
+ *  - `Authorization: Bearer sk-minh-…` (customer API key scoped to this product), or
  *  - `Authorization: Bearer <INTERNAL_TOKEN>` + `X-Org-Id: org_…` (platform-internal calls).
  */
 export function authMiddleware<E extends AuthEnv = AuthEnv>(
@@ -37,7 +37,7 @@ export function authMiddleware<E extends AuthEnv = AuthEnv>(
     const token = header.replace(/^Bearer\s+/i, '').trim() || c.req.header('x-api-key')?.trim() || '';
     if (!token) {
       if (opts.optional) return next();
-      throw new AppError('unauthorized', 'Missing API key. Send `Authorization: Bearer sk-ok-…`.');
+      throw new AppError('unauthorized', 'Missing API key. Send `Authorization: Bearer sk-minh-…`.');
     }
 
     if (token.startsWith(API_KEY_PREFIX)) {

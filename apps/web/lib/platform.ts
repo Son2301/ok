@@ -1,6 +1,6 @@
 import 'server-only';
-import { Billing, Core } from '@ok/core';
-import { createDb, type DbHandle } from '@ok/db';
+import { Billing, Core } from '@minh/core';
+import { createDb, type DbHandle } from '@minh/db';
 import { env } from './env';
 
 export interface Platform {

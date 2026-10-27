@@ -54,14 +54,14 @@ describe('createSseParser', () => {
 describe('parseVietQrUrl', () => {
   it('reads bank, account and holder back from the quick-link image URL', () => {
     const url =
-      'https://img.vietqr.io/image/970436-1234567890-compact2.png?amount=200000&addInfo=OKA7F3K2QX&accountName=CONG+TY+OK+AI';
+      'https://img.vietqr.io/image/970436-1234567890-compact2.png?amount=200000&addInfo=MINHA7F3K2QX&accountName=CONG+TY+MINH+AI';
     expect(parseVietQrUrl(url)).toEqual({
       bankId: '970436',
       bankName: 'Vietcombank',
       accountNo: '1234567890',
-      accountName: 'CONG TY OK AI',
+      accountName: 'CONG TY MINH AI',
       amount: 200000,
-      addInfo: 'OKA7F3K2QX',
+      addInfo: 'MINHA7F3K2QX',
     });
   });
 

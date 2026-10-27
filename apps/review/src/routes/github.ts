@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { Hono } from 'hono';
 import { reviewJobKey, routeEvent, verifyWebhookSignature } from '../github/webhook';
 import { linkInstallation } from '../linking';

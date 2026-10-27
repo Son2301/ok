@@ -1,5 +1,5 @@
 import { promises as dns } from 'node:dns';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { classifyIp, ipLiteralFamily } from './ip';
 
 /**

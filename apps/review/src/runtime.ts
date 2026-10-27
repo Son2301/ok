@@ -1,7 +1,7 @@
-import type { Core } from '@ok/core';
-import type { DbHandle } from '@ok/db';
-import type { LlmClient } from '@ok/llm';
-import type { Logger } from '@ok/shared';
+import type { Core } from '@minh/core';
+import type { DbHandle } from '@minh/db';
+import type { LlmClient } from '@minh/llm';
+import type { Logger } from '@minh/shared';
 import type { Hono } from 'hono';
 import { createApp } from './app';
 import { Billing, type BillingOptions } from './billing';

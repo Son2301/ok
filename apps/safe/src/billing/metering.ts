@@ -1,5 +1,5 @@
-import type { Core } from '@ok/core';
-import { AppError } from '@ok/shared';
+import type { Core } from '@minh/core';
+import { AppError } from '@minh/shared';
 import type { SafeEnv } from '../env';
 import { type CheckKind, MEDIA_KINDS } from '../verdict/types';
 import type { DailyLimiter, LimitResult } from './limiter';

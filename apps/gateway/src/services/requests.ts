@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError } from '@minh/shared';
 import { and, desc, eq, gte, lt, type SQL, sql } from 'drizzle-orm';
 import { type NewRequestRow, type RequestRow, requests } from '../db/schema';
 

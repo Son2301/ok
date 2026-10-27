@@ -1,4 +1,4 @@
-import { AppError, type Logger } from '@ok/shared';
+import { AppError, type Logger } from '@minh/shared';
 import { z } from 'zod';
 import type { AgentRow, TrustLevel } from '../db/schema';
 import type { FetchLike } from '../lib/http';

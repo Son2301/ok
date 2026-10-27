@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 
 /**
  * The subset of the Docker Engine API the docker driver needs. Implemented

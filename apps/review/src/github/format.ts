@@ -1,4 +1,4 @@
-import { BRAND } from '@ok/shared';
+import { BRAND } from '@minh/shared';
 import { type Language, type RepoConfig, SEVERITY_RANK, type Severity } from '../config';
 import { SKIP_REASON_TEXT, type SkippedFile } from '../diff/filter';
 import type { Finding } from '../pipeline/types';
@@ -65,7 +65,7 @@ const STRINGS = {
     file: 'File',
     reason: 'Reason',
     notes: 'Notes',
-    configError: (e: string) => `\`.okreview.yml\` is invalid (${e}); defaults were used.`,
+    configError: (e: string) => `\`.minh-review.yml\` is invalid (${e}); defaults were used.`,
     cost: 'cost',
     truncated: '… (summary truncated)',
   },
@@ -121,7 +121,7 @@ const STRINGS = {
     file: 'Tệp',
     reason: 'Lý do',
     notes: 'Ghi chú',
-    configError: (e: string) => `\`.okreview.yml\` không hợp lệ (${e}); đã dùng cấu hình mặc định.`,
+    configError: (e: string) => `\`.minh-review.yml\` không hợp lệ (${e}); đã dùng cấu hình mặc định.`,
     cost: 'chi phí',
     truncated: '… (đã rút gọn)',
   },
@@ -379,8 +379,8 @@ export function checkTitle(findings: Finding[], language: Language): string {
 
 export function formatConfigErrorComment(error: string, language: Language): string {
   return language === 'vi'
-    ? `⚠️ **${productName()}**: tệp \`.okreview.yml\` không hợp lệ — ${sanitizeText(error)}.\n\nLần review này dùng cấu hình mặc định. Hãy sửa tệp cấu hình (xem tài liệu tham khảo \`.okreview.yml\`).`
-    : `⚠️ **${productName()}**: \`.okreview.yml\` is invalid — ${sanitizeText(error)}.\n\nThis review used the default settings. Please fix the file (see the \`.okreview.yml\` reference in the docs).`;
+    ? `⚠️ **${productName()}**: tệp \`.minh-review.yml\` không hợp lệ — ${sanitizeText(error)}.\n\nLần review này dùng cấu hình mặc định. Hãy sửa tệp cấu hình (xem tài liệu tham khảo \`.minh-review.yml\`).`
+    : `⚠️ **${productName()}**: \`.minh-review.yml\` is invalid — ${sanitizeText(error)}.\n\nThis review used the default settings. Please fix the file (see the \`.minh-review.yml\` reference in the docs).`;
 }
 
 export function formatQuotaExceededComment(opts: {

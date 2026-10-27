@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { z } from 'zod';
 import { type FetchLike, qs, requestJson, UpstreamError } from '../lib/http';
 import { defineIntegration, singleLine, type ToolContext, toolBuilder } from './types';

@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@ok/llm';
+import type { ChatMessage } from '@minh/llm';
 import { z } from 'zod';
 import type { Category, Language, Severity } from '../config';
 import {

@@ -1,5 +1,5 @@
-import type { ChatMessage, ChatRequest, LlmClient, ToolCall, Usage } from '@ok/llm';
-import { responseText } from '@ok/llm';
+import type { ChatMessage, ChatRequest, LlmClient, ToolCall, Usage } from '@minh/llm';
+import { responseText } from '@minh/llm';
 import { mapLimit } from '../lib/async';
 import { truncate } from '../lib/text';
 import type {

@@ -15,7 +15,7 @@ describe('repo config', () => {
     });
   });
 
-  it('parses a valid .okreview.yml and fills defaults', () => {
+  it('parses a valid .minh-review.yml and fills defaults', () => {
     const { config, error, sources } = resolveRepoConfig(`
 language: vi
 paths:

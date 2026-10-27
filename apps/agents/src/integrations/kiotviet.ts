@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { z } from 'zod';
 import { sha256Hex } from '../lib/crypto';
 import { type FetchLike, qs, requestJson } from '../lib/http';

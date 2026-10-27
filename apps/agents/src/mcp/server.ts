@@ -5,7 +5,7 @@ import type { AgentRow } from '../db/schema';
 import { toolMessageContent } from '../runtime/loop';
 import type { ToolService } from '../services/tools';
 
-export const MCP_SERVER_INFO = { name: 'ok-agents', version: '1.0.0' } as const;
+export const MCP_SERVER_INFO = { name: 'minh-agents', version: '1.0.0' } as const;
 
 /**
  * The agent's tools as an MCP server (Streamable HTTP, stateless, JSON

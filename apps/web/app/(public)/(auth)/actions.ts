@@ -1,6 +1,6 @@
 'use server';
 
-import { isAppError } from '@ok/shared';
+import { isAppError } from '@minh/shared';
 import { redirect } from 'next/navigation';
 import { getI18n } from '@/lib/i18n/server';
 import { platform } from '@/lib/platform';

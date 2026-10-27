@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type { Db } from '@ok/db';
+import type { Db } from '@minh/db';
 import { and, desc, eq, gte, lt, sql } from 'drizzle-orm';
 import type { CheckTicket } from '../billing/metering';
 import { checks } from '../db/schema';

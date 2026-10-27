@@ -1,4 +1,4 @@
-import type { Migration } from '@ok/db';
+import type { Migration } from '@minh/db';
 
 export const coreMigrations: Migration[] = [
   {

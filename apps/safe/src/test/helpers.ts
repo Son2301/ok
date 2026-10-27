@@ -1,6 +1,6 @@
-import { Core } from '@ok/core';
-import { createDb, type DbHandle, migrate } from '@ok/db';
-import type { LlmClient } from '@ok/llm';
+import { Core } from '@minh/core';
+import { createDb, type DbHandle, migrate } from '@minh/db';
+import type { LlmClient } from '@minh/llm';
 import { type AppDeps, createApp, createSafeContext, type SafeContext } from '../app';
 import { safeMigrations } from '../db/migrations';
 import { parseSafeEnv, type SafeEnv } from '../env';

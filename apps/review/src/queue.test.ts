@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { describe, expect, it } from 'vitest';
 import { JobQueue } from './queue';
 

@@ -1,5 +1,5 @@
 # Web console + landing (Next.js standalone output). Build from the repo root:
-#   docker build -f apps/web/Dockerfile -t ok-web .
+#   docker build -f apps/web/Dockerfile -t minh-web .
 # Runtime env: DATABASE_URL (same Postgres as the services), INTERNAL_TOKEN, GATEWAY_URL,
 # AGENTS_URL, SAFE_URL, REVIEW_URL, PUBLIC_API_URL … (see apps/web/README.md).
 FROM node:22-slim AS base
@@ -11,9 +11,9 @@ FROM base AS build
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages ./packages
 COPY apps/web ./apps/web
-RUN pnpm install --frozen-lockfile --filter "@ok/web..."
+RUN pnpm install --frozen-lockfile --filter "@minh/web..."
 ENV NEXT_OUTPUT=standalone
-RUN pnpm --filter @ok/web build
+RUN pnpm --filter @minh/web build
 
 FROM node:22-slim AS runtime
 ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 NEXT_TELEMETRY_DISABLED=1

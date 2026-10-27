@@ -3,8 +3,8 @@
  * else in the codebase hard-codes the brand.
  */
 export const BRAND = {
-  name: process.env.BRAND_NAME ?? 'OK AI',
-  domain: process.env.BRAND_DOMAIN ?? 'ok.local',
+  name: process.env.BRAND_NAME ?? 'Minh AI',
+  domain: process.env.BRAND_DOMAIN ?? 'minh.local',
   products: {
     gateway: 'Gateway',
     agents: 'Agents',

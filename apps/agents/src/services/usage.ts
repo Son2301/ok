@@ -1,6 +1,6 @@
-import type { Db } from '@ok/db';
-import type { ChatChunk, ChatRequest, ChatResponse, LlmClient, Usage } from '@ok/llm';
-import { AppError, formatUsd } from '@ok/shared';
+import type { Db } from '@minh/db';
+import type { ChatChunk, ChatRequest, ChatResponse, LlmClient, Usage } from '@minh/llm';
+import { AppError, formatUsd } from '@minh/shared';
 import { and, eq, sql } from 'drizzle-orm';
 import type { AgentsConfig } from '../config';
 import { type AgentRow, agents, usageMonthly } from '../db/schema';

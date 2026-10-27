@@ -1,5 +1,5 @@
-import type { Core } from '@ok/core';
-import type { Logger } from '@ok/shared';
+import type { Core } from '@minh/core';
+import type { Logger } from '@minh/shared';
 import type { Billing } from '../billing';
 import type { GitHubApp } from '../github/types';
 import type { ReviewJobPayload } from '../github/webhook';

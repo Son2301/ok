@@ -1,4 +1,4 @@
-# Builds any service in apps/*: docker build --build-arg APP=gateway -t ok-gateway .
+# Builds any service in apps/*: docker build --build-arg APP=gateway -t minh-gateway .
 FROM node:22-slim AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH
 RUN corepack enable
@@ -9,9 +9,9 @@ ARG APP
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages ./packages
 COPY apps/${APP} ./apps/${APP}
-RUN pnpm install --frozen-lockfile --filter "@ok/${APP}..."
-RUN pnpm --filter "@ok/${APP}" build
-RUN pnpm --filter "@ok/${APP}" deploy --prod --legacy /out
+RUN pnpm install --frozen-lockfile --filter "@minh/${APP}..."
+RUN pnpm --filter "@minh/${APP}" build
+RUN pnpm --filter "@minh/${APP}" deploy --prod --legacy /out
 
 FROM node:22-slim AS runtime
 ARG APP

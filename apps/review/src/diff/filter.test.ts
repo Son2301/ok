@@ -78,7 +78,7 @@ describe('classifyFile', () => {
     expect(classifyFile(fakeFile('src/x.bin', { binary: true }))).toBe('binary');
   });
 
-  it('applies .okreview.yml include/exclude/force overrides', () => {
+  it('applies .minh-review.yml include/exclude/force overrides', () => {
     const opts = {
       ...DEFAULT_FILTER_OPTIONS,
       include: ['src/**'],

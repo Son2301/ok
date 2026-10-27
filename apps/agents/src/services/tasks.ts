@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, newId } from '@minh/shared';
 import { and, asc, desc, eq, gte, inArray, isNull, type SQL, sql } from 'drizzle-orm';
 import {
   type AgentRow,

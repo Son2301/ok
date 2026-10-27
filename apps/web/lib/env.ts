@@ -39,7 +39,7 @@ export function env() {
     welcomeCreditMicros: Math.max(0, Math.floor(num(e.WELCOME_CREDIT_MICROS, 0))),
     cookieSecure: e.COOKIE_SECURE ? e.COOKIE_SECURE === 'true' : nodeEnv === 'production',
     serviceTimeoutMs: num(e.SERVICE_TIMEOUT_MS, 15_000),
-    brandName: e.BRAND_NAME || 'OK AI',
+    brandName: e.BRAND_NAME || 'Minh AI',
     founderName: e.FOUNDER_NAME || '',
     contactEmail: e.CONTACT_EMAIL || '',
     contactZalo: e.CONTACT_ZALO || '',

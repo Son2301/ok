@@ -1,6 +1,6 @@
-import type { Core } from '@ok/core';
-import type { Db } from '@ok/db';
-import { AppError, isAppError, newId } from '@ok/shared';
+import type { Core } from '@minh/core';
+import type { Db } from '@minh/db';
+import { AppError, isAppError, newId } from '@minh/shared';
 import { and, desc, eq, inArray, notExists, type SQL, sql } from 'drizzle-orm';
 import type { AgentsConfig, PlanId } from '../config';
 import { type AgentRow, agents, billingCharges } from '../db/schema';

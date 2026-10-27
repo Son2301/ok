@@ -1,5 +1,5 @@
-import { type AuthEnv, authMiddleware } from '@ok/core';
-import { errorHandler, notFound, requestContext } from '@ok/shared';
+import { type AuthEnv, authMiddleware } from '@minh/core';
+import { errorHandler, notFound, requestContext } from '@minh/shared';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import type { Platform } from './platform';

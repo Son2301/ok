@@ -1,6 +1,6 @@
-import type { Db } from '@ok/db';
-import type { ChatMessage } from '@ok/llm';
-import { AppError, type Logger, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import type { ChatMessage } from '@minh/llm';
+import { AppError, type Logger, newId } from '@minh/shared';
 import { and, desc, eq, lt, type SQL, sql } from 'drizzle-orm';
 import type { AgentsConfig } from '../config';
 import { type AgentRow, type ConversationRow, conversations, type MessageRow, messages } from '../db/schema';

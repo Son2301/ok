@@ -1,5 +1,5 @@
-import { type AuthEnv, authMiddleware, getAuth } from '@ok/core';
-import { AppError, parseJson } from '@ok/shared';
+import { type AuthEnv, authMiddleware, getAuth } from '@minh/core';
+import { AppError, parseJson } from '@minh/shared';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { DEFAULT_CONFIG, validateOverride } from '../config';

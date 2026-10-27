@@ -3,8 +3,8 @@
  * Review free quota, Agents included LLM quota) and prints its id.
  *   DATABASE_URL=postgres://… pnpm tsx scripts/seed-platform.ts
  */
-import { Core, coreSchema } from '@ok/core';
-import { createDb } from '@ok/db';
+import { Core, coreSchema } from '@minh/core';
+import { createDb } from '@minh/db';
 import { eq } from 'drizzle-orm';
 
 const handle = await createDb(process.env.DATABASE_URL);

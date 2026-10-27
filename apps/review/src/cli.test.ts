@@ -11,7 +11,7 @@ afterAll(() => {
   for (const d of dirs) rmSync(d, { recursive: true, force: true });
 });
 const tmp = () => {
-  const d = mkdtempSync(join(tmpdir(), 'okreview-cli-'));
+  const d = mkdtempSync(join(tmpdir(), 'minh-review-cli-'));
   dirs.push(d);
   return d;
 };
@@ -59,7 +59,7 @@ describe('runCli', () => {
     const t = io(dir);
     expect(await runCli(['--diff', '-', '--mock', '--fail-on', 'high'], t.io)).toBe(1);
     const out = t.out();
-    expect(out).toContain('okreview · two-pass review of stdin');
+    expect(out).toContain('minh-review · two-pass review of stdin');
     expect(out).toMatch(
       /src\/db\/users\.ts\n\s+12\s+CRITICAL\s+security\s+SQL query built by string interpolation/,
     );
@@ -105,7 +105,7 @@ describe('runCli', () => {
     g('commit', '-q', '-m', 'init');
     g('checkout', '-q', '-b', 'feature');
     writeFileSync(join(dir, 'app.js'), 'export function f(a) {\n  return eval(a);\n}\n');
-    writeFileSync(join(dir, '.okreview.yml'), 'failOn: high\n');
+    writeFileSync(join(dir, '.minh-review.yml'), 'failOn: high\n');
     g('add', '.');
     g('commit', '-q', '-m', 'change');
 
@@ -121,15 +121,15 @@ describe('runCli', () => {
         severity: 'high',
       }),
     ]);
-    expect(code).toBe(1); // failOn from .okreview.yml
+    expect(code).toBe(1); // failOn from .minh-review.yml
   });
 
   it('explains missing credentials and bad bases', async () => {
     const t = io(tmp());
     expect(await runCli(['--diff', '-'], t.io)).toBe(2);
-    expect(t.err()).toContain('OKREVIEW_API_KEY');
+    expect(t.err()).toContain('MINH_REVIEW_API_KEY');
     const u = io(tmp());
     expect(await runCli(['--bogus'], u.io)).toBe(2);
-    expect(u.err()).toContain('Usage: okreview');
+    expect(u.err()).toContain('Usage: minh-review');
   });
 });

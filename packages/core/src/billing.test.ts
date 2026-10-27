@@ -1,5 +1,5 @@
-import { createDb, type DbHandle } from '@ok/db';
-import { createLogger, errorHandler } from '@ok/shared';
+import { createDb, type DbHandle } from '@minh/db';
+import { createLogger, errorHandler } from '@minh/shared';
 import { Hono } from 'hono';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { Billing } from './billing';
@@ -19,7 +19,7 @@ beforeAll(async () => {
   await core.migrate();
   billing = new Billing(core, {
     vndPerUsd: 25_000,
-    bank: { bankId: '970436', accountNo: '0123456789', accountName: 'CONG TY OK AI' },
+    bank: { bankId: '970436', accountNo: '0123456789', accountName: 'CONG TY MINH AI' },
     onTopupPaid,
   });
 });
@@ -58,7 +58,7 @@ describe('VietQR top-ups', () => {
       qrImageUrl: string;
       creditMicros: number;
     };
-    expect(topup.code).toMatch(/^OK[A-Z2-9]{8}$/);
+    expect(topup.code).toMatch(/^MINH[A-Z2-9]{8}$/);
     expect(topup.creditMicros).toBe(8_000_000); // 200k VND at 25k/USD = $8
     expect(topup.qrImageUrl).toContain('img.vietqr.io/image/970436-0123456789-compact2.png');
     expect(topup.qrImageUrl).toContain(`addInfo=${topup.code}`);

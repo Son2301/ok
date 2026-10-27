@@ -1,6 +1,6 @@
 /** Copy-paste snippets with the customer's real base URL and a placeholder key. */
 
-export const KEY_PLACEHOLDER = 'sk-ok-…';
+export const KEY_PLACEHOLDER = 'sk-minh-…';
 
 export function gatewayCurl(baseUrl: string, key = KEY_PLACEHOLDER): string {
   return [

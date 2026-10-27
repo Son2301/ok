@@ -1,4 +1,4 @@
-import { type ChatRequest, MockLlm } from '@ok/llm';
+import { type ChatRequest, MockLlm } from '@minh/llm';
 import { CRITIC_MARKER } from './prompts/critic';
 import { REVIEWER_MARKER } from './prompts/reviewer';
 
@@ -168,8 +168,12 @@ function criticReply(req: ChatRequest): string {
         verdict: 'rejected',
         reason: 'The pattern appears inside a regular expression literal, not as a real call.',
       });
-    } else if (/okreview:ignore/.test(code)) {
-      verdicts.push({ id, verdict: 'rejected', reason: 'Explicitly marked okreview:ignore by the author.' });
+    } else if (/minh-review:ignore/.test(code)) {
+      verdicts.push({
+        id,
+        verdict: 'rejected',
+        reason: 'Explicitly marked minh-review:ignore by the author.',
+      });
     } else {
       verdicts.push({
         id,

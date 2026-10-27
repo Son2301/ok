@@ -1,5 +1,5 @@
-import { RateLimiter } from '@ok/core';
-import { AppError, parseJson } from '@ok/shared';
+import { RateLimiter } from '@minh/core';
+import { AppError, parseJson } from '@minh/shared';
 import { type Context, Hono } from 'hono';
 import { WIDGET_JS } from '../channels/widget';
 import type { ChannelRow } from '../db/schema';

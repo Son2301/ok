@@ -1,5 +1,5 @@
 import 'server-only';
-import type { Org, User } from '@ok/core';
+import type { Org, User } from '@minh/core';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
@@ -7,7 +7,7 @@ import { env } from './env';
 import { platform } from './platform';
 import { safeNext } from './safe-next';
 
-export const SESSION_COOKIE = 'ok_session';
+export const SESSION_COOKIE = 'minh_session';
 const SESSION_MAX_AGE_S = 30 * 24 * 3600; // matches the core session TTL
 
 export interface SessionInfo {

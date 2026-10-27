@@ -1,4 +1,4 @@
-import { chatJson, type LlmClient } from '@ok/llm';
+import { chatJson, type LlmClient } from '@minh/llm';
 import { z } from 'zod';
 import { fold } from '../lib/vn-text';
 import { withTimeout } from '../llm/scam-analysis';

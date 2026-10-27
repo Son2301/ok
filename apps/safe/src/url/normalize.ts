@@ -1,5 +1,5 @@
 import { domainToUnicode } from 'node:url';
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import { parse as parseDomain } from 'tldts';
 import { ipLiteralFamily } from '../net/ip';
 

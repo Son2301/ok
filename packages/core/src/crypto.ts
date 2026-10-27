@@ -19,7 +19,7 @@ export async function verifyPassword(password: string, stored: string): Promise<
 
 export const sha256 = (s: string) => createHash('sha256').update(s).digest('hex');
 
-export const API_KEY_PREFIX = 'sk-ok-';
+export const API_KEY_PREFIX = 'sk-minh-';
 
 export function generateApiKey(): string {
   return API_KEY_PREFIX + randomBytes(30).toString('base64url');

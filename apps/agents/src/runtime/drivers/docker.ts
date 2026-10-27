@@ -1,4 +1,4 @@
-import { AppError } from '@ok/shared';
+import { AppError } from '@minh/shared';
 import type { RuntimeId } from '../../config';
 import type { FetchLike } from '../../lib/http';
 import { parseSseEvents } from '../../lib/sse';
@@ -13,7 +13,7 @@ import {
 import type { DeploySpec, LogLine, RuntimeDriver, RuntimeStatus, SendOptions, SendTarget } from './types';
 
 export const RUNTIME_PORT = 8080;
-export const MANAGED_BY = 'ok-agents';
+export const MANAGED_BY = 'minh-agents';
 
 /** Per-runtime container hardening profile. Third-party runtimes are marked unverified in the README. */
 export const RUNTIME_PROFILES: Record<
@@ -45,11 +45,11 @@ export interface DockerDriverOptions {
   turnTimeoutMs?: number;
 }
 
-export const containerName = (agentId: string) => `ok-agent-${agentId}`;
+export const containerName = (agentId: string) => `minh-agent-${agentId}`;
 
 /**
  * Container spec for an agent. Only these variables enter the container:
- *   OK_AGENT_ID, OK_RUNTIME_TOKEN, OK_CONTROL_PLANE_URL, OK_GATEWAY_URL
+ *   MINH_AGENT_ID, MINH_RUNTIME_TOKEN, MINH_CONTROL_PLANE_URL, MINH_GATEWAY_URL
  * The gateway URL is the control plane's per-agent LLM proxy (it applies the
  * plan quota/budget and holds the real gateway credentials); the runtime token
  * is its scoped credential. Third-party integration credentials never enter
@@ -64,18 +64,18 @@ export function buildContainerSpec(
   return {
     Image: opts.images[spec.runtime],
     Env: [
-      `OK_AGENT_ID=${spec.agentId}`,
-      `OK_RUNTIME_TOKEN=${spec.runtimeToken}`,
-      `OK_CONTROL_PLANE_URL=${base}`,
-      `OK_GATEWAY_URL=${base}/internal/agents/${spec.agentId}/llm/v1`,
+      `MINH_AGENT_ID=${spec.agentId}`,
+      `MINH_RUNTIME_TOKEN=${spec.runtimeToken}`,
+      `MINH_CONTROL_PLANE_URL=${base}`,
+      `MINH_GATEWAY_URL=${base}/internal/agents/${spec.agentId}/llm/v1`,
     ],
     Labels: {
-      'ok.managed-by': MANAGED_BY,
-      'ok.product': 'agents',
-      'ok.agent-id': spec.agentId,
-      'ok.org-id': spec.orgId,
-      'ok.runtime': spec.runtime,
-      'ok.plan': spec.plan.id,
+      'minh.managed-by': MANAGED_BY,
+      'minh.product': 'agents',
+      'minh.agent-id': spec.agentId,
+      'minh.org-id': spec.orgId,
+      'minh.runtime': spec.runtime,
+      'minh.plan': spec.plan.id,
     },
     ...(profile.user ? { User: profile.user } : {}),
     ExposedPorts: { [`${RUNTIME_PORT}/tcp`]: {} },
@@ -157,7 +157,7 @@ export class DockerDriver implements RuntimeDriver {
         Driver: 'bridge',
         Internal: Boolean(this.opts.networkInternal),
         CheckDuplicate: true,
-        Labels: { 'ok.managed-by': MANAGED_BY },
+        Labels: { 'minh.managed-by': MANAGED_BY },
         Options: { 'com.docker.network.bridge.enable_icc': this.opts.icc ? 'true' : 'false' },
       });
     }
@@ -172,8 +172,8 @@ export class DockerDriver implements RuntimeDriver {
     const name = containerName(spec.agentId);
     const existing = await this.opts.client.inspectContainer(name);
     if (existing) {
-      if (existing.Config?.Labels?.['ok.managed-by'] !== MANAGED_BY)
-        throw new AppError('conflict', `Container ${name} exists and is not managed by ok-agents`);
+      if (existing.Config?.Labels?.['minh.managed-by'] !== MANAGED_BY)
+        throw new AppError('conflict', `Container ${name} exists and is not managed by minh-agents`);
       await this.opts.client.removeContainer(name);
     }
     await this.opts.client.createContainer(name, buildContainerSpec(spec, this.opts));

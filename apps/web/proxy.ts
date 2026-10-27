@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-const SESSION_COOKIE = 'ok_session';
+const SESSION_COOKIE = 'minh_session';
 const PROTECTED = ['/console', '/billing', '/review'];
 
 /**

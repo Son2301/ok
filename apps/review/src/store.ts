@@ -1,6 +1,6 @@
-import type { Db, DbHandle } from '@ok/db';
-import { migrate } from '@ok/db';
-import { AppError, newId } from '@ok/shared';
+import type { Db, DbHandle } from '@minh/db';
+import { migrate } from '@minh/db';
+import { AppError, newId } from '@minh/shared';
 import { and, desc, eq, gte, inArray, isNull, lt, or, sql } from 'drizzle-orm';
 import { reviewMigrations } from './db/migrations';
 import {

@@ -1,4 +1,4 @@
-import type { Migration } from '@ok/db';
+import type { Migration } from '@minh/db';
 
 /** Hand-written SQL; keep in sync with schema.ts. Never edit a shipped migration — add a new one. */
 export const reviewMigrations: Migration[] = [

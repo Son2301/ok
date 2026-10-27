@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs';
 import { serve } from '@hono/node-server';
-import { Core } from '@ok/core';
-import { createDb } from '@ok/db';
-import { createLlmClient } from '@ok/llm';
-import { createLogger, loadEnv } from '@ok/shared';
+import { Core } from '@minh/core';
+import { createDb } from '@minh/db';
+import { createLlmClient } from '@minh/llm';
+import { createLogger, loadEnv } from '@minh/shared';
 import { createApp } from './app';
 import { configFromEnv } from './config';
 import { migrateAgents } from './db/migrations';
@@ -74,9 +74,9 @@ const platform = createPlatform({
       apiKey: env.INTERNAL_TOKEN,
       headers: {
         'x-org-id': billingOrgId,
-        'x-ok-product': 'agents',
-        'x-ok-agent-id': agentId,
-        ...(conversationId ? { 'x-ok-conversation-id': conversationId } : {}),
+        'x-minh-product': 'agents',
+        'x-minh-agent-id': agentId,
+        ...(conversationId ? { 'x-minh-conversation-id': conversationId } : {}),
       },
     }),
 });

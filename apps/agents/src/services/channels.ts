@@ -1,5 +1,5 @@
-import type { Db } from '@ok/db';
-import { AppError, type Logger, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import { AppError, type Logger, newId } from '@minh/shared';
 import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 import type { AgentsConfig } from '../config';

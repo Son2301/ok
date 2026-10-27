@@ -181,7 +181,7 @@ describe('summary', () => {
     expect(body).toContain('1 more finding not shown');
     expect(body).toContain('| `pnpm-lock.yaml` | lockfile |');
     expect(body).toContain('`a\\|b.ts`');
-    expect(body).toContain('`.okreview.yml` is invalid (language: Invalid option)');
+    expect(body).toContain('`.minh-review.yml` is invalid (language: Invalid option)');
     expect(body).toContain('Reviewer batch B2 failed');
   });
 
@@ -204,7 +204,7 @@ describe('check run + misc comments', () => {
 
   it('explains invalid config briefly', () => {
     expect(formatConfigErrorComment('maxComments: expected number', 'en')).toContain(
-      '`.okreview.yml` is invalid — maxComments: expected number',
+      '`.minh-review.yml` is invalid — maxComments: expected number',
     );
   });
 });

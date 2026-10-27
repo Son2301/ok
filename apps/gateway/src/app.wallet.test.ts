@@ -1,4 +1,4 @@
-import { Billing } from '@ok/core';
+import { Billing } from '@minh/core';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createHarness, get, type Harness, post } from './test/helpers';
 
@@ -11,7 +11,7 @@ beforeAll(async () => {
     wallet: (core) => ({
       billing: new Billing(core, {
         vndPerUsd: 26_000,
-        bank: { bankId: 'vietcombank', accountNo: '0071000123456', accountName: 'OK AI' },
+        bank: { bankId: 'vietcombank', accountNo: '0071000123456', accountName: 'MINH AI' },
       }),
       sepayApiKey: 'sepay-test-key',
     }),

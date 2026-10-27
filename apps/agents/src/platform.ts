@@ -1,6 +1,6 @@
-import type { Core } from '@ok/core';
-import type { DbHandle } from '@ok/db';
-import { createLogger, type Logger } from '@ok/shared';
+import type { Core } from '@minh/core';
+import type { DbHandle } from '@minh/db';
+import { createLogger, type Logger } from '@minh/shared';
 import type { AgentsConfig } from './config';
 import { IntegrationCatalog, type ToolServices } from './integrations';
 import { BackgroundTasks } from './lib/async';

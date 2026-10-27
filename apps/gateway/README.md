@@ -1,4 +1,4 @@
-# AI Gateway (`@ok/gateway`, port 4000)
+# AI Gateway (`@minh/gateway`, port 4000)
 
 One OpenAI-compatible API in front of many model providers (OpenAI, Azure OpenAI, Anthropic,
 Google Gemini, DeepSeek, Groq, Together, Fireworks, OpenRouter, Alibaba DashScope, BytePlus
@@ -25,20 +25,20 @@ so the whole platform (and the other products that call the gateway) works offli
 
 ```bash
 pnpm install
-pnpm --filter @ok/gateway dev                      # tsx watch, DATABASE_URL defaults to memory://
+pnpm --filter @minh/gateway dev                      # tsx watch, DATABASE_URL defaults to memory://
 # or the production bundle:
-pnpm --filter @ok/gateway build
+pnpm --filter @minh/gateway build
 cd apps/gateway && DATABASE_URL=memory:// PORT=4999 node dist/index.js
 ```
 
 In development with an in-memory database the server seeds a funded org ($10) and prints a key:
 
 ```
-  DEV API KEY: sk-ok-…
+  DEV API KEY: sk-minh-…
 ```
 
 ```bash
-export KEY=sk-ok-…            # from the boot log
+export KEY=sk-minh-…            # from the boot log
 export GW=http://localhost:4999
 curl -s $GW/health
 curl -s $GW/v1/chat/completions -H "authorization: Bearer $KEY" -H 'content-type: application/json' \
@@ -46,7 +46,7 @@ curl -s $GW/v1/chat/completions -H "authorization: Bearer $KEY" -H 'content-type
 ```
 
 For a persistent database (Postgres or an on-disk PGlite directory) create a dev key with
-`DATABASE_URL=postgres://… pnpm --filter @ok/gateway seed`.
+`DATABASE_URL=postgres://… pnpm --filter @minh/gateway seed`.
 
 ---
 
@@ -136,7 +136,7 @@ carries `routing: { variant, tier, model, reason }`, e.g.
 - Usage is post-paid: the gateway requires a positive balance before calling upstream, then debits
   with `force: true` (the balance may go slightly negative on the last request).
 - `product` is `gateway`, unless the caller used the internal token and sent a valid
-  `X-OK-Product` (`agents`, `safe`, `review`) — that is how other products bill their LLM usage.
+  `X-Minh-Product` (`agents`, `safe`, `review`) — that is how other products bill their LLM usage.
 
 ---
 
@@ -191,8 +191,8 @@ regional endpoint, e.g. `OPENAI_BASE_URL`, `ANTHROPIC_BASE_URL`, `GEMINI_BASE_UR
 
 All `/v1/*` routes except `GET /v1/models` require auth:
 
-- `Authorization: Bearer sk-ok-…` — a customer API key whose scopes include `gateway` (or `*`), or
-- `Authorization: Bearer $INTERNAL_TOKEN` + `X-Org-Id: org_…` (+ optional `X-OK-Product`) for
+- `Authorization: Bearer sk-minh-…` — a customer API key whose scopes include `gateway` (or `*`), or
+- `Authorization: Bearer $INTERNAL_TOKEN` + `X-Org-Id: org_…` (+ optional `X-Minh-Product`) for
   platform services. `X-API-Key` is accepted as an alternative header.
 
 Errors use the platform envelope `{ "error": { "code", "message", "details"? } }`.
@@ -386,7 +386,7 @@ curl -s $GW/v1/chat/completions -H "authorization: Bearer $KEY" -H 'content-type
 
 ```bash
 curl -s $GW/v1/chat/completions -H "authorization: Bearer $INTERNAL_TOKEN" \
-  -H "x-org-id: org_…" -H "x-ok-product: agents" -H 'content-type: application/json' \
+  -H "x-org-id: org_…" -H "x-minh-product: agents" -H 'content-type: application/json' \
   -d '{"model":"auto:cheap","messages":[{"role":"user","content":"hi"}]}'
 ```
 
@@ -690,7 +690,7 @@ Everything below is marked `verified: false` in code and in `GET /v1/models` unt
 ## Known gaps
 
 - Health and circuit state are **in-memory per replica** (no shared store); rate limiting of API
-  keys (in `@ok/core`) is per replica too.
+  keys (in `@minh/core`) is per replica too.
 - Tiered/long-context upstream pricing (e.g. Gemini > 200K tokens, Claude Haiku 5.5 > 100K) and
   discounted cached-input pricing are not modelled: we bill full input price on cached tokens.
 - No pre-authorization of worst-case cost; a single large request can take a low balance negative.
@@ -705,9 +705,9 @@ Everything below is marked `verified: false` in code and in `GET /v1/models` unt
 ## Development
 
 ```bash
-pnpm --filter @ok/gateway typecheck
-pnpm --filter @ok/gateway test        # offline: PGlite + local mock upstream HTTP servers
-pnpm --filter @ok/gateway build       # dist/index.js (workspace packages bundled, npm deps external)
+pnpm --filter @minh/gateway typecheck
+pnpm --filter @minh/gateway test        # offline: PGlite + local mock upstream HTTP servers
+pnpm --filter @minh/gateway build       # dist/index.js (workspace packages bundled, npm deps external)
 ```
 
 ```

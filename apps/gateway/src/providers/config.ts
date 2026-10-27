@@ -1,4 +1,4 @@
-import { BRAND } from '@ok/shared';
+import { BRAND } from '@minh/shared';
 
 export type ProviderKind = 'openai-compatible' | 'azure-openai' | 'anthropic' | 'google' | 'mock';
 

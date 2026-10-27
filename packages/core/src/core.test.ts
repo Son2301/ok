@@ -1,5 +1,5 @@
-import { createDb, type DbHandle } from '@ok/db';
-import { createLogger, errorHandler } from '@ok/shared';
+import { createDb, type DbHandle } from '@minh/db';
+import { createLogger, errorHandler } from '@minh/shared';
 import { Hono } from 'hono';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { Core } from './core';

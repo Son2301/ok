@@ -389,7 +389,7 @@ export const vi = {
     activityTitle: 'Hoạt động gần đây',
     activityEmpty: 'Chưa có giao dịch nào. Khi bạn nạp tiền hoặc dùng sản phẩm, từng khoản sẽ hiện ở đây.',
     curlTitle: 'Gọi API đầu tiên',
-    curlBody: 'Tạo khoá API rồi thay vào chỗ sk-ok-… trong lệnh dưới đây.',
+    curlBody: 'Tạo khoá API rồi thay vào chỗ sk-minh-… trong lệnh dưới đây.',
   },
   ledger: {
     kind: {
@@ -689,14 +689,14 @@ export const vi = {
     skippedFiles: 'File bỏ qua',
     warnings: 'Cảnh báo',
     error: 'Lỗi',
-    configError: 'Lỗi cấu hình .okreview.yml',
+    configError: 'Lỗi cấu hình .minh-review.yml',
     rerun: 'Chạy lại review',
     rerunFull: 'Review lại toàn bộ',
     rerunQueued: 'Đã xếp hàng review lại.',
     billedPlatform: 'Lượt miễn phí',
     settingsTitle: 'Cài đặt cho {repo}',
     settingsBody:
-      'Ghi đè lên .okreview.yml trong repository. Để trống để dùng giá trị trong file hoặc mặc định.',
+      'Ghi đè lên .minh-review.yml trong repository. Để trống để dùng giá trị trong file hoặc mặc định.',
     fieldLanguage: 'Ngôn ngữ nhận xét',
     fieldThreshold: 'Chỉ đăng từ mức',
     fieldMaxComments: 'Số bình luận tối đa mỗi lượt',

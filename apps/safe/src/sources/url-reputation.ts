@@ -172,7 +172,7 @@ export async function checkSafeBrowsing(
 export function buildSafeBrowsingRequest(urls: string | string[]) {
   const list = [...new Set(Array.isArray(urls) ? urls : [urls])];
   return {
-    client: { clientId: 'ok-safe', clientVersion: '1.0.0' },
+    client: { clientId: 'minh-safe', clientVersion: '1.0.0' },
     threatInfo: {
       threatTypes: ['MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE', 'POTENTIALLY_HARMFUL_APPLICATION'],
       platformTypes: ['ANY_PLATFORM'],

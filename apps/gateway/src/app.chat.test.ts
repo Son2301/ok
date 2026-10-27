@@ -1,5 +1,5 @@
 // biome-ignore-all lint/suspicious/noExplicitAny: end-to-end assertions over untyped JSON response bodies
-import { createDb, type DbHandle } from '@ok/db';
+import { createDb, type DbHandle } from '@minh/db';
 import { eq } from 'drizzle-orm';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { CatalogModel } from './catalog/types';

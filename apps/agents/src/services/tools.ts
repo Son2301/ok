@@ -1,6 +1,6 @@
-import type { Db } from '@ok/db';
-import type { ToolDefinition } from '@ok/llm';
-import { AppError, type Logger, newId } from '@ok/shared';
+import type { Db } from '@minh/db';
+import type { ToolDefinition } from '@minh/llm';
+import { AppError, type Logger, newId } from '@minh/shared';
 import type { AgentRow, TrustLevel } from '../db/schema';
 import { approvals, toolCalls } from '../db/schema';
 import {

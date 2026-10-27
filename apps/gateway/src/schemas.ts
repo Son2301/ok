@@ -1,4 +1,4 @@
-import type { ChatChunk, ChatMessage, ChatRequest, ChatResponse, ContentPart, Usage } from '@ok/llm';
+import type { ChatChunk, ChatMessage, ChatRequest, ChatResponse, ContentPart, Usage } from '@minh/llm';
 import { z } from 'zod';
 
 /*
@@ -95,7 +95,7 @@ export type ProviderPrefs = z.infer<typeof providerPrefsSchema>;
 
 /**
  * The normalized chat request handed to adapters: the validated OpenAI request
- * plus any extra pass-through fields. Typed against @ok/llm's wire types.
+ * plus any extra pass-through fields. Typed against @minh/llm's wire types.
  */
 export type ChatCompletionRequest = Omit<ChatRequest, 'messages' | 'response_format'> & {
   messages: ChatMessage[];

@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto';
-import { Core } from '@ok/core';
-import { createDb } from '@ok/db';
+import { Core } from '@minh/core';
+import { createDb } from '@minh/db';
 import {
   type ChatChunk,
   type ChatRequest,
@@ -8,7 +8,7 @@ import {
   type MockHandler,
   MockLlm,
   type MockReply,
-} from '@ok/llm';
+} from '@minh/llm';
 import { createApp } from '../app';
 import { type AgentsConfig, buildPlans } from '../config';
 import { migrateAgents } from '../db/migrations';
@@ -24,7 +24,7 @@ export const INTERNAL_TOKEN = 'internal-token-for-tests-123456';
 
 /**
  * Stream a MockLlm reply the way OpenAI-compatible gateways do, including
- * tool-call deltas (MockLlm.stream from @ok/llm only streams text content).
+ * tool-call deltas (MockLlm.stream from @minh/llm only streams text content).
  */
 export async function* streamFromChat(
   llm: Pick<LlmClient, 'chat'>,
@@ -106,7 +106,7 @@ export function testConfig(overrides: Partial<AgentsConfig> = {}): AgentsConfig 
     },
     docker: {
       socketPath: '/var/run/docker.sock',
-      network: 'ok-agents',
+      network: 'minh-agents',
       networkInternal: false,
       icc: false,
       addressMode: 'ip',
@@ -178,7 +178,7 @@ export async function createTestPlatform(opts: TestPlatformOptions = {}) {
   await core.migrate();
   await migrateAgents(handle);
   const org = await core.createOrg('Cửa hàng An', opts.orgCreditMicros ?? 50_000_000);
-  const platformOrg = await core.createOrg('OK Platform', 1_000_000_000);
+  const platformOrg = await core.createOrg('Minh Platform', 1_000_000_000);
   const { key } = await core.createApiKey(org.id, { name: 'test', scopes: ['agents'] });
   const config = testConfig({ platformOrgId: platformOrg.id, ...opts.config });
   const clock = opts.clock ?? new ManualClock('2026-10-25T03:00:00Z');

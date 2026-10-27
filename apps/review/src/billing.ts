@@ -1,4 +1,4 @@
-import type { Core } from '@ok/core';
+import type { Core } from '@minh/core';
 import type { InstallationRow, Store } from './store';
 import { currentPeriod } from './util';
 

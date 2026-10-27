@@ -1,4 +1,4 @@
-import { randomId } from '@ok/shared';
+import { randomId } from '@minh/shared';
 import type { Endpoint } from '../catalog/types';
 import type {
   ChatChunk,

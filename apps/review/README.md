@@ -1,9 +1,9 @@
 # Review — two-pass AI pull-request reviewer
 
-`@ok/review` (port **4300**) is a GitHub App that reviews pull requests with two LLM passes:
+`@minh/review` (port **4300**) is a GitHub App that reviews pull requests with two LLM passes:
 a **Reviewer** that proposes candidate issues and an adversarial **Critic** that tries to refute
 each one against the actual code. Only findings that survive are posted, as one GitHub review
-with inline comments and a summary. It also ships a CLI (`okreview`) for local/CI use.
+with inline comments and a summary. It also ships a CLI (`minh-review`) for local/CI use.
 
 It focuses on what costs teams money — logic bugs, security, concurrency, performance, API
 correctness, error handling, data loss — and deliberately ignores style nits.
@@ -29,7 +29,7 @@ correctness, error handling, data loss — and deliberately ignores style nits.
      lines GitHub accepts for `side: RIGHT` review comments.
    - **Filters** lockfiles, generated code (paths and `@generated`/`DO NOT EDIT` banners),
      minified files, vendored/third-party code, snapshots, binaries, rename-only files and very
-     large files; `.okreview.yml` adds `include`/`exclude`/`force` overrides.
+     large files; `.minh-review.yml` adds `include`/`exclude`/`force` overrides.
    - **Risk-based prioritisation** when a PR exceeds the budget (`limits.maxFiles`,
      `limits.maxChangedLines`): security-sensitive source (auth, crypto, sessions, payments,
      webhooks, SQL, migrations…) first, then other source, config/infra, tests, docs; within a
@@ -157,7 +157,7 @@ repository-selection change), and never away from an org it is already linked to
 ### Billing
 
 - **Linked** installation: needs a balance ≥ `REVIEW_MIN_BALANCE_MICROS`; LLM calls go through the
-  gateway with `x-org-id: <org>` and `x-ok-product: review`. Out of balance (before or during the
+  gateway with `x-org-id: <org>` and `x-minh-product: review`. Out of balance (before or during the
   run, i.e. a gateway 402) → one polite PR comment per day, review recorded as
   `insufficient_balance`, no crash.
 - **Unlinked** installation: `REVIEW_FREE_REVIEWS_PER_MONTH` free reviews per calendar month
@@ -193,7 +193,7 @@ repository-selection change), and never away from an org it is already linked to
 | `REVIEW_STATE_SECRET`                       | derived from `INTERNAL_TOKEN` | HMAC key for setup state tokens                           |
 | `REVIEW_LINK_WINDOW_MINUTES`                | `60`                          | No-OAuth link window (see above)                          |
 
-### `.okreview.yml`
+### `.minh-review.yml`
 
 Read from the PR head commit (for **fork PRs from the base commit**, so outside contributors cannot
 change models/instructions billed to the org). Invalid files produce one short PR comment explaining
@@ -233,19 +233,19 @@ pattern without `/` matches the basename anywhere, trailing `/` = directory, lea
 
 ```bash
 # review your branch against main (OpenAI-compatible endpoint)
-export OKREVIEW_BASE_URL=https://api.openai.com/v1 OKREVIEW_API_KEY=sk-… OKREVIEW_MODEL=gpt-4.1
-pnpm --filter @ok/review cli -- --base main
-pnpm --filter @ok/review cli -- --base main --json --fail-on high   # CI / pre-push
-git diff origin/main...HEAD | pnpm --filter @ok/review cli -- --diff - --mock   # offline demo
+export MINH_REVIEW_BASE_URL=https://api.openai.com/v1 MINH_REVIEW_API_KEY=sk-… MINH_REVIEW_MODEL=gpt-4.1
+pnpm --filter @minh/review cli -- --base main
+pnpm --filter @minh/review cli -- --base main --json --fail-on high   # CI / pre-push
+git diff origin/main...HEAD | pnpm --filter @minh/review cli -- --diff - --mock   # offline demo
 node apps/review/dist/cli.js --help                                  # after `pnpm build`
 ```
 
 Options: `--base`, `--head`, `--diff <file|->`, `--json`, `--fail-on <severity|none>`, `--model`,
 `--critic-model`, `--lang en|vi`, `--config`, `--mock` (offline heuristic Reviewer/Critic, no
 network — demonstrates the pipeline, it is not a real reviewer), `--no-color`. Defaults come from
-`.okreview.yml` at the repo root; `OKREVIEW_MODEL`/`OKREVIEW_CRITIC_MODEL` override the models
+`.minh-review.yml` at the repo root; `MINH_REVIEW_MODEL`/`MINH_REVIEW_CRITIC_MODEL` override the models
 (needed for non-gateway endpoints, where `auto:best` means nothing). Exit codes: 0 ok, 1 `--fail-on`
-threshold met, 2 usage/config error. Pre-push hook: `pnpm --filter @ok/review cli -- --base
+threshold met, 2 usage/config error. Pre-push hook: `pnpm --filter @minh/review cli -- --base
 origin/main --fail-on high`.
 
 ---
@@ -260,7 +260,7 @@ Public:
 | POST   | `/github/webhook` | GitHub webhook receiver (signature required)           |
 | GET    | `/github/setup`   | GitHub App setup URL callback (links the installation) |
 
-Console API — `Authorization: Bearer sk-ok-…` (API key with scope `review`) or
+Console API — `Authorization: Bearer sk-minh-…` (API key with scope `review`) or
 `Authorization: Bearer $INTERNAL_TOKEN` + `X-Org-Id: org_…`:
 
 | Method    | Path                                           |                                                                         |
@@ -270,7 +270,7 @@ Console API — `Authorization: Bearer sk-ok-…` (API key with scope `review`) 
 | POST      | `/v1/installations/link`                       | `{ installationId, state, code? }`                                      |
 | DELETE    | `/v1/installations/:id`                        | Unlink                                                                  |
 | GET       | `/v1/repos`                                    | Repos of linked installations (+ settings override)                     |
-| GET / PUT | `/v1/repos/:owner/:repo/settings`              | Per-repo override (partial `.okreview.yml`, validated)                  |
+| GET / PUT | `/v1/repos/:owner/:repo/settings`              | Per-repo override (partial `.minh-review.yml`, validated)                  |
 | GET       | `/v1/reviews?repo=&pr=&status=&limit=&before=` | Reviews: repo, PR, status, counts by severity, cost, duration           |
 | GET       | `/v1/reviews/:id`                              | Review detail + **all** findings incl. rejected ones and Critic reasons |
 | POST      | `/v1/reviews/run`                              | `{ target: "owner/repo#12", full?: true }` or `{ repo, number }` → 202  |
@@ -281,11 +281,11 @@ curl -s localhost:4300/health
 curl -s localhost:4300/v1/installations/install-url -H "Authorization: Bearer $INTERNAL_TOKEN" -H "X-Org-Id: org_123"
 curl -s -X POST localhost:4300/v1/installations/link -H "Authorization: Bearer $INTERNAL_TOKEN" -H "X-Org-Id: org_123" \
   -H 'content-type: application/json' -d '{"installationId":12345678,"state":"v1.…"}'
-curl -s "localhost:4300/v1/reviews?repo=acme/api&limit=20" -H "Authorization: Bearer sk-ok-…"
-curl -s localhost:4300/v1/reviews/rev_abc -H "Authorization: Bearer sk-ok-…"
-curl -s -X PUT localhost:4300/v1/repos/acme/api/settings -H "Authorization: Bearer sk-ok-…" \
+curl -s "localhost:4300/v1/reviews?repo=acme/api&limit=20" -H "Authorization: Bearer sk-minh-…"
+curl -s localhost:4300/v1/reviews/rev_abc -H "Authorization: Bearer sk-minh-…"
+curl -s -X PUT localhost:4300/v1/repos/acme/api/settings -H "Authorization: Bearer sk-minh-…" \
   -H 'content-type: application/json' -d '{"severityThreshold":"high","paths":{"exclude":["docs/**"]}}'
-curl -s -X POST localhost:4300/v1/reviews/run -H "Authorization: Bearer sk-ok-…" \
+curl -s -X POST localhost:4300/v1/reviews/run -H "Authorization: Bearer sk-minh-…" \
   -H 'content-type: application/json' -d '{"target":"acme/api#42","full":true}'
 ```
 
@@ -305,11 +305,11 @@ tracked position), `suppressions` (team-dismissed fingerprints), `quota_usage`, 
 ## Development
 
 ```bash
-pnpm --filter @ok/review typecheck
-pnpm --filter @ok/review test        # offline: MockLlm, PGlite, fake GitHub
-pnpm --filter @ok/review build       # dist/index.js + dist/cli.js (tsup, @ok/* bundled)
+pnpm --filter @minh/review typecheck
+pnpm --filter @minh/review test        # offline: MockLlm, PGlite, fake GitHub
+pnpm --filter @minh/review build       # dist/index.js + dist/cli.js (tsup, @minh/* bundled)
 cd apps/review && DATABASE_URL=memory:// PORT=4996 node dist/index.js
-pnpm --filter @ok/review exec tsx src/test/print-sample.ts   # print a sample posted review
+pnpm --filter @minh/review exec tsx src/test/print-sample.ts   # print a sample posted review
 ```
 
 ## Status and limitations
