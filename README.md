@@ -1,4 +1,8 @@
-# Minh platform
+# Minh AI
+
+**Minh** is two Vietnamese words at once: *thông **minh*** (smart) and ***minh** bạch* (transparent). It is
+also 明, written with the sun 日 and the moon 月, which is the logo. The promise: smart AI, with every đồng
+accounted for.
 
 Four AI products on **one account and one VND wallet**, built for Vietnam:
 
@@ -35,29 +39,22 @@ Product strategy and the research behind it: [`reports/Micro differentiation for
 ## Quick start
 
 ```bash
+git clone https://github.com/Son2301/ok.git minh && cd minh
 pnpm install
-pnpm -r typecheck && pnpm -r test     # ~740 tests, all offline
+pnpm dev:setup   # .env with generated secrets, Postgres (Docker or your own), demo data
+pnpm dev         # all five apps with hot reload → http://localhost:3000
 ```
 
-Run everything locally with zero setup (in-memory Postgres, mock model provider):
+Log in as `demo@minh.local` / `minh-demo-2026`. No AI provider keys are needed: the gateway serves an offline
+mock model until you add one to `.env`. Full guide, commands and troubleshooting:
+[`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
 
 ```bash
-cd apps/gateway && DATABASE_URL=memory:// pnpm dev   # prints a dev API key
-curl localhost:4000/v1/chat/completions -H "authorization: Bearer <key>" \
-  -H 'content-type: application/json' -d '{"model":"auto","messages":[{"role":"user","content":"Xin chào"}]}'
+pnpm test && pnpm typecheck && pnpm lint   # ~825 tests, all offline
+pnpm dev:check                             # 18 end-to-end checks against the running stack
 ```
 
-Run the whole platform against one Postgres and verify it end to end:
-
-```bash
-export DATABASE_URL=postgres://minh:minh@localhost:5432/minh INTERNAL_TOKEN=$(openssl rand -hex 24)
-export PLATFORM_ORG_ID=org_platform GATEWAY_URL=http://localhost:4000/v1
-for a in gateway agents safe review; do pnpm --filter @minh/$a build; done
-# start each service (see each README for its env), then:
-pnpm --filter @minh/scripts exec tsx e2e.ts   # 18 cross-service checks
-```
-
-Or with Docker: `cp .env.example .env && docker compose up --build`.
+Production-style, all in containers: `cp .env.example .env && docker compose up --build`.
 
 ## What is and isn't verified
 
@@ -79,9 +76,9 @@ packages/db      createDb (Postgres or PGlite) + per-schema SQL migrator
 packages/core    accounts, API keys, wallet, VietQR top-ups, auth middleware
 packages/llm     OpenAI-compatible client, zod-validated JSON calls, MockLlm
 apps/*           the four services + web console
-scripts/         platform seed and cross-service e2e
-docs/            engineering conventions
+scripts/         local dev tooling (scripts/dev), platform seed, cross-service e2e
+docs/            engineering conventions and local development guide
 reports/         strategy report; research_notes/ holds the sources behind it
 ```
 
-Brand name is a placeholder: change `BRAND` in `packages/shared/src/brand.ts`.
+The display name lives in `BRAND` (`packages/shared/src/brand.ts`) and can be overridden with `BRAND_NAME`.

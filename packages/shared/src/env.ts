@@ -8,7 +8,9 @@ export function loadEnv<T extends z.ZodType>(
   schema: T,
   source: Record<string, string | undefined> = process.env,
 ): z.infer<T> {
-  const result = schema.safeParse(source);
+  // `KEY=` in a .env file or compose env means "not set", not "set to an empty string".
+  const cleaned = Object.fromEntries(Object.entries(source).filter(([, v]) => v !== undefined && v !== ''));
+  const result = schema.safeParse(cleaned);
   if (!result.success) {
     const lines = result.error.issues.map((i) => `  - ${i.path.join('.') || '(root)'}: ${i.message}`);
     throw new Error(`Invalid environment configuration:\n${lines.join('\n')}`);

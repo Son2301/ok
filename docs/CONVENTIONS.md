@@ -54,4 +54,4 @@ apps/<svc>/
 - **External APIs we cannot test against** (third-party providers, marketplaces): implement against
   their public docs, keep the adapter thin, unit-test request building/response parsing with fixtures,
   and mark them `verified: false` in code comments/README until tested against the real service.
-- Tests must pass offline: `pnpm -r typecheck && pnpm -r test`.
+- Tests must pass offline: `pnpm typecheck && pnpm test` (packages run one at a time: each suite boots in-process Postgres instances and oversubscribing the CPU makes DB-heavy tests time out).

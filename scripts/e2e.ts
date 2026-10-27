@@ -1,17 +1,22 @@
 /**
- * Cross-service smoke test against running services that share one Postgres.
- *   . env.sh && pnpm --filter @minh/scripts exec tsx e2e.ts
- * Expects: gateway :4000 (mock provider, SePay key `sepay-e2e`), agents :4100, safe :4200, review :4300.
+ * Cross-service smoke test against the running stack (`pnpm dev` in another terminal):
+ *   pnpm dev:check
+ * Reads DATABASE_URL, INTERNAL_TOKEN, SEPAY_API_KEY and PLATFORM_ORG_ID from .env / the environment.
+ * Expects: gateway :4000, agents :4100, safe :4200, review :4300, all on the same Postgres.
  */
 import { Core } from '@minh/core';
 import { createDb } from '@minh/db';
+import { loadEnv } from './dev/lib';
+
+const env = loadEnv();
 
 const GW = 'http://localhost:4000';
 const AGENTS = 'http://localhost:4100';
 const SAFE = 'http://localhost:4200';
 const REVIEW = 'http://localhost:4300';
-const internal = process.env.INTERNAL_TOKEN!;
-const platformOrg = process.env.PLATFORM_ORG!;
+const internal = env.INTERNAL_TOKEN!;
+const platformOrg = env.PLATFORM_ORG_ID ?? env.PLATFORM_ORG ?? 'org_platform';
+const sepayKey = env.SEPAY_API_KEY ?? 'sepay-e2e';
 
 let failures = 0;
 function check(name: string, ok: boolean, detail?: unknown) {
@@ -29,7 +34,7 @@ async function j(res: Response) {
   }
 }
 
-const handle = await createDb(process.env.DATABASE_URL);
+const handle = await createDb(env.DATABASE_URL);
 const core = new Core(handle);
 const email = `e2e+${Date.now()}@example.com`;
 const { org } = await core.signUp({ email, password: 'correct horse battery', name: 'E2E Shop' });
@@ -49,7 +54,7 @@ const asKey = { authorization: `Bearer ${key}`, 'content-type': 'application/jso
   check('wallet: top-up QR created', typeof topup.qrImageUrl === 'string' && /^MINH/.test(topup.code), topup);
   const hook = await fetch(`${GW}/webhooks/sepay`, {
     method: 'POST',
-    headers: { authorization: 'Apikey sepay-e2e', 'content-type': 'application/json' },
+    headers: { authorization: `Apikey ${sepayKey}`, 'content-type': 'application/json' },
     body: JSON.stringify({
       id: Date.now(),
       transferType: 'in',
