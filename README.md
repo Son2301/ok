@@ -47,7 +47,8 @@ pnpm dev         # all five apps with hot reload → http://localhost:3000
 
 Log in as `demo@minh.local` / `minh-demo-2026`. No AI provider keys are needed: the gateway serves an offline
 mock model until you add one to `.env`. Full guide, commands and troubleshooting:
-[`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
+[`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md). Setting up with Claude Code? Tell it to follow
+[`docs/LOCAL_SETUP_WITH_CLAUDE.md`](docs/LOCAL_SETUP_WITH_CLAUDE.md).
 
 ```bash
 pnpm test && pnpm typecheck && pnpm lint   # ~825 tests, all offline
