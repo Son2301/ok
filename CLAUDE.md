@@ -86,6 +86,21 @@ Demo login after setup: `demo@minh.local` / `minh-demo-2026`; demo API key in `.
   otherwise. Catalog prices in `apps/gateway/src/catalog/default.ts` are placeholders.
 - **Brand**: display name comes from `BRAND` / `BRAND_NAME`; don't hard-code "Minh AI" elsewhere.
 
+## Wrapping up a session
+
+When the owner says "wrap up" or anything like it ("save", "let's stop", "end the session"), save the
+session's work to GitHub so the next session can start from it:
+
+1. Update `HANDOFF.md` with the real state: what's done, what's partial, what's running, and the exact
+   next action.
+2. Run `pnpm lint` (plus `pnpm typecheck` and the affected tests if code changed). Commit anyway if
+   something fails, but say so in the commit body and in `HANDOFF.md`.
+3. Commit everything that belongs in the repo, using a Conventional Commits message. Never commit `.env`
+   or `.dev/`.
+4. Push the current branch to `origin`. If it's `claude/dos-ai-products-gz91om` or `main`, make a
+   feature branch first.
+5. Report the branch, the commit and the PR link if one exists. Don't merge without being asked.
+
 ## Gotchas
 
 - PGlite is single-process: fine for tests and a single service, not for the full stack (use Postgres).
