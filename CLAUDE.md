@@ -8,6 +8,28 @@ Read `README.md` for the product overview, `docs/CONVENTIONS.md` for engineering
 for local dev, and `docs/LOCAL_SETUP_WITH_CLAUDE.md` is a step-by-step setup runbook. Each `apps/*/README.md` has that service's API, env vars and a verified/unverified table.
 `reports/` holds the product strategy; it explains *why* many small UX details exist.
 
+## Guidance masterfiles
+
+Shared guidance lives in `docs/guidance/`, copied unchanged from the master library. Read the files by
+path (they are not `@`-imported, so they don't load into every session):
+
+- **Every session, before planning or editing:** read `docs/guidance/MASTER-CLAUDE.md` in full. It sets
+  how we work: the product owner owns the product and you own the build, pitch before building, the
+  standing rules, the git workflow, honest reporting, security (SEC-01–13) and legal checks. Keep
+  `HANDOFF.md` current as it describes.
+- **For engineering judgement, quality standards, ethics and review:** read
+  `docs/guidance/ENGINEERING-CRAFT-MASTER.md` in full and apply it within the current task's scope.
+- **For UI/product design, critique or implementation of approved designs:** read
+  `docs/guidance/UI-DESIGN-MASTER.md` in full and apply it within the current task's scope.
+  `docs/guidance/UI-DESIGN-START-HERE.md` has ready-made prompts for direction, audit and build tasks.
+
+These files add to the project rules on this page; they don't replace them. Where this file or
+`docs/CONVENTIONS.md` is more specific (Vietnamese-first copy, micro-USD money, one schema per service,
+`verified: false` adapters, the agreed stack), the project rule wins. Don't use the masterfiles to
+reopen settled decisions or rewrite working architecture. Record gaps as findings instead.
+MASTER-CLAUDE's "One-time setup" (ADRs, `PRIVACY.md`, `docs/legal/`, CI, Makefile) hasn't been done
+here. Pitch it before creating any of it.
+
 ## Layout
 
 | Path | What | Port |
