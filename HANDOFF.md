@@ -2,7 +2,7 @@
 
 - Task ID / checkpoint: adopt-master-guidance / 1
 - Updated at (ISO 8601 with timezone): 2026-10-27T17:35+11:00
-- Status: complete (not committed)
+- Status: complete; committed and in review as a pull request
 - Active writer / outgoing tool / intended next tool: Claude Code / none / none
 - Repository or worktree path / branch / HEAD (or no Git): ~/Minh / docs/adopt-master-guidance / 749f011
 
@@ -20,8 +20,9 @@
 - Completed changes and files: docs/guidance/{MASTER-CLAUDE,ENGINEERING-CRAFT-MASTER,UI-DESIGN-MASTER,
   UI-DESIGN-START-HERE}.md (byte-identical copies from the master library); CLAUDE.md gained a
   "Guidance masterfiles" section; new AGENTS.md and HANDOFF.md.
-- Partial work and files; staged / unstaged / untracked / needed ignored files: all of the above are
-  unstaged/untracked; nothing committed. `.env` and `.dev/` are local only (git-ignored).
+- Partial work and files; staged / unstaged / untracked / needed ignored files: none; all of the above
+  is committed on `docs/adopt-master-guidance` (first commit 89e59c4). `.env` and `.dev/` are local only
+  (git-ignored).
 - Pre-existing or user changes to preserve; unknown ownership: none.
 - Running processes or external actions: `pnpm dev` from the local setup may still be running in the
   background of the earlier Claude Code session; stop it with Ctrl-C or by ending that session.
@@ -45,4 +46,5 @@
 
 ## Next actions
 1. Owner answers prototype vs real product; that decides how much of MASTER-CLAUDE's process applies.
-2. Commit this branch when asked (`docs: adopt guidance masterfiles`).
+2. Review and merge the pull request from `docs/adopt-master-guidance` into
+   `claude/dos-ai-products-gz91om`.
