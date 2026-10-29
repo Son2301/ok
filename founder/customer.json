@@ -4,17 +4,53 @@
   "where": "Vietnam, online (mostly Hanoi and Ho Chi Minh City)",
   "age": [22, 40],
   "segments": [
-    {"name": "Freelancer / indie developer building side projects", "share": 0.35, "income": [180000000, 480000000]},
-    {"name": "Developer at a startup or small agency (2-20 people) who chooses the tools", "share": 0.40, "income": [300000000, 900000000]},
-    {"name": "Tech lead or CTO at an SME who must get a VAT invoice for every expense", "share": 0.25, "income": [600000000, 1500000000]}
+    {
+      "name": "Freelancer / indie developer building side projects",
+      "share": 0.35,
+      "income": [180000000, 480000000]
+    },
+    {
+      "name": "Developer at a startup or small agency (2-20 people) who chooses the tools",
+      "share": 0.4,
+      "income": [300000000, 900000000]
+    },
+    {
+      "name": "Tech lead or CTO at an SME who must get a VAT invoice for every expense",
+      "share": 0.25,
+      "income": [600000000, 1500000000]
+    }
   ],
   "behaviours": [
-    {"name": "Grey-market buyer", "share": 0.20, "how": "Already buys cheap 'Claude/GPT' credit from a Vietnamese reseller or Telegram group at about 1,500-1,700đ per dollar of usage."},
-    {"name": "Pays the provider directly by card", "share": 0.20, "how": "Has an international card and pays OpenAI/Anthropic directly; gets an English invoice the accountant can't use."},
-    {"name": "Uses OpenRouter already", "share": 0.15, "how": "Routes through OpenRouter, tops up in USD and accepts the 5.5% fee."},
-    {"name": "Cost minimiser", "share": 0.15, "how": "Picks the cheapest model that works, mainly DeepSeek or Qwen, and watches every đồng."},
-    {"name": "Compliance-first buyer", "share": 0.15, "how": "Can't spend company money without a valid Vietnamese e-invoice and a contract."},
-    {"name": "Cautious experimenter", "share": 0.15, "how": "Tries new dev tools on free credit, reads GitHub issues and Facebook dev groups before committing."}
+    {
+      "name": "Grey-market buyer",
+      "share": 0.2,
+      "how": "Already buys cheap 'Claude/GPT' credit from a Vietnamese reseller or Telegram group at about 1,500-1,700đ per dollar of usage."
+    },
+    {
+      "name": "Pays the provider directly by card",
+      "share": 0.2,
+      "how": "Has an international card and pays OpenAI/Anthropic directly; gets an English invoice the accountant can't use."
+    },
+    {
+      "name": "Uses OpenRouter already",
+      "share": 0.15,
+      "how": "Routes through OpenRouter, tops up in USD and accepts the 5.5% fee."
+    },
+    {
+      "name": "Cost minimiser",
+      "share": 0.15,
+      "how": "Picks the cheapest model that works, mainly DeepSeek or Qwen, and watches every đồng."
+    },
+    {
+      "name": "Compliance-first buyer",
+      "share": 0.15,
+      "how": "Can't spend company money without a valid Vietnamese e-invoice and a contract."
+    },
+    {
+      "name": "Cautious experimenter",
+      "share": 0.15,
+      "how": "Tries new dev tools on free credit, reads GitHub issues and Facebook dev groups before committing."
+    }
   ],
   "objections": [
     "Grey-market credit is much cheaper; why pay more?",
