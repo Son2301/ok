@@ -1,0 +1,25 @@
+{
+  "business": "Minh AI Gateway (all figures in đồng; every input is an estimate, see cfo-sources.md)",
+  "unit": "US$1 of model usage sold",
+  "price": 27000,
+  "variable": [
+    {"label": "Provider cost at bank rate (26,000đ/$)", "cost": 26000},
+    {"label": "Minh's own card FX fee paying providers (~2.5%)", "cost": 650},
+    {"label": "Failed requests credited back (~0.5%)", "cost": 135},
+    {"label": "Free 50,000đ sign-up credit, amortised (~2 sign-ups per payer, $360/yr per payer)", "cost": 280}
+  ],
+  "fixed_monthly": [
+    {"label": "Cloud hosting, Postgres, monitoring", "cost": 2500000},
+    {"label": "E-invoice service + SePay plan", "cost": 800000},
+    {"label": "Domains, email, misc software", "cost": 500000},
+    {"label": "Founder pay (placeholder)", "cost": 15000000}
+  ],
+  "startup": [
+    {"label": "Company setup, contracts, legal review of resale", "cost": 20000000},
+    {"label": "Launch marketing", "cost": 15000000},
+    {"label": "Prepaid float with providers (~$1,000)", "cost": 26000000}
+  ],
+  "days_per_month": 30,
+  "plan_per_day": 300,
+  "ramp_per_day": [20, 35, 55, 80, 105, 130, 155, 180, 205, 230, 255, 280]
+}

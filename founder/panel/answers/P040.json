@@ -1,0 +1,13 @@
+{
+  "id": "P040",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "price",
+  "reason": "On OpenRouter I pay the 5.5% fee plus my card's foreign transaction fee and get no VAT invoice, so if the same models really cost the bank rate here with a proper invoice, it beats what I do now. I'd burn the free 50k on a side project, then do one small top-up to test the invoice before moving the team over.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, and is the provider really the one answering? I don't know this company, and if the invoice gets rejected or the service dies, I've moved my stack for nothing.",
+  "would_change_my_mind": "If the first e-invoice gets rejected by our accountant or the receipts don't match what the model should cost, I go straight back to OpenRouter.",
+  "price_too_cheap": 23000,
+  "price_cheap": 26000,
+  "price_expensive": 27500,
+  "price_too_expensive": 28500
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P049",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Paying OpenAI with a foreign card and getting no VAT invoice is a real pain for our team, so I'd burn the 50,000đ free credit, check the receipts, and do one small VietQR top-up if latency and invoices check out.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, and is a new reseller going to stay up and not swap in cheaper models behind my back?",
+  "would_change_my_mind": "A sample e-invoice my accountant accepts and some honest reviews in Vietnamese dev Facebook groups before I top up more.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

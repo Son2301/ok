@@ -1,0 +1,13 @@
+{
+  "id": "P061",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "A VAT invoice with our tax code plus paying by VietQR fixes the exact accounting headache I have now, and at the official price there's no markup to argue about. I'll burn the 50k free credit on DeepSeek first, then top up a small amount to see if the e-invoice actually arrives.",
+  "objection": "How do I know the model is really the one you say? A receipt you generate yourself and a check page you publish yourself don't prove you aren't swapping in a cheaper model behind the scenes.",
+  "would_change_my_mind": "If the e-invoice doesn't come through properly or the receipts show model swaps or latency much worse than going direct, I stop.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

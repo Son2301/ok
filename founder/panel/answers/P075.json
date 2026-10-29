@@ -1,0 +1,13 @@
+{
+  "id": "P075",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "VietQR top-up plus a real VAT e-invoice with my tax code is exactly what my foreign-card setup can't give me, so after burning the free 50,000đ I'd try one small top-up of maybe 500,000đ.",
+  "objection": "Is reselling these providers' APIs even allowed, and could my access get cut off? There's no mention of a contract, and I can't charge clients for it without one.",
+  "would_change_my_mind": "A proper service contract I can sign, plus a clear statement of how they're legally authorised to resell each provider.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P033",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "I'd grab the 50k free credit and test DeepSeek through it since paying by VietQR with a VAT invoice beats fighting my card; at the official price with no fee it costs me nothing extra, so I'd top up a small amount once.",
+  "objection": "Who is this reseller and can my access get cut off if the providers don't like it? Also DeepSeek direct is already cheap, so any hidden markup in the exchange rate kills it for me.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P056",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My card already works with OpenAI and Anthropic, and Claude isn't even on the list, so I'd be moving half my stack to an unknown middleman. The VAT invoice is tempting, but I'd grab the 50k free credit to poke at it, not top up.",
+  "objection": "Is a reseller like this actually allowed by OpenAI's terms, and could my access get cut off overnight with my balance stuck there?",
+  "would_change_my_mind": "Claude models added, plus proof it's an authorized reseller, and my accountant confirming the VAT e-invoice is accepted.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

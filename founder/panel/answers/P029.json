@@ -1,0 +1,13 @@
+{
+  "id": "P029",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "The automatic VAT e-invoice with our tax code is the thing OpenRouter can't give me, and my accountant chases me every month for it. At provider price with no 5.5% fee, I'd move part of our traffic over and keep OpenRouter as a fallback.",
+  "objection": "Adding a middleman adds latency and another point of failure, and I don't know this company yet, so I won't move production traffic until I see it hold up.",
+  "would_change_my_mind": "If the first VAT invoice is wrong or late, or latency is noticeably worse than OpenRouter, I'd stop.",
+  "price_too_cheap": 24000,
+  "price_cheap": 26000,
+  "price_expensive": 27500,
+  "price_too_expensive": 28500
+}

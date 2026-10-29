@@ -1,0 +1,13 @@
+{
+  "id": "P047",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "I already pay OpenAI and Anthropic directly with my card and it works; routing our production traffic through an unknown Vietnamese middleman adds latency and one more thing that can go down. The VAT invoice is nice for the accountant, but not enough to move our main traffic.",
+  "objection": "Another hop between my code and the provider: extra latency, an outage I can't control, and someone else seeing all our prompts and data.",
+  "would_change_my_mind": "Published latency and uptime numbers showing it adds almost nothing, plus a clear data-handling policy; then I'd move a side project over for the VAT invoice.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

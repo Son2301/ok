@@ -1,0 +1,13 @@
+{
+  "id": "P065",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "A VAT e-invoice under my company's tax code plus VietQR payment fixes the exact pain I have with foreign-card LLM bills, so I'd burn the free 50,000đ and then try one small top-up. I won't prepay anything big until I've read what other devs say about it.",
+  "objection": "A new one-person company could disappear with my prepaid balance, and I can't easily check that the model answering is really the one I pay for.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

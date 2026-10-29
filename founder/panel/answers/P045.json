@@ -1,0 +1,13 @@
+{
+  "id": "P045",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "A proper VAT e-invoice under my company's tax code for DeepSeek and Qwen spend fixes the thing my accountant nags me about every month, and the price is just the official rate at the bank rate, so it doesn't cost me extra. The free 50,000đ lets me test it before I put real money in.",
+  "objection": "How do I know the model answering is really the DeepSeek or Qwen you say, and not some cheaper substitute? A receipt you write yourselves doesn't prove much.",
+  "would_change_my_mind": "If the e-invoice turns out not to be valid for my accountant, or the exchange rate drifts above the published bank rate, I stop.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

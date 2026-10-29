@@ -1,0 +1,13 @@
+{
+  "id": "P004",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "VietQR top-up plus a real VAT invoice solves my actual pain with foreign cards, and 50k free credit means I can benchmark it at zero risk. I'd do one small top-up for a side project, but keep my main traffic on direct provider keys until I trust it.",
+  "objection": "A middleman adds latency and one more thing that can go down, and I have no idea who runs this or whether they'll quietly swap in a cheaper model.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 24000,
+  "price_cheap": 26000,
+  "price_expensive": 28000,
+  "price_too_expensive": 30000
+}

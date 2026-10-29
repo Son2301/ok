@@ -1,0 +1,13 @@
+{
+  "id": "P014",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already pay about 1,600đ per dollar of usage through my Telegram reseller, so paying 26,000đ for the same dollar makes no sense for my side projects. I'd take the 50k free credit to poke at it, but I wouldn't top up.",
+  "objection": "It's over fifteen times what I pay now, and a brand-new one-person company could vanish with my prepaid balance like the last tool I lost money on.",
+  "would_change_my_mind": "If my reseller got shut down or kept serving fake models and I needed a reliable legal source, I'd try it with small top-ups.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1500,
+  "price_expensive": 4000,
+  "price_too_expensive": 8000
+}

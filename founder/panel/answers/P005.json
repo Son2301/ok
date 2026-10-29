@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "Grey-market credit is cheaper, but I can't book it without a VAT invoice and my accountant keeps chasing me. I'll burn the 50k free credit first, and if the receipts and invoices check out I'll top up a small amount for the team.",
+  "objection": "A new, unknown gateway sitting between my code and OpenAI. If it goes down or gets cut off by the providers, my production breaks, and I've seen nothing on GitHub or in the groups about it yet.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

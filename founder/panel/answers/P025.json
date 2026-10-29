@@ -1,0 +1,13 @@
+{
+  "id": "P025",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I pay about 1,600đ per dollar of usage on Telegram right now, and you want 26,000đ. The VAT invoice is nice, but not 15 times nice, and I don't even see Claude on your list.",
+  "objection": "Full official price at the bank rate is what I'd pay going direct with a foreign card. Where's the discount, and where's Claude, which is what my team actually uses?",
+  "would_change_my_mind": "Claude available at a real discount, maybe 15,000đ per dollar or under, with the VAT invoice. Then I could take it to accounting and stop worrying about a reseller cutting us off.",
+  "price_too_cheap": 1000,
+  "price_cheap": 5000,
+  "price_expensive": 15000,
+  "price_too_expensive": 22000
+}

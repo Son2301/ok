@@ -1,0 +1,13 @@
+{
+  "id": "P023",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "price",
+  "reason": "I already eat a 5.5% fee plus my card's FX markup on OpenRouter, so official price at bank rate with VietQR is actually cheaper and less hassle. I'll burn the 50k free credit first, then top up a small amount for a side project.",
+  "objection": "Grey-market keys are way cheaper, and a new gateway with 40 models instead of OpenRouter's hundreds could go down or quietly swap models; I'd only keep a small balance there.",
+  "would_change_my_mind": "If latency or uptime is worse than OpenRouter in my first week, or a model I use isn't there, I go back.",
+  "price_too_cheap": 15000,
+  "price_cheap": 23000,
+  "price_expensive": 27500,
+  "price_too_expensive": 30000
+}

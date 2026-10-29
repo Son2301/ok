@@ -1,50 +1,30 @@
 # Handoff
 
-- Task ID / checkpoint: adopt-master-guidance / 1
-- Updated at (ISO 8601 with timezone): 2026-10-27T17:35+11:00
-- Status: complete; committed and in review as a pull request
-- Active writer / outgoing tool / intended next tool: Claude Code / none / none
-- Repository or worktree path / branch / HEAD (or no Git): ~/Minh / docs/adopt-master-guidance / 749f011
+- Task ID / checkpoint: founder-gateway-analysis / 1
+- Updated at: 2026-10-29
+- Status: paused; analysis committed, CFO rerun waiting on the owner's real numbers
+- Repository / branch: ~/Minh / docs/founder-gateway-analysis (branched from docs/adopt-master-guidance)
 
-## Goal and agreement
-- User outcome, stage, scope and definition of done: bring four guidance masterfiles into the repo and
-  point CLAUDE.md at them. Done when the files are in `docs/guidance/`, CLAUDE.md says when to read
-  each one, Codex has a root loader and lint still passes.
-- Explicitly out of scope: MASTER-CLAUDE "One-time setup" files (ADRs, PRIVACY.md, CHANGELOG.md,
-  docs/legal/, CI workflow, Makefile); any code change.
-- User decisions and authorisation: user asked in chat to "apply these 4 files"; user chose the new
-  branch `docs/adopt-master-guidance`. Pending: prototype or real product (MASTER-CLAUDE "Stages").
-- Canonical guidance and relevant ADRs: CLAUDE.md, docs/CONVENTIONS.md, docs/guidance/*. No ADRs yet.
+## Goal
+Pressure-test Minh AI as a business with the founder skill pack. No product code changed.
 
-## Actual working state
-- Completed changes and files: docs/guidance/{MASTER-CLAUDE,ENGINEERING-CRAFT-MASTER,UI-DESIGN-MASTER,
-  UI-DESIGN-START-HERE}.md (byte-identical copies from the master library); CLAUDE.md gained a
-  "Guidance masterfiles" section; new AGENTS.md and HANDOFF.md.
-- Partial work and files; staged / unstaged / untracked / needed ignored files: none; all of the above
-  is committed on `docs/adopt-master-guidance` (first commit 89e59c4). `.env` and `.dev/` are local only
-  (git-ignored).
-- Pre-existing or user changes to preserve; unknown ownership: none.
-- Running processes or external actions: `pnpm dev` from the local setup may still be running in the
-  background of the earlier Claude Code session; stop it with Ctrl-C or by ending that session.
-- Environment/tool versions, required capabilities; secret locations only, no values: Node 24.22.1,
-  pnpm 10.28.0, Postgres 16 (Homebrew service, port 5432). Secrets in `.env` and `.dev/credentials.json`.
+## Done (all in `founder/`)
+- `/founder-board` → `board.md`: 3× "fund if", 4.3/10. Strongest version: Gateway only, verified-authentic AI access for VN devs paid in đồng.
+- `/founder-consumer` (100 simulated buyers) → `customer.json`, `pitch.md`, `panel/results.md`: 61 buy / 39 pass. CTO/SME 84%, grey-market 10%. The VAT e-invoice drives buying; trust and grey-market price drive passing.
+- `/founder-pricing` → `pricing.md`, `pricing-curve.md`: acceptable range 22,979–27,973đ per US$1; recommended 27,000đ, a 3-rung ladder, test 26,500 vs 27,500.
+- `/founder-cfo` → `numbers.json`, `cfo.md`, `cfo-sources.md`: **at 27,000đ each US$1 loses ~65đ** (Minh also pays its own ~2.5% card FX fee to providers). Year 1 −229M đ; ~290M đ cash needed. A 10% provider discount → +2,535đ/$ and +2% margin at plan. Provider cost, not price, is the lever.
 
-## Verification
-- `pnpm lint` / 2026-10-27T17:36+11:00 / local macOS / HEAD 749f011 plus this task's working changes /
-  passed (409 files, no fixes). Every path named in CLAUDE.md's guidance section exists.
-- Observed working for real: local stack up, dev:check 18/18 and 827 tests passing at HEAD 749f011
-  before this docs-only change.
-- Failed, not run, blocked or stale checks: typecheck/tests not rerun (docs-only change).
+## Next action
+Owner will supply real inputs; rerun `/founder-cfo` with them (replace estimates in `founder/numbers.json`, mark each as owner-supplied in `cfo-sources.md`):
+1. Bank foreign-transaction fee (assumed 2.5%) or the bank's US$ rate
+2. Provider terms per provider: discount/volume tier, card vs USD transfer, written resale permission (assumed list price, no discount)
+3. Monthly hosting (assumed 2.5M đ)
+4. Founder pay (assumed 15M đ placeholder)
+Optional: e-invoice + SePay plan prices (0.8M đ), actual USD buy rate (~26,000đ), setup quotes (61M đ).
+Then update `founder/pricing.md` if the margin changes (it still says ~1,000đ margin, which the CFO run disproved), then `/founder-offer`.
 
-## Risks and blockers
-- Technical risks, known debt and unsuccessful approaches with reasons: MASTER-CLAUDE assumes a fresh
-  project in places (stack pitch, one-time setup, "no third-party dependencies until an ADR"); existing
-  dependencies predate it, so those rules apply going forward.
-- Legal/compliance items: no compliance register yet (MASTER-CLAUDE asks for one before real personal
-  data or payments; the product has a wallet and VietQR top-ups).
-- Awaiting user input or external access: is Minh AI a prototype or a real product?
-
-## Next actions
-1. Owner answers prototype vs real product; that decides how much of MASTER-CLAUDE's process applies.
-2. Review and merge the pull request from `docs/adopt-master-guidance` into
-   `claude/dos-ai-products-gz91om`.
+## Caveats
+- All buyer answers are simulated: buy rate is an upper bound.
+- Grey-market ~1,600đ/$ figure comes from the strategy report and may be a misreading.
+- VAT on resold tokens is not in the numbers; an accountant must check it.
+- Earlier work (guidance masterfiles) is on `docs/adopt-master-guidance`, in review as a PR.

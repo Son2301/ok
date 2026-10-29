@@ -1,0 +1,13 @@
+{
+  "id": "P051",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already get Claude/GPT usage for about 1,600đ per dollar from a Telegram reseller, and you want 26,000đ per dollar. Receipts and a VAT invoice don't matter to me as a solo dev. I'd grab the free 50k to play with, but I wouldn't top up.",
+  "objection": "It costs about 15x what I pay now, and a new one-person company could disappear with my prepaid balance like the last tool did.",
+  "would_change_my_mind": "If my reseller got shut down or kept scamming people, and you had a track record showing you'd still be around in a year.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1500,
+  "price_expensive": 3000,
+  "price_too_expensive": 6000
+}

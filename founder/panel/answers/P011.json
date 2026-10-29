@@ -1,0 +1,13 @@
+{
+  "id": "P011",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "I already pay DeepSeek and OpenRouter with my card and it works. Same official price plus your exchange rate gives me nothing new except paying by QR, and I don't need a VAT invoice as a freelancer.",
+  "objection": "If it's the same price as going direct, what is the catch? Your bank rate is probably worse than my card's rate, and I'd be trusting a new middleman with my balance and my keys.",
+  "would_change_my_mind": "A DeepSeek/Qwen price actually cheaper than going direct, or my card getting blocked for foreign payments.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25000,
+  "price_expensive": 26500,
+  "price_too_expensive": 27500
+}

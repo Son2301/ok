@@ -1,0 +1,13 @@
+{
+  "id": "P084",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already get Claude/GPT usage at around 1,600đ per dollar from a Telegram reseller, and this is roughly 16 times that. The VAT invoice is nice but my team doesn't need it badly enough to pay that much more.",
+  "objection": "Official price at 26,000đ per dollar is just what OpenAI charges anyway; grey-market credit is way cheaper and works fine for us.",
+  "would_change_my_mind": "If my reseller got shut down or kept giving fake/downgraded models, or a client required a proper VAT invoice, I'd switch.",
+  "price_too_cheap": 1000,
+  "price_cheap": 3000,
+  "price_expensive": 8000,
+  "price_too_expensive": 15000
+}

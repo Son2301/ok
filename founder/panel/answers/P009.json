@@ -1,0 +1,13 @@
+{
+  "id": "P009",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "price",
+  "reason": "OpenRouter already works for me, but if it's really the provider price with no 5.5% fee and no card FX markup, I save a little and skip the foreign card hassle. I'd burn the free 50k credit first, then do one small VietQR top-up to test it.",
+  "objection": "It's a new local reseller. I don't know if it's actually the real models, how the latency compares, or whether it'll still exist in a year.",
+  "would_change_my_mind": "If latency or uptime is worse than OpenRouter in my Cursor/side-project workflow, or the model I want is missing, I go straight back.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 28500
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P059",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I get usage from the Telegram reseller at about 1,600đ per dollar, and you want 26,000đ. The VAT invoice is nice, but not at fifteen times the cost. I'll take the free 50k to poke at it and that's all.",
+  "objection": "Paying full official price in đồng when the grey market is a fraction of that, and a new gateway with no track record sitting between my code and the models.",
+  "would_change_my_mind": "If accounting starts rejecting grey-market spend outright and a real VAT invoice becomes mandatory, I'd move the company-billed part over, but only at a rate close to the bank rate with no hidden margin.",
+  "price_too_cheap": 1000,
+  "price_cheap": 5000,
+  "price_expensive": 18000,
+  "price_too_expensive": 26000
+}

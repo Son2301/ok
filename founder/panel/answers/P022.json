@@ -1,0 +1,13 @@
+{
+  "id": "P022",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "The VAT e-invoice is exactly what I need, and I'd use the 50,000đ free credit to test it. But I can't put company money into an unknown reseller without a signed contract and some proof that they're allowed to resell these models.",
+  "objection": "Is it even legal for them to resell OpenAI and Gemini? If a provider cuts them off, our production code breaks and the prepaid balance is stuck. They mention a refund but no contract or uptime commitment.",
+  "would_change_my_mind": "A proper service contract with the company's legal details, plus written proof of their provider agreements, or something that shows they're a legitimate reseller.",
+  "price_too_cheap": 23000,
+  "price_cheap": 26000,
+  "price_expensive": 29000,
+  "price_too_expensive": 32000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P021",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My card already works with OpenAI and Anthropic directly, so the payment problem isn't mine. I'd maybe burn the free 50,000đ to poke at it, but I'm not putting my own money or my side projects behind a middleman I've never heard of.",
+  "objection": "How do I know the model answering is really the one you say, and not a cheaper one swapped in? A receipt you generate yourselves and a page you run yourselves don't prove much. And I've already lost money once to a tool that shut down.",
+  "would_change_my_mind": "An independent third party verifying the models are real, plus a track record of a year or more with no outages or shutdown risk.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

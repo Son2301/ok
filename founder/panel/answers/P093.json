@@ -1,0 +1,13 @@
+{
+  "id": "P093",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "OpenRouter can't give me a Vietnamese VAT invoice, and that's a real pain at month-end, so a gateway that does and costs no more is worth trying. I'll burn the free 50,000đ first, then do one small top-up to see whether the e-invoice actually comes through properly.",
+  "objection": "Will the e-invoice really be valid for my company's accounting, issued by a registered Vietnamese entity with our tax code, or will my accountant reject it? If not, I'm no better off than with OpenRouter.",
+  "would_change_my_mind": "If the first invoice comes back wrong or my accountant rejects it, I go straight back to OpenRouter.",
+  "price_too_cheap": 24000,
+  "price_cheap": 26000,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

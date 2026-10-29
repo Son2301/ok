@@ -1,0 +1,13 @@
+{
+  "id": "P019",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "OpenRouter already works for me and the 5.5% fee is noise at my scale. Swapping to an unknown middleman for a few percent isn't worth another thing that could break or vanish. I've been burned by a tool shutting down before.",
+  "objection": "Another hop adds latency and a new single point of failure, and a new startup holding my prepaid balance could disappear.",
+  "would_change_my_mind": "A public uptime and latency track record of 6+ months that matches OpenRouter, plus proof the refund actually works.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

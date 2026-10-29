@@ -1,0 +1,13 @@
+{
+  "id": "P054",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "convenience",
+  "reason": "The VAT e-invoice with my tax code is the thing grey-market resellers can never give me, and without it I can't expense anything, so the cheaper grey credit is useless to me. Paying official price at the bank rate with VietQR is fair, so I'd try the free credit and then top up.",
+  "objection": "I need a proper contract and a valid e-invoice before I spend real money, and I don't know who you are yet, so I'd only put in a small amount until the first invoice checks out.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 20000,
+  "price_cheap": 25000,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P078",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "A proper VAT e-invoice with our tax code plus VietQR payment fixes exactly what blocks me from expensing OpenAI and Gemini on the company. I'd take the free 50k, test it, then do one real top-up once I've seen a sample invoice and a contract.",
+  "objection": "Is reselling these APIs actually allowed by OpenAI and Google, or could they cut this gateway's access and leave my production code dead with prepaid credit stuck in it?",
+  "would_change_my_mind": "If they can't give me a signed service contract and a sample hóa đơn điện tử before I pay, I'm out.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 30000
+}

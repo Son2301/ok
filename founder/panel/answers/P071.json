@@ -1,0 +1,13 @@
+{
+  "id": "P071",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "The VAT e-invoice with our tax code is the one thing my direct OpenAI card payments can't give me, and at the official price with no fee it costs me nothing extra to try. I'd move a small slice of spend over and keep the rest direct until it proves itself.",
+  "objection": "I've lost money to a tool that shut down before; a new Vietnamese reseller sitting between me and the provider could vanish with my prepaid balance or add latency and outages.",
+  "would_change_my_mind": "If the first VAT invoice is wrong or my accountant can't use it, or if requests fail more than going direct, I drop it.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

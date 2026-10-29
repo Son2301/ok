@@ -1,0 +1,13 @@
+{
+  "id": "P018",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "trust",
+  "reason": "VietQR plus a VAT invoice with our tax code fixes exactly what blocks me with foreign cards, so I'd burn the 50k free credit and maybe do one small top-up. But I've been burned by a tool that shut down, so I won't put real money in until I've seen an invoice my accountant accepts.",
+  "objection": "Is the e-invoice really valid for my company's books, and will this company still be around in six months to refund my balance?",
+  "would_change_my_mind": "A sample e-invoice my accountant can check, plus the registered company name and tax code of the seller, and some real reviews in Vietnamese dev Facebook groups.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

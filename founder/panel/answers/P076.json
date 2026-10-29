@@ -1,0 +1,13 @@
+{
+  "id": "P076",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "convenience",
+  "reason": "The VAT e-invoice under my company's tax code is the thing grey-market credit can never give me, and our accountant won't book expenses without one. I'd burn the 50k free credit on a test project first, then top up a small amount if latency and the receipts check out.",
+  "objection": "A new local reseller sitting between me and OpenAI: will it still be around in a year, is it really the official model, and does the latency hold up? I'd want to see GitHub issues and dev group chatter first.",
+  "would_change_my_mind": "If the VAT invoice turns out to be slow or wrong, or people in dev groups report swapped models or outages, I'd go back to grey-market credit.",
+  "price_too_cheap": 18000,
+  "price_cheap": 25000,
+  "price_expensive": 28500,
+  "price_too_expensive": 32000
+}

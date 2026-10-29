@@ -1,0 +1,13 @@
+{
+  "id": "P098",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already get a dollar of usage for about 1,600đ from a Telegram reseller, and you want 26,000đ for the same dollar. That's over 15 times more. I'll take the 50k free credit to poke around, but I'm not topping up.",
+  "objection": "The price, by a huge margin. The receipts and the model checks are nice, but my reseller is cheap enough that I can live with the risk.",
+  "would_change_my_mind": "If a client needs a proper VAT invoice, or my reseller gets cut off or starts swapping in fake models. Then I'd pay for the legit route, but only for that work.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1800,
+  "price_expensive": 4000,
+  "price_too_expensive": 8000
+}

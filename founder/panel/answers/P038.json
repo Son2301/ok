@@ -1,0 +1,13 @@
+{
+  "id": "P038",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "The Telegram credit is dirt cheap, but my accountant can't book it, and I'm sick of getting chased every month. I'd move just the company-billed usage over, one small VietQR top-up to test it, and keep the cheap reseller for personal hacking.",
+  "objection": "It's about 15 times what I pay the reseller per dollar, and I'm not convinced the red invoice is worth that gap. If it isn't, my boss will ask why our API bill jumped.",
+  "would_change_my_mind": "If the first e-invoice comes back wrong or late, or the receipt costs don't match the provider's price list, I'd drop it.",
+  "price_too_cheap": 8000,
+  "price_cheap": 22000,
+  "price_expensive": 27000,
+  "price_too_expensive": 30000
+}

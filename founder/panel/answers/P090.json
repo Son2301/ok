@@ -1,0 +1,13 @@
+{
+  "id": "P090",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I'd grab the 50k free credit and poke at it, but at full official price plus bank rate it's more than the grey-market keys my team already uses. The VAT invoice is nice, but my clients don't ask for it yet.",
+  "objection": "Grey-market resellers give the same models for maybe 30-50% off; paying full price at 26,000đ only makes sense if I really need the invoice or am scared of keys getting banned.",
+  "would_change_my_mind": "A real discount below official price, or a client project that requires a proper VAT invoice, plus good word from Facebook dev groups that it's stable.",
+  "price_too_cheap": 10000,
+  "price_cheap": 18000,
+  "price_expensive": 25000,
+  "price_too_expensive": 28000
+}

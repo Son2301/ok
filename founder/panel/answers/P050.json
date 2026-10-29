@@ -1,0 +1,13 @@
+{
+  "id": "P050",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "A VAT e-invoice with our tax code plus VietQR is exactly what I can't get from OpenAI directly, so I'd try the free credit and then do one company top-up if the first invoice checks out.",
+  "objection": "Will the e-invoice actually be valid for our accounting, and is there a proper contract with a real Vietnamese legal entity behind it?",
+  "would_change_my_mind": "If the first e-invoice is rejected by our accountant or they can't sign a service contract, I stop.",
+  "price_too_cheap": 22000,
+  "price_cheap": 26000,
+  "price_expensive": 28500,
+  "price_too_expensive": 31000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P072",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I pay around 1,600đ per dollar of usage on Telegram right now, and you want 26,000đ. That's more than 15 times what I pay, and you don't even list Claude, which is what my team actually uses.",
+  "objection": "Official price plus a VAT invoice is nice, but it costs way more than what I pay now. I'd only switch if my reseller got cut off, and even then I'd probably just find another reseller.",
+  "would_change_my_mind": "Claude models at a price close to what grey-market resellers charge, or my current reseller getting banned and my clients asking for VAT invoices.",
+  "price_too_cheap": 800,
+  "price_cheap": 1500,
+  "price_expensive": 5000,
+  "price_too_expensive": 10000
+}

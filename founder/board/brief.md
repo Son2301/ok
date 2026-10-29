@@ -1,0 +1,16 @@
+# Minh AI
+
+- What it is: four AI products for Vietnam (Gateway, Agents, Safe, Review) on one account and one prepaid VND wallet, positioned as "local and verifiably honest".
+- Who it is for: Vietnamese developers and small software teams (Gateway, Review); Vietnamese small shop owners selling via Zalo/Shopee/KiotViet/Haravan (Agents); ordinary Vietnamese consumers and their families (Safe, free) plus businesses needing a scam-check API.
+- What it sells, at what price: prepaid usage debited from one VND wallet (credits never expire). Gateway: resold LLM tokens with a markup (catalog prices are placeholders, not set). Agents: hosted "AI employee" plans (price not set). Review: per-PR price of "a few thousand đồng" (strategy target, not final). Safe: free for consumers, paid API for businesses (price not set).
+- Where and how: online, Vietnam. Top-up by VietQR bank transfer confirmed by SePay webhook; automatic Vietnamese e-invoice. Distribution ideas: Review bot footers in PRs, Safe "ask your kids" share cards timed before Tết, concierge setup of Agents for the first 10–20 shops.
+- Budget and constraints: solo founder ("a company of one"). Budget not stated. Software is built and tested offline only; no third-party API (AI providers, SePay, Zalo, GitHub…) verified live yet. Unresolved tax/legal questions (VAT on resold tokens, PDPL for scam blacklists, Anthropic resale terms).
+
+## Further context a stranger needs
+
+- Strategy thesis (from the founder's research report): features have converged globally; a solo company cannot out-feature OpenRouter (gateway), CodeRabbit (code review), Lindy (agents) or Chống Lừa Đảo (scam checking). It aims to win at "anxious moments": paying, seeing the bill, wondering which model actually answered, approving an agent's risky action, reading a scam verdict, reading a bot's third round of review comments.
+- Claimed levers: VND wallet via VietQR crediting in seconds; credits never expire; spend caps on by default; automatic credit for failed work; a receipt for every action in đồng; Zalo as the place approvals/alerts/reports arrive; copy that never overclaims (Safe never says "an toàn"/safe, deepfake results are "warning signs", not real/fake); Review posts only findings an adversarial second model failed to refute, and stays silent otherwise.
+- Claimed moat: counter-positioning — incumbents rely on credit breakage, card checkout and metered surprises; grey-market local resellers sell cheap credit (1,536–1,709đ per dollar) with frequently fake models (an audit found 183 fake "Claude" channels). Plus the public record: incident log, changelog, authenticity probes.
+- Planned sequence: wallet + gateway first; Review as developer-acquisition wedge; Safe as free brand engine before Tết; Agents built by hand with concierge setup for 10–20 shops.
+- Known risks named by the founder: no primary Vietnamese user research or willingness-to-pay data; Anthropic does not permit unapproved resale; Zalo changed OA pricing in June 2026; Google Gemini scam warnings on Android and a nonprofit Zalo bot may squeeze Safe; free deepfake detection killed TrueMedia; Claude's managed reviewer already re-reviews incrementally; gateway margin is expected to subsidize free Safe; solo-founder bandwidth across four products.
+- Not known: market size, customer acquisition cost, actual prices, budget/runway.

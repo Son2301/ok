@@ -1,0 +1,13 @@
+{
+  "id": "P008",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "My card already works with OpenAI, so payment isn't my pain. The VAT e-invoice is. If it's valid, I'd move our usage over at the same price and top up by VietQR like I pay for everything else.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, and is a reseller's invoice for foreign model usage something my accountant can book without trouble?",
+  "would_change_my_mind": "If my accountant looked at a sample invoice and said it wasn't usable, I'd stay with paying OpenAI directly.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29500
+}

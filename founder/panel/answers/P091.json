@@ -1,0 +1,13 @@
+{
+  "id": "P091",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "A proper VAT e-invoice with my company tax code plus VietQR payment fixes my monthly fight with the accountant, and DeepSeek/Qwen at official price with no markup is fine. I'd take the 50k free credit, test it, then top up a small amount once.",
+  "objection": "Who is this company and will they still be here in six months? If a provider cuts off a reseller, my production calls break, and I'm trusting a newcomer with my keys and traffic.",
+  "would_change_my_mind": "If the e-invoice turns out to be a generic receipt instead of a real VAT invoice, or the rate is worse than the published bank rate, I walk.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

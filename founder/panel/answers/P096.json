@@ -1,0 +1,13 @@
+{
+  "id": "P096",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "My Telegram reseller gives me a dollar of usage for about 1,600đ, and you want 26,000đ. A VAT invoice would keep my accountant off my back, but it isn't worth paying 16 times more for the whole team's usage.",
+  "objection": "Official price at the bank rate is just what I'd pay OpenAI directly, so for me it's the most expensive option there is. The invoice is the only real extra, and it doesn't cover a gap that big.",
+  "would_change_my_mind": "If a client or my accountant made VAT invoices mandatory, I'd move only the invoiced part of our usage here and keep the cheap credit for everything else.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1600,
+  "price_expensive": 5000,
+  "price_too_expensive": 12000
+}

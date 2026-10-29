@@ -1,0 +1,13 @@
+{
+  "id": "P079",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "The VAT e-invoice under our company tax code is the real draw: my card payments to OpenRouter never come with a proper hóa đơn, and accounting complains every month. At the official price with no markup, I'd move our DeepSeek/Qwen usage over once the free 50k checks out.",
+  "objection": "Where's the margin if there's no fee? I worry the exchange rate quietly ends up above the bank rate, or that my requests get routed to a cheaper knockoff model.",
+  "would_change_my_mind": "If the invoice turns out not to be a proper VAT invoice my accountant accepts, or the rate is clearly worse than Vietcombank's selling rate, I'd stop.",
+  "price_too_cheap": 24000,
+  "price_cheap": 25800,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

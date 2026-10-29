@@ -1,0 +1,13 @@
+{
+  "id": "P083",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "A Vietnamese VAT e-invoice with our tax code fixes the thing my accountant nags me about every month, and the official price at the published bank rate means I'm not paying much extra for it. I'd use the free 50k credit to test it, then move our OpenAI and Gemini spend over with one transfer.",
+  "objection": "Is it actually allowed to resell these APIs, and if the provider cuts the reseller off, does my production traffic go down with it? Also Claude isn't on the list, so I'd still be paying Anthropic by card with an English invoice.",
+  "would_change_my_mind": "If the first VAT invoice my accountant gets is wrong or late, or I find out the provider terms forbid this kind of resale, I'd stop.",
+  "price_too_cheap": 24000,
+  "price_cheap": 26000,
+  "price_expensive": 28500,
+  "price_too_expensive": 31000
+}

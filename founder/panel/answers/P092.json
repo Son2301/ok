@@ -1,0 +1,13 @@
+{
+  "id": "P092",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "I'll grab the free 50k and try it with DeepSeek; if the đồng price really matches the official price, paying by VietQR beats fighting my card, so I'd top up a small amount once.",
+  "objection": "I've lost money to a tool that shut down, and I don't know if the e-invoice will actually be accepted by my accountant. A new reseller with my prepaid balance feels risky.",
+  "would_change_my_mind": "If the receipts showed a markup over the official price or the refund didn't work, I'd stop.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P024",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "The VAT e-invoice is the actual reason: our accountant keeps bouncing my English OpenAI receipts, and if it's really the official price at the bank rate I lose nothing by switching part of our spend. I'd burn the 50k free credit first, then do one small top-up to see if the invoice actually shows up right.",
+  "objection": "Grey-market credit is way cheaper, and I'm sending company money to a brand-new middleman that could route my prompts to a cheaper model or disappear with the balance.",
+  "would_change_my_mind": "If the first VAT invoice came out wrong or the receipts showed a different model than I asked for, I'd go straight back to paying OpenAI by card.",
+  "price_too_cheap": 15000,
+  "price_cheap": 24000,
+  "price_expensive": 27500,
+  "price_too_expensive": 29500
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P046",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already get a dollar of Claude/GPT usage for about 1,600đ from a Telegram reseller, and you want 26,000đ for the same dollar. That is more than fifteen times what I pay now. Receipts and VAT invoices are nice, but not at that price for a small team like mine.",
+  "objection": "The price. Also you don't list Claude, which is what I mostly use. And I've lost money before when a tool shut down, so a brand-new gateway has to prove it will still be around next year.",
+  "would_change_my_mind": "If my reseller got cut off or a client insisted on a proper VAT invoice, I would take the 50,000đ free credit and test you. Even then I'd only move part of my usage over, and only if Claude were included.",
+  "price_too_cheap": 1000,
+  "price_cheap": 2000,
+  "price_expensive": 8000,
+  "price_too_expensive": 15000
+}

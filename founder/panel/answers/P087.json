@@ -1,0 +1,13 @@
+{
+  "id": "P087",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "On OpenRouter I pay the 5.5% fee plus my card's FX markup, and I still get no VAT invoice my accountant can use. If the base URL swap really works, I'll burn the 50k free credit on our staging app, then do one small VietQR top-up to test the invoice before moving real traffic.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, and is a new local reseller really calling the real models at provider price? If it goes down I need to switch back to OpenRouter fast.",
+  "would_change_my_mind": "If the first VAT invoice comes back wrong or not accepted by our accountant, or the receipts show the model isn't what I asked for, I go straight back to OpenRouter.",
+  "price_too_cheap": 23000,
+  "price_cheap": 26000,
+  "price_expensive": 27300,
+  "price_too_expensive": 28500
+}

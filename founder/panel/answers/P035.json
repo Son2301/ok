@@ -1,0 +1,13 @@
+{
+  "id": "P035",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "convenience",
+  "reason": "I'd take the 50k free credit, point our DeepSeek calls at it and check the receipts. If the price really is the official rate with no markup and VietQR works, a small top-up beats fighting with foreign cards.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, and who is the legal seller on it? If my accountant rejects it, the main reason to switch is gone.",
+  "would_change_my_mind": "",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

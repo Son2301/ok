@@ -1,0 +1,13 @@
+{
+  "id": "P094",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "I already pay OpenAI and Anthropic directly with my card and it works fine, so I'd maybe burn the free 50k to poke at it, but I'm not moving real money to a reseller I've never heard of. Also no Claude in that list, and that's half of what I use.",
+  "objection": "How do I know the model answering is really GPT or Gemini and not a cheaper one swapped in? A receipt and a 'daily check' page you run yourselves are just your own word.",
+  "would_change_my_mind": "Independent proof the models are real, like third-party benchmarks or devs I trust in the Vietnamese community vouching for it after months of use, plus Claude models being available.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P099",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "The VAT e-invoice is exactly what I need, but I can't put company money into a reseller I've never heard of without a signed contract, and I've already been burned by a tool that shut down. I'd take the 50,000đ free credit to test it, but not top up yet.",
+  "objection": "Is reselling these providers' APIs even allowed? If a provider cuts them off or they fold, my integration breaks and my prepaid balance is stuck.",
+  "would_change_my_mind": "A proper service contract with a registered Vietnamese company, plus proof they have direct agreements with the providers they resell.",
+  "price_too_cheap": 23000,
+  "price_cheap": 26000,
+  "price_expensive": 28500,
+  "price_too_expensive": 31000
+}

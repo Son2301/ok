@@ -1,0 +1,13 @@
+{
+  "id": "P041",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I pay about 1,600đ per dollar of usage from my Telegram reseller, and you want 26,000đ. The receipts and VAT invoice are nice, but nothing is worth paying 15 times more, and if I need it clean I already have a card for OpenRouter.",
+  "objection": "Official price at the bank rate means no saving at all over paying OpenAI or OpenRouter directly, and I've watched a tool shut down with my money in it before, so a new gateway has to give me a real reason to switch.",
+  "would_change_my_mind": "A client who insists on a proper VAT invoice for AI costs, so the grey-market credit can't be put on the books; even then I would only top up small amounts.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1600,
+  "price_expensive": 5000,
+  "price_too_expensive": 12000
+}

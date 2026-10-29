@@ -1,0 +1,13 @@
+{
+  "id": "P052",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "OpenRouter already works for me and the 5.5% fee is annoying but small. I'd grab the 50k free credit to poke at it, but I'm not moving real prepaid money to an unknown gateway yet.",
+  "objection": "A brand-new small company could vanish with my prepaid balance or quietly route me to cheaper models; a 30-day refund window doesn't help if they're gone.",
+  "would_change_my_mind": "A few months of public uptime plus known Vietnamese teams using it in production, and the VAT invoice actually working for my company.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 28500
+}

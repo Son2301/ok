@@ -1,0 +1,13 @@
+{
+  "id": "P010",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Paying DeepSeek or Qwen at official price via VietQR with no top-up fee beats fighting with foreign cards, so after burning the free 50k I'd top up a small amount, maybe 100-200k.",
+  "objection": "Is it really the official price with no hidden markup in the exchange rate, and will the VAT invoice actually be valid for accounting, since I'd only bother if it's legit.",
+  "would_change_my_mind": "Finding the same models cheaper elsewhere, e.g. a reseller or the provider directly with a card that works, or the rate drifting above the bank's published rate.",
+  "price_too_cheap": 18000,
+  "price_cheap": 24500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

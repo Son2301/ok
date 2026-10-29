@@ -1,0 +1,13 @@
+{
+  "id": "P013",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "price",
+  "reason": "I already pay OpenRouter's 5.5% plus my card's foreign transaction fee, so official price at the bank rate with VietQR is straight savings for my side projects. I'd burn the 50k free credit first, and if the latency and receipts check out I'd top up a small amount once.",
+  "objection": "Is it really the real model and as reliable as OpenRouter, and will a new Vietnamese company still be around in six months? As a freelancer the VAT invoice only matters if it's actually valid for my accounting.",
+  "would_change_my_mind": "If the free credit shows slower responses or a model that behaves differently from what I get on OpenRouter, I'd go straight back.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

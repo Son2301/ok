@@ -1,0 +1,13 @@
+{
+  "id": "P007",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "price",
+  "reason": "I'll burn the 50k free credit and maybe top up a small amount like 200k to test it on a side project, since VietQR is how I pay anyway. But at full official price I'm not moving my main usage off grey-market keys that cost me half.",
+  "objection": "Grey-market credit is 40-60% cheaper; paying the full official rate plus whatever the bank FX spread is feels like overpaying for a convenience I already solved.",
+  "would_change_my_mind": "A visible discount under the official price, or real reports in Facebook dev groups that grey-market keys got banned and this was the reliable fallback.",
+  "price_too_cheap": 12000,
+  "price_cheap": 20000,
+  "price_expensive": 26500,
+  "price_too_expensive": 29000
+}

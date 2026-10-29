@@ -1,0 +1,13 @@
+{
+  "id": "P002",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Paying by VietQR and getting a VAT e-invoice with my tax code is exactly what my foreign card setup can't do, and official price with no markup is fair. I'd try the 50,000đ credit, then do one small top-up once I see a real invoice.",
+  "objection": "Will the e-invoice actually be valid for my accounting, and is there a proper contract? A new unknown company could disappear with my balance.",
+  "would_change_my_mind": "If the first e-invoice comes back wrong or not accepted by my accountant, I stop immediately.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

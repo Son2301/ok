@@ -1,0 +1,35 @@
+{
+  "business": "Minh AI Gateway: one OpenAI-compatible API for many AI models, paid from a VND wallet",
+  "target": "Vietnamese developers and small software teams who already pay for LLM APIs (or want to) and struggle to pay with a foreign card or get a VAT invoice",
+  "where": "Vietnam, online (mostly Hanoi and Ho Chi Minh City)",
+  "age": [22, 40],
+  "segments": [
+    {"name": "Freelancer / indie developer building side projects", "share": 0.35, "income": [180000000, 480000000]},
+    {"name": "Developer at a startup or small agency (2-20 people) who chooses the tools", "share": 0.40, "income": [300000000, 900000000]},
+    {"name": "Tech lead or CTO at an SME who must get a VAT invoice for every expense", "share": 0.25, "income": [600000000, 1500000000]}
+  ],
+  "behaviours": [
+    {"name": "Grey-market buyer", "share": 0.20, "how": "Already buys cheap 'Claude/GPT' credit from a Vietnamese reseller or Telegram group at about 1,500-1,700đ per dollar of usage."},
+    {"name": "Pays the provider directly by card", "share": 0.20, "how": "Has an international card and pays OpenAI/Anthropic directly; gets an English invoice the accountant can't use."},
+    {"name": "Uses OpenRouter already", "share": 0.15, "how": "Routes through OpenRouter, tops up in USD and accepts the 5.5% fee."},
+    {"name": "Cost minimiser", "share": 0.15, "how": "Picks the cheapest model that works, mainly DeepSeek or Qwen, and watches every đồng."},
+    {"name": "Compliance-first buyer", "share": 0.15, "how": "Can't spend company money without a valid Vietnamese e-invoice and a contract."},
+    {"name": "Cautious experimenter", "share": 0.15, "how": "Tries new dev tools on free credit, reads GitHub issues and Facebook dev groups before committing."}
+  ],
+  "objections": [
+    "Grey-market credit is much cheaper; why pay more?",
+    "A new one-person company could disappear with my prepaid balance",
+    "How do I know the model is really the one you say?",
+    "Adding a middleman adds latency and another point of failure",
+    "I already have a card and pay OpenAI/OpenRouter directly",
+    "Is it even allowed to resell Claude? Could my access be cut off?",
+    "Will the e-invoice actually be valid for my company's accounting?"
+  ],
+  "habits": [
+    "you read the J2TEAM and Vietnam developer groups on Facebook",
+    "you pay for most things with VietQR bank transfer from your phone",
+    "you use Cursor or a coding assistant every day",
+    "your accountant chases you every month for invoices",
+    "you have lost money before to a tool that shut down"
+  ]
+}

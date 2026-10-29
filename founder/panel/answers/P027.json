@@ -1,0 +1,13 @@
+{
+  "id": "P027",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "My accountant keeps rejecting the English OpenAI invoices, so a valid VAT e-invoice at provider price with VietQR solves a real monthly headache. I'd try the free 50k credit, then top up a small amount and check the invoice before moving our whole spend.",
+  "objection": "Will the e-invoice actually be accepted by our accountant and the tax office, and is this a properly registered company issuing it, not a reseller with a borrowed tax code?",
+  "would_change_my_mind": "If the first e-invoice comes back with wrong details or isn't a legitimate VAT invoice, I'm out.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29500
+}

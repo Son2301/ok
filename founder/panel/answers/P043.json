@@ -1,0 +1,13 @@
+{
+  "id": "P043",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Paying DeepSeek and Qwen with a foreign card is a pain and I need a VAT invoice for the company, so if it really is the official price at the bank rate with no top-up fee, I'll burn the 50k free credit and then top up a small amount.",
+  "objection": "How do I know the model is really the one you say and not something cheaper swapped in? A receipt you generate yourself proves nothing; I'd compare outputs and latency against the official API before moving real traffic.",
+  "would_change_my_mind": "If my own side-by-side tests show the answers differ from the official DeepSeek API, or the exchange rate turns out higher than the published bank rate, I stop.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 27000,
+  "price_too_expensive": 28500
+}

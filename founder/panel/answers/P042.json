@@ -1,0 +1,13 @@
+{
+  "id": "P042",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "VietQR top-up plus a VAT invoice with our tax code fixes the exact thing my accountant nags me about every month, and the 50k free credit lets me test it with one base-URL change. I'd burn the free credit first, then do one small top-up to see an actual invoice before moving real traffic.",
+  "objection": "Will the e-invoice really be a valid VAT invoice our accountant can book, and is this a small reseller that might disappear or quietly route me to a cheaper model?",
+  "would_change_my_mind": "If the first invoice comes back wrong or not accepted by my accountant, or Facebook dev groups report outages and mismatched models, I stop.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

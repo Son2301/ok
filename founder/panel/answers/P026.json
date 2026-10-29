@@ -1,0 +1,13 @@
+{
+  "id": "P026",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "need",
+  "reason": "The VAT e-invoice with our tax code is the thing my accountant keeps asking for, and at the official price with no fee I lose nothing by moving our OpenAI and Gemini spend over. I'd try the free credit, then top up a modest amount by VietQR and see if the invoices actually come through properly.",
+  "objection": "Is reselling these models even allowed under the providers' terms? If OpenAI or Google cut this gateway off, my production code breaks overnight. Also Claude isn't clearly on the list, and that's a big part of what we use.",
+  "would_change_my_mind": "Proof they are an authorized reseller or have a proper enterprise agreement with the providers, plus Claude on the list.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29500
+}

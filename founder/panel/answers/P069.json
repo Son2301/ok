@@ -1,0 +1,13 @@
+{
+  "id": "P069",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "I'd grab the 50,000đ free credit and poke at it, but I'm not moving my balance off OpenRouter to a brand-new company I've never heard of. I already got burned once by a tool that shut down with my money in it.",
+  "objection": "A new one-person company could disappear with my prepaid balance, and a 30-day refund window doesn't help if they're gone in month three.",
+  "would_change_my_mind": "Seeing it run reliably for a few months with other devs I know using it, plus a refund on unused credit any time, not just in the first 30 days.",
+  "price_too_cheap": 23500,
+  "price_cheap": 26000,
+  "price_expensive": 27300,
+  "price_too_expensive": 28000
+}

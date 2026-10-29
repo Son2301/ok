@@ -1,0 +1,13 @@
+{
+  "id": "P066",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Same DeepSeek and Qwen price as going direct, paid by VietQR instead of my card that eats a 3% foreign fee, plus a VAT invoice the accountant keeps asking for. I'd burn the 50k free credit first, then top up a small amount, maybe 500k.",
+  "objection": "Will the e-invoice actually be valid for my company's accounting, issued by a real registered Vietnamese entity, and is it really the official price or are there hidden markups in the token counts?",
+  "would_change_my_mind": "If the first e-invoice gets rejected by our accountant, or the receipts show token costs higher than DeepSeek's own pricing page, I'm out.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29000
+}

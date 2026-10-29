@@ -1,0 +1,13 @@
+{
+  "id": "P001",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Paying OpenAI on my card means no VAT invoice, so my accountant can't book it as a company expense. If this really issues a proper e-invoice with our tax code, I'd try the free credit and then make one small company top-up to test it.",
+  "objection": "It's a middleman holding company money and my API traffic. I don't know who this company is, and the offer says nothing about a signed contract or what happens to our prompts and data.",
+  "would_change_my_mind": "A sample e-invoice from a real customer and a standard service contract with data-handling terms that I can send to our director before the first transfer.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 30000
+}

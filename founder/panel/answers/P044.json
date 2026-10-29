@@ -1,0 +1,13 @@
+{
+  "id": "P044",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I pay about 1,600đ per dollar of usage on Telegram today; 26,000đ is roughly 15 times more for the same tokens. I'll grab the 50,000đ free credit to poke at it, but I won't top up.",
+  "objection": "The price is the official rate, and my team already gets usage for a fraction of that. Also I've lost money before when a tool shut down, so I need proof the e-invoice actually holds up with our accountant.",
+  "would_change_my_mind": "A client or our accountant requiring valid VAT invoices for AI spend, so the grey-market credit stops being usable for billable work.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1600,
+  "price_expensive": 8000,
+  "price_too_expensive": 15000
+}

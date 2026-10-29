@@ -1,0 +1,13 @@
+{
+  "id": "P081",
+  "buys": true,
+  "purchases_first_month": 2,
+  "reason_code": "convenience",
+  "reason": "The VAT e-invoice with our tax code is the thing I actually need; my accountant chasing me every month for unusable English invoices is a real pain. At the provider's price with no fee, I'll move part of our spend over and keep direct keys as fallback.",
+  "objection": "Adding a middleman adds latency and another point of failure, and I don't know who you are or whether you'll still be around in a year.",
+  "would_change_my_mind": "If latency in the first week is noticeably worse than calling OpenAI directly, or the first e-invoice isn't valid for my accountant, I stop.",
+  "price_too_cheap": 23000,
+  "price_cheap": 25500,
+  "price_expensive": 27500,
+  "price_too_expensive": 29500
+}

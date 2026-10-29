@@ -1,0 +1,13 @@
+{
+  "id": "P053",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "VietQR top-up plus a VAT invoice with our tax code fixes exactly the foreign-card and invoice pain I have now, so I'd burn the 50k free credit and then do one small company top-up to test the invoice with our accountant.",
+  "objection": "Is the e-invoice really valid for our accounting, and is this a new unknown company that could disappear with our prepaid balance or leak our prompts?",
+  "would_change_my_mind": "If the first e-invoice gets rejected by our accountant or I find bad reports in Facebook dev groups or GitHub issues, I stop.",
+  "price_too_cheap": 22000,
+  "price_cheap": 25500,
+  "price_expensive": 28500,
+  "price_too_expensive": 31000
+}

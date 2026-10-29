@@ -1,0 +1,13 @@
+{
+  "id": "P028",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "My Telegram reseller gives me a dollar of usage for about 1,600đ; you want 26,000đ for the same dollar. I'll grab the free 50k to poke at it, but I'm not topping up at official price for side projects.",
+  "objection": "Paying full provider price is 15x what I pay now, and as a freelancer I don't need a VAT invoice or spending caps enough to justify that.",
+  "would_change_my_mind": "My reseller getting banned or keys dying mid-project, so I need something that stays up, and even then I'd want it under about 5,000đ per dollar.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1500,
+  "price_expensive": 5000,
+  "price_too_expensive": 15000
+}

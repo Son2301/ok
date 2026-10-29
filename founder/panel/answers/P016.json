@@ -1,0 +1,13 @@
+{
+  "id": "P016",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already get a dollar of usage for about 1,600đ from my Telegram reseller; paying 26,000đ per dollar is sixteen times more for the same tokens. I'll grab the 50k free credit to test it, but I won't top up.",
+  "objection": "The price is the official one, and my reseller is way cheaper. And how do I know the model is really the one you say, and that you won't shut down with my balance like the last tool did?",
+  "would_change_my_mind": "My reseller getting banned or swapping models on me, so I need something legit that won't vanish.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1500,
+  "price_expensive": 5000,
+  "price_too_expensive": 10000
+}

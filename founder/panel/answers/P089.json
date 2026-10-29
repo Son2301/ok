@@ -1,0 +1,13 @@
+{
+  "id": "P089",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "I'll burn the 50k free credit on a side project first, and if the receipts match the official price I'd top up a small amount by VietQR, because paying with my card abroad is a pain. I'm not moving my main workflow over until I've read what people in the FB dev groups say.",
+  "objection": "Is a reseller like this even allowed by OpenAI and Google, and could my key just die one day with my balance stuck? It also doesn't say anything about Claude, which is the model I actually use most.",
+  "would_change_my_mind": "Hearing from devs in the Vietnamese groups that they got refunds and had no outages for a few months, plus Claude being on the list.",
+  "price_too_cheap": 20000,
+  "price_cheap": 25500,
+  "price_expensive": 28000,
+  "price_too_expensive": 31000
+}

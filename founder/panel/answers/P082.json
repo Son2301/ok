@@ -1,0 +1,13 @@
+{
+  "id": "P082",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I pay about 1,600đ per dollar of usage on Telegram now; 26,000đ is roughly 16 times more for the same tokens. The VAT invoice would get my accountant off my back, but not at that markup. I'd grab the free 50k and test it, nothing more.",
+  "objection": "The price gap is enormous, and I don't see Claude in the list, which is what most of my team actually uses.",
+  "would_change_my_mind": "A client or the company requiring proper VAT invoices for AI spend, so the grey-market credit can't be expensed at all.",
+  "price_too_cheap": 1000,
+  "price_cheap": 1600,
+  "price_expensive": 5000,
+  "price_too_expensive": 10000
+}
